@@ -1,5 +1,11 @@
+import Container from "./components/Container";
+
 function App() {
-  return <div>OMS</div>;
+  return (
+    <div>
+      <Container />
+    </div>
+  );
 }
 
 export default App;
