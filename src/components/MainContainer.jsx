@@ -2,6 +2,8 @@ import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles } from "@material-ui/core/styles";
 import { Route, Switch } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import About from "./pages/About";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -17,12 +19,8 @@ const MainContainer = () => {
       <main className={classes.content}>
         <Toolbar />
         <Switch>
-          <Route exact path="/">
-            Dashboard
-          </Route>
-          <Route exact path="/about">
-            About
-          </Route>
+          <Route exact path="/" component={Dashboard} />
+          <Route exact path="/about" component={About} />
         </Switch>
       </main>
     </div>
