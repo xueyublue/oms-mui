@@ -5,13 +5,13 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import List from "@material-ui/core/List";
+import DashboardIcon from "@material-ui/icons/Dashboard";
 import Drawer from "@material-ui/core/Drawer";
+import { Link } from "react-router-dom";
+import InfoIcon from "@material-ui/icons/Info";
+import FaceIcon from "@material-ui/icons/Face";
 
-const drawerWidth = 240;
-
+const drawerWidth = 220;
 const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
@@ -22,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerContainer: {
     overflow: "auto",
+  },
+  link: {
+    textDecoration: "none",
+    color: theme.palette.text.primary,
   },
 }));
 
@@ -38,27 +42,33 @@ const Sidenav = () => {
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
-          <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem button key={text}>
+          <div>
+            <Link to="/" className={classes.link}>
+              <ListItem button>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <FaceIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={"System"} />
               </ListItem>
-            ))}
-          </List>
+            </Link>
+          </div>
           <Divider />
-          <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
+          <Link to="/" className={classes.link}>
+            <ListItem button>
+              <ListItemIcon>
+                <DashboardIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Dashboard"} />
+            </ListItem>
+          </Link>
+          <Link to="/about" className={classes.link}>
+            <ListItem button>
+              <ListItemIcon>
+                <InfoIcon />
+              </ListItemIcon>
+              <ListItemText primary={"About"} />
+            </ListItem>
+          </Link>
         </div>
       </Drawer>
     </div>

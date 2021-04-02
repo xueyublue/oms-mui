@@ -1,11 +1,11 @@
-import Container from "./components/Container";
-import { BrowserRouter as Router } from "react-router";
+import AppContainer from "./components/AppContainer";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <Container />
-    </div>
+    <Router>
+      <AppContainer />
+    </Router>
   );
 }
 

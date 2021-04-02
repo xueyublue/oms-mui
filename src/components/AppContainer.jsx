@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Appbar from "./Appbar";
 import Sidenav from "./Sidenav";
-import Main from "./Main";
+import MainContainer from "./MainContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,7 +17,7 @@ export default function Container() {
     <div className={classes.root}>
       <Appbar />
       <Sidenav />
-      <Main />
+      <MainContainer />
     </div>
   );
 }
