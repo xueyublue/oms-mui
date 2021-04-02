@@ -1,5 +1,5 @@
 function App() {
-  return <div>Oracle Monitoring System</div>;
+  return <div>OMS</div>;
 }
 
 export default App;
