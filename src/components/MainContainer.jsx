@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Route, Switch } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
+import Setting from "./pages/Setting";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -20,6 +21,7 @@ const MainContainer = () => {
         <Toolbar />
         <Switch>
           <Route exact path="/" component={Dashboard} />
+          <Route exact path="/setting" component={Setting} />
           <Route exact path="/about" component={About} />
         </Switch>
       </main>
