@@ -73,6 +73,7 @@ const Sidenav = () => {
             </ListItem>
           </Link>
           <Divider />
+          {/* Performance */}
           <ListItem button onClick={handleListGroupClick}>
             <ListItemIcon>
               <SettingsIcon />
