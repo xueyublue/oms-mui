@@ -10,12 +10,8 @@ import Drawer from "@material-ui/core/Drawer";
 import { Link } from "react-router-dom";
 import InfoIcon from "@material-ui/icons/Info";
 import SettingsIcon from "@material-ui/icons/Settings";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import StarBorder from "@material-ui/icons/StarBorder";
-import Collapse from "@material-ui/core/Collapse";
-import List from "@material-ui/core/List";
 
-const drawerWidth = 220;
+const drawerWidth = 200;
 const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
@@ -31,22 +27,22 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: theme.palette.text.primary,
   },
-  nested: {
-    paddingLeft: theme.spacing(4),
+  icon: {
+    minWidth: 30,
+    paddingLeft: 0,
   },
+  listItem: {
+    paddingLeft: 10,
+    paddingRight: 10,
+  }
 }));
 
 const Sidenav = () => {
   const classes = useStyles();
   const [selectedMenuIndex, setSelectedMenuIndex] = React.useState(1);
-  const [open, setOpen] = React.useState(false);
 
   const handleListItemClick = (event, index) => {
     setSelectedMenuIndex(index);
-  };
-
-  const handleListGroupClick = () => {
-    setOpen(!open);
   };
 
   return (
@@ -62,52 +58,39 @@ const Sidenav = () => {
         <div className={classes.drawerContainer}>
           <Link to="/" className={classes.link}>
             <ListItem
+              className={classes.listItem}
               button
-              selected={selectedMenuIndex == 1}
+              selected={selectedMenuIndex === 1}
               onClick={(event) => handleListItemClick(event, 1)}
             >
-              <ListItemIcon>
+              <ListItemIcon className={classes.icon}>
                 <DashboardIcon />
               </ListItemIcon>
               <ListItemText primary={"Dashboard"} />
             </ListItem>
           </Link>
           <Divider />
-          {/* Performance */}
-          <ListItem button onClick={handleListGroupClick}>
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Performance"} />
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem
-                button
-                className={classes.nested}
-                selected={selectedMenuIndex == 11}
-                onClick={(event) => handleListItemClick(event, 11)}
-              >
-                <ListItemText primary="Top SQL" />
-              </ListItem>
-              <ListItem
-                button
-                className={classes.nested}
-                selected={selectedMenuIndex == 12}
-                onClick={(event) => handleListItemClick(event, 12)}
-              >
-                <ListItemText primary="Disk" />
-              </ListItem>
-            </List>
-          </Collapse>
+          <Link to="/spaceManager" className={classes.link}>
+            <ListItem
+              className={classes.listItem}
+              button
+              selected={selectedMenuIndex === 11}
+              onClick={(event) => handleListItemClick(event, 11)}
+            >
+              <ListItemIcon className={classes.icon}>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Space Manager"} />
+            </ListItem>
+          </Link>
           <Link to="/setting" className={classes.link}>
             <ListItem
+              className={classes.listItem}
               button
-              selected={selectedMenuIndex == 80}
+              selected={selectedMenuIndex === 80}
               onClick={(event) => handleListItemClick(event, 80)}
             >
-              <ListItemIcon>
+              <ListItemIcon className={classes.icon}>
                 <SettingsIcon />
               </ListItemIcon>
               <ListItemText primary={"Setting"} />
@@ -115,11 +98,12 @@ const Sidenav = () => {
           </Link>
           <Link to="/about" className={classes.link}>
             <ListItem
+              className={classes.listItem}
               button
-              selected={selectedMenuIndex == 99}
+              selected={selectedMenuIndex === 99}
               onClick={(event) => handleListItemClick(event, 99)}
             >
-              <ListItemIcon>
+              <ListItemIcon className={classes.icon}>
                 <InfoIcon />
               </ListItemIcon>
               <ListItemText primary={"About"} />
