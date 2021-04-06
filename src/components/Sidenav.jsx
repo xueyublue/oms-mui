@@ -127,7 +127,7 @@ const Sidenav = () => {
           </Link>
           <Divider />
           {listItemData.map((item) => (
-            <Link to={item.url} className={classes.link}>
+            <Link to={item.url} className={classes.link} key={item.index}>
               <StyledListItem
                 className={classes.listItem}
                 button
