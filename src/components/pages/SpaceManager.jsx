@@ -52,33 +52,40 @@ const SpaceManager = () => {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
+    <React.Fragment>
       <Button>Search</Button>
-      <Table className={classes.table} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCellHeader>Tablespace</TableCellHeader>
-            <TableCellHeader>Path</TableCellHeader>
-            <TableCellHeader>Status</TableCellHeader>
-            <TableCellHeader>Total&nbsp;Size</TableCellHeader>
-            <TableCellHeader>Free&nbsp;Size</TableCellHeader>
-            <TableCellHeader>Occupancy</TableCellHeader>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.tablespace}>
-              <TableCell>{row.tablespace}</TableCell>
-              <TableCell>{row.path}</TableCell>
-              <TableCell>{row.status}</TableCell>
-              <TableCell align="right">{row.totalSize}</TableCell>
-              <TableCell align="right">{row.freeSize}</TableCell>
-              <TableCell align="right">{row.occupancy}</TableCell>
+      <Button>Search</Button>
+      <TableContainer component={Paper}>
+        <Table
+          className={classes.table}
+          size="small"
+          aria-label="a dense table"
+        >
+          <TableHead>
+            <TableRow>
+              <TableCellHeader>Tablespace</TableCellHeader>
+              <TableCellHeader>Path</TableCellHeader>
+              <TableCellHeader>Status</TableCellHeader>
+              <TableCellHeader>Total&nbsp;Size</TableCellHeader>
+              <TableCellHeader>Free&nbsp;Size</TableCellHeader>
+              <TableCellHeader>Occupancy</TableCellHeader>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.tablespace}>
+                <TableCell>{row.tablespace}</TableCell>
+                <TableCell>{row.path}</TableCell>
+                <TableCell>{row.status}</TableCell>
+                <TableCell align="right">{row.totalSize}</TableCell>
+                <TableCell align="right">{row.freeSize}</TableCell>
+                <TableCell align="right">{row.occupancy}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </React.Fragment>
   );
 };
 
