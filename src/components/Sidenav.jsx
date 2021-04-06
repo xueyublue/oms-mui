@@ -39,12 +39,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
   },
-  listItemSelected: {
-    "&.Mui-selected": {
-      backgroundColor: theme.palette.primary.light,
-      color: "white",
-    },
-  },
 }));
 
 const StyledListItem = withStyles({
@@ -66,6 +60,39 @@ const StyledListItem = withStyles({
 })(ListItem);
 
 const Sidenav = () => {
+  const listItemData = [
+    {
+      index: 11,
+      text: "Instance Detail",
+      url: "/instanceDetail",
+    },
+    {
+      index: 12,
+      text: "Performance Monitor",
+      url: "/performanceMonitor",
+    },
+    {
+      index: 13,
+      text: "Space Manager",
+      url: "/spaceManager",
+    },
+    {
+      index: 14,
+      text: "Session Manager",
+      url: "/sessionManager",
+    },
+    {
+      index: 90,
+      text: "Setting",
+      url: "/setting",
+    },
+    {
+      index: 99,
+      text: "About",
+      url: "/about",
+    },
+  ];
+
   const classes = useStyles();
   const [selectedMenuIndex, setSelectedMenuIndex] = React.useState(1);
 
@@ -98,58 +125,21 @@ const Sidenav = () => {
             </StyledListItem>
           </Link>
           <Divider />
-          <Link to="/spaceManager" className={classes.link}>
-            <StyledListItem
-              className={classes.listItem}
-              button
-              selected={selectedMenuIndex === 11}
-              onClick={(event) => handleListItemClick(event, 11)}
-            >
-              <ListItemIcon className={classes.icon}>
-                <SettingsIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Space Manager"} />
-            </StyledListItem>
-          </Link>
-          <Link to="/sessionManager" className={classes.link}>
-            <StyledListItem
-              className={classes.listItem}
-              button
-              selected={selectedMenuIndex === 12}
-              onClick={(event) => handleListItemClick(event, 12)}
-            >
-              <ListItemIcon className={classes.icon}>
-                <SettingsIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Session Manager"} />
-            </StyledListItem>
-          </Link>
-          <Link to="/setting" className={classes.link}>
-            <StyledListItem
-              className={classes.listItem}
-              button
-              selected={selectedMenuIndex === 80}
-              onClick={(event) => handleListItemClick(event, 80)}
-            >
-              <ListItemIcon className={classes.icon}>
-                <SettingsIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Setting"} />
-            </StyledListItem>
-          </Link>
-          <Link to="/about" className={classes.link}>
-            <StyledListItem
-              className={classes.listItem}
-              button
-              selected={selectedMenuIndex === 99}
-              onClick={(event) => handleListItemClick(event, 99)}
-            >
-              <ListItemIcon className={classes.icon}>
-                <InfoIcon />
-              </ListItemIcon>
-              <ListItemText primary={"About"} />
-            </StyledListItem>
-          </Link>
+          {listItemData.map((item) => (
+            <Link to={item.url} className={classes.link}>
+              <StyledListItem
+                className={classes.listItem}
+                button
+                selected={selectedMenuIndex === item.index}
+                onClick={(event) => handleListItemClick(event, item.index)}
+              >
+                <ListItemIcon className={classes.icon}>
+                  <InfoIcon />
+                </ListItemIcon>
+                <ListItemText primary={item.text} />
+              </StyledListItem>
+            </Link>
+          ))}
         </div>
       </Drawer>
     </div>

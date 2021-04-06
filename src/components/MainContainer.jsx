@@ -5,7 +5,8 @@ import { Route, Switch } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import Setting from "./pages/Setting";
-import SpaceManager from './pages/SpaceManager';
+import SpaceManager from "./pages/SpaceManager";
+import InstanceDetail from "./pages/InstanceDetail";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -22,6 +23,8 @@ const MainContainer = () => {
         <Toolbar />
         <Switch>
           <Route exact path="/" component={Dashboard} />
+          <Route exact path="/instanceDetail" component={InstanceDetail} />
+          <Route exact path="/performanceMonitor" component={SpaceManager} />
           <Route exact path="/spaceManager" component={SpaceManager} />
           <Route exact path="/setting" component={Setting} />
           <Route exact path="/about" component={About} />
