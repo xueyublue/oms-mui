@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   listItem: {
     paddingLeft: 10,
     paddingRight: 10,
-  }
+  },
 }));
 
 const Sidenav = () => {
@@ -81,6 +81,19 @@ const Sidenav = () => {
                 <SettingsIcon />
               </ListItemIcon>
               <ListItemText primary={"Space Manager"} />
+            </ListItem>
+          </Link>
+          <Link to="/sessionManager" className={classes.link}>
+            <ListItem
+              className={classes.listItem}
+              button
+              selected={selectedMenuIndex === 12}
+              onClick={(event) => handleListItemClick(event, 12)}
+            >
+              <ListItemIcon className={classes.icon}>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Session Manager"} />
             </ListItem>
           </Link>
           <Link to="/setting" className={classes.link}>
