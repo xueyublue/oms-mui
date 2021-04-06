@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import Toolbar from "@material-ui/core/Toolbar";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
@@ -6,14 +8,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Drawer from "@material-ui/core/Drawer";
-import { Link } from "react-router-dom";
 import InfoIcon from "@material-ui/icons/Info";
+import { DashboardOutlined, StorageOutlined } from "@material-ui/icons";
 import theme from ".././theme";
-import {
-  DashboardOutlined,
-  StorageOutlined,
-  DvrOutlined,
-} from "@material-ui/icons";
 
 const drawerWidth = 200;
 const useStyles = makeStyles((theme) => ({
@@ -138,7 +135,13 @@ const Sidenav = () => {
                 onClick={(event) => handleListItemClick(event, item.index)}
               >
                 <ListItemIcon className={classes.icon}>
-                  {(item.url = "spaceManager" ? <StorageOutlined /> : <InfoIcon />)}
+                  {
+                    (item.url = "spaceManager" ? (
+                      <StorageOutlined />
+                    ) : (
+                      <InfoIcon />
+                    ))
+                  }
                 </ListItemIcon>
                 <ListItemText primary={item.text} />
               </StyledListItem>

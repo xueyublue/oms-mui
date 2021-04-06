@@ -9,11 +9,16 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Button } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
   table: {
     minWidth: 650,
   },
-});
+}));
 
 function createData(tablespace, path, status, totalSize, freeSize, occupancy) {
   return { tablespace, path, status, totalSize, freeSize, occupancy };
@@ -52,7 +57,7 @@ const SpaceManager = () => {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
+    <div className={classes.root}>
       <Button>Search</Button>
       <Button>Search</Button>
       <TableContainer component={Paper}>
@@ -85,7 +90,7 @@ const SpaceManager = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </React.Fragment>
+    </div>
   );
 };
 
