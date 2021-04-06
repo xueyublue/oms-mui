@@ -9,7 +9,6 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import Drawer from "@material-ui/core/Drawer";
 import { Link } from "react-router-dom";
 import InfoIcon from "@material-ui/icons/Info";
-import SettingsIcon from "@material-ui/icons/Settings";
 import theme from ".././theme";
 
 const drawerWidth = 200;
@@ -20,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: theme.palette.secondary.main,
   },
   drawerContainer: {
     overflow: "auto",
@@ -109,7 +109,7 @@ const Sidenav = () => {
           paper: classes.drawerPaper,
         }}
       >
-        <Toolbar />
+        <Toolbar variant="dense" />
         <div className={classes.drawerContainer}>
           <Link to="/" className={classes.link}>
             <StyledListItem

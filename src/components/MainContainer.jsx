@@ -20,7 +20,7 @@ const MainContainer = () => {
   return (
     <div>
       <main className={classes.content}>
-        <Toolbar />
+        <Toolbar variant="dense" />
         <Switch>
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/instanceDetail" component={InstanceDetail} />

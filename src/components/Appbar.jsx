@@ -17,7 +17,7 @@ const Appbar = () => {
     <div>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
+        <Toolbar variant="dense">
           <Typography variant="h6" noWrap>
             Oracle Monitoring System
           </Typography>
