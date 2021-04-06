@@ -30,10 +30,19 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     minWidth: 30,
     paddingLeft: 0,
+    color: theme.palette.common.white,
   },
   listItem: {
     paddingLeft: 10,
     paddingRight: 10,
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+  },
+  listItemSelected: {
+    "&.Mui-selected": {
+      backgroundColor: theme.palette.primary.light,
+      color: "white",
+    },
   },
 }));
 
@@ -59,6 +68,9 @@ const Sidenav = () => {
           <Link to="/" className={classes.link}>
             <ListItem
               className={classes.listItem}
+              classes={{
+                selected: classes.listItemSelected,
+              }}
               button
               selected={selectedMenuIndex === 1}
               onClick={(event) => handleListItemClick(event, 1)}
@@ -73,6 +85,7 @@ const Sidenav = () => {
           <Link to="/spaceManager" className={classes.link}>
             <ListItem
               className={classes.listItem}
+              classes={{ selected: classes.listItemSelected }}
               button
               selected={selectedMenuIndex === 11}
               onClick={(event) => handleListItemClick(event, 11)}
@@ -86,6 +99,7 @@ const Sidenav = () => {
           <Link to="/sessionManager" className={classes.link}>
             <ListItem
               className={classes.listItem}
+              classes={{ selected: classes.listItemSelected }}
               button
               selected={selectedMenuIndex === 12}
               onClick={(event) => handleListItemClick(event, 12)}
@@ -99,6 +113,7 @@ const Sidenav = () => {
           <Link to="/setting" className={classes.link}>
             <ListItem
               className={classes.listItem}
+              classes={{ selected: classes.listItemSelected }}
               button
               selected={selectedMenuIndex === 80}
               onClick={(event) => handleListItemClick(event, 80)}
@@ -112,6 +127,7 @@ const Sidenav = () => {
           <Link to="/about" className={classes.link}>
             <ListItem
               className={classes.listItem}
+              classes={{ selected: classes.listItemSelected }}
               button
               selected={selectedMenuIndex === 99}
               onClick={(event) => handleListItemClick(event, 99)}

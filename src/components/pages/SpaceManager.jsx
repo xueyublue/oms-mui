@@ -39,7 +39,7 @@ const rows = [
 
 const TableCellHeader = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.light,
     color: theme.palette.common.white,
   },
   body: {
