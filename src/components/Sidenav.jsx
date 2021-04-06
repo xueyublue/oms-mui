@@ -1,6 +1,6 @@
 import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -10,6 +10,7 @@ import Drawer from "@material-ui/core/Drawer";
 import { Link } from "react-router-dom";
 import InfoIcon from "@material-ui/icons/Info";
 import SettingsIcon from "@material-ui/icons/Settings";
+import theme from ".././theme";
 
 const drawerWidth = 200;
 const useStyles = makeStyles((theme) => ({
@@ -46,6 +47,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const StyledListItem = withStyles({
+  root: {
+    "&$selected": {
+      backgroundColor: theme.palette.primary.light,
+      color: "white",
+    },
+    "&$selected:hover": {
+      backgroundColor: theme.palette.primary.light,
+      color: "white",
+    },
+    "&:hover": {
+      backgroundColor: theme.palette.primary.light,
+      color: "white",
+    },
+  },
+  selected: {},
+})(ListItem);
+
 const Sidenav = () => {
   const classes = useStyles();
   const [selectedMenuIndex, setSelectedMenuIndex] = React.useState(1);
@@ -66,11 +85,8 @@ const Sidenav = () => {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <Link to="/" className={classes.link}>
-            <ListItem
+            <StyledListItem
               className={classes.listItem}
-              classes={{
-                selected: classes.listItemSelected,
-              }}
               button
               selected={selectedMenuIndex === 1}
               onClick={(event) => handleListItemClick(event, 1)}
@@ -79,13 +95,12 @@ const Sidenav = () => {
                 <DashboardIcon />
               </ListItemIcon>
               <ListItemText primary={"Dashboard"} />
-            </ListItem>
+            </StyledListItem>
           </Link>
           <Divider />
           <Link to="/spaceManager" className={classes.link}>
-            <ListItem
+            <StyledListItem
               className={classes.listItem}
-              classes={{ selected: classes.listItemSelected }}
               button
               selected={selectedMenuIndex === 11}
               onClick={(event) => handleListItemClick(event, 11)}
@@ -94,12 +109,11 @@ const Sidenav = () => {
                 <SettingsIcon />
               </ListItemIcon>
               <ListItemText primary={"Space Manager"} />
-            </ListItem>
+            </StyledListItem>
           </Link>
           <Link to="/sessionManager" className={classes.link}>
-            <ListItem
+            <StyledListItem
               className={classes.listItem}
-              classes={{ selected: classes.listItemSelected }}
               button
               selected={selectedMenuIndex === 12}
               onClick={(event) => handleListItemClick(event, 12)}
@@ -108,12 +122,11 @@ const Sidenav = () => {
                 <SettingsIcon />
               </ListItemIcon>
               <ListItemText primary={"Session Manager"} />
-            </ListItem>
+            </StyledListItem>
           </Link>
           <Link to="/setting" className={classes.link}>
-            <ListItem
+            <StyledListItem
               className={classes.listItem}
-              classes={{ selected: classes.listItemSelected }}
               button
               selected={selectedMenuIndex === 80}
               onClick={(event) => handleListItemClick(event, 80)}
@@ -122,12 +135,11 @@ const Sidenav = () => {
                 <SettingsIcon />
               </ListItemIcon>
               <ListItemText primary={"Setting"} />
-            </ListItem>
+            </StyledListItem>
           </Link>
           <Link to="/about" className={classes.link}>
-            <ListItem
+            <StyledListItem
               className={classes.listItem}
-              classes={{ selected: classes.listItemSelected }}
               button
               selected={selectedMenuIndex === 99}
               onClick={(event) => handleListItemClick(event, 99)}
@@ -136,7 +148,7 @@ const Sidenav = () => {
                 <InfoIcon />
               </ListItemIcon>
               <ListItemText primary={"About"} />
-            </ListItem>
+            </StyledListItem>
           </Link>
         </div>
       </Drawer>
