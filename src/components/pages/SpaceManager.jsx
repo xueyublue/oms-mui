@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { sidenavSelected } from "../../store/ui/sidenav";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -48,13 +50,15 @@ const TableCellHeader = withStyles((theme) => ({
     backgroundColor: theme.palette.primary.light,
     color: theme.palette.common.white,
   },
-  body: {
-    fontSize: 12,
-  },
 }))(TableCell);
 
 const SpaceManager = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(sidenavSelected({ index: 13 }));
+    console.log("123");
+  });
 
   return (
     <div className={classes.root}>

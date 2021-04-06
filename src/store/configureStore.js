@@ -8,6 +8,7 @@ import api from "./middleware/api";
 import logger from "./middleware/logger";
 import toast from "./middleware/toast";
 import projects from "./projects";
+import sidenav from "./ui/sidenav";
 import users from "./users";
 
 export default function store() {
@@ -17,6 +18,9 @@ export default function store() {
         bugs: bugs,
         projects: projects,
         users: users,
+      }),
+      ui: combineReducers({
+        sidenav: sidenav,
       }),
     }),
     middleware: [
