@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   listItem: {
     paddingLeft: 10,
     paddingRight: 10,
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.light,
     color: theme.palette.common.white,
   },
 }));
@@ -44,15 +44,15 @@ const useStyles = makeStyles((theme) => ({
 const StyledListItem = withStyles({
   root: {
     "&$selected": {
-      backgroundColor: theme.palette.primary.light,
+      backgroundColor: theme.palette.primary.main,
       color: "white",
     },
     "&$selected:hover": {
-      backgroundColor: theme.palette.primary.light,
+      backgroundColor: theme.palette.primary.main,
       color: "white",
     },
     "&:hover": {
-      backgroundColor: theme.palette.primary.light,
+      backgroundColor: theme.palette.primary.main,
       color: "white",
     },
   },
