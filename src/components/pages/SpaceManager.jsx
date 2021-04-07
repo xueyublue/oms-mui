@@ -57,7 +57,6 @@ const SpaceManager = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(sidenavSelected({ index: 13 }));
-    console.log("123");
   });
 
   return (
