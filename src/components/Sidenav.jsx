@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import Toolbar from "@material-ui/core/Toolbar";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
@@ -10,7 +11,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Drawer from "@material-ui/core/Drawer";
 import InfoIcon from "@material-ui/icons/Info";
 import { DashboardOutlined, StorageOutlined } from "@material-ui/icons";
+
 import theme from ".././theme";
+import { sidenavSelected } from "../store/ui/sidenav";
 
 const drawerWidth = 200;
 const useStyles = makeStyles((theme) => ({
@@ -95,10 +98,11 @@ const Sidenav = () => {
   ];
 
   const classes = useStyles();
-  const [selectedMenuIndex, setSelectedMenuIndex] = React.useState(1);
+  const selectedMenuIndex = useSelector((state) => state.ui.sidenav.index);
+  const dispatch = useDispatch();
 
   const handleListItemClick = (event, index) => {
-    setSelectedMenuIndex(index);
+    dispatch(sidenavSelected({ index: index }));
   };
 
   return (
