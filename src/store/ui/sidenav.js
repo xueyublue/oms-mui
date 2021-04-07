@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-let lastId = 0;
-
 const slice = createSlice({
   name: "sidenav",
   initialState: { selectedMenuIndex: 1 },

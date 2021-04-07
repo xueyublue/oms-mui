@@ -4,6 +4,7 @@ import {
   getDefaultMiddleware,
 } from "@reduxjs/toolkit";
 import bugs from "./bugs";
+import tablespace from "./entities/tablespace";
 import api from "./middleware/api";
 import logger from "./middleware/logger";
 import toast from "./middleware/toast";
@@ -18,6 +19,7 @@ export default function store() {
         bugs: bugs,
         projects: projects,
         users: users,
+        tablespace: tablespace,
       }),
       ui: combineReducers({
         sidenav: sidenav,
