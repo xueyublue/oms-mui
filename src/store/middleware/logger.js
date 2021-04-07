@@ -1,7 +1,7 @@
 const logger = (param) => (store) => (next) => (action) => {
-  console.log("store", store);
-  console.log("next", next);
-  console.log("action", action);
+  // console.log("Redux Store", store);
+  // console.log("Redux Next", next);
+  console.log("Redux Action", action);
 
   next(action);
 };
