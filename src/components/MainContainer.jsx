@@ -8,6 +8,7 @@ import Setting from "./pages/Setting";
 import SpaceManager from "./pages/SpaceManager";
 import InstanceDetail from "./pages/InstanceDetail";
 import PerformanceMonitor from "./pages/PerformanceMonitor";
+import SessionManager from "./pages/SessionMangaer";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -31,6 +32,7 @@ const MainContainer = () => {
             component={PerformanceMonitor}
           />
           <Route exact path="/spaceManager" component={SpaceManager} />
+          <Route exact path="/sessionManager" component={SessionManager} />
           <Route exact path="/setting" component={Setting} />
           <Route exact path="/about" component={About} />
         </Switch>
