@@ -4,10 +4,10 @@ let lastId = 0;
 
 const slice = createSlice({
   name: "sidenav",
-  initialState: { index: 0 },
+  initialState: { selectedMenuIndex: 1 },
   reducers: {
     sidenavSelected: (state, action) => {
-      state.index = action.payload.index;
+      state.selectedMenuIndex = action.payload.selectedMenuIndex;
     },
   },
 });

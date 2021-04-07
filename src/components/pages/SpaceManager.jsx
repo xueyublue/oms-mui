@@ -56,7 +56,7 @@ const SpaceManager = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(sidenavSelected({ index: 13 }));
+    dispatch(sidenavSelected({ selectedMenuIndex: 13 }));
   });
 
   return (

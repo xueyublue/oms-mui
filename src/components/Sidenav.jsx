@@ -98,11 +98,11 @@ const Sidenav = () => {
   ];
 
   const classes = useStyles();
-  const selectedMenuIndex = useSelector((state) => state.ui.sidenav.index);
+  const selectedMenuIndex = useSelector((state) => state.ui.sidenav.selectedMenuIndex);
   const dispatch = useDispatch();
 
   const handleListItemClick = (event, index) => {
-    dispatch(sidenavSelected({ index: index }));
+    dispatch(sidenavSelected({ selectedMenuIndex: index }));
   };
 
   return (
