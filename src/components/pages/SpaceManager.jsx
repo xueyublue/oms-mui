@@ -24,29 +24,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// function createData(tablespace, path, status, totalSize, freeSize, occupancy) {
-//   return { tablespace, path, status, totalSize, freeSize, occupancy };
-// }
-
-// const rows = [
-//   createData(
-//     "WMS_LARG",
-//     "C:/ORACLE/ORADAT/ORCL/WMS.01.DBF",
-//     "ONLINE",
-//     "4,000",
-//     "1,342",
-//     "45.65%"
-//   ),
-//   createData(
-//     "WMS_LARGE",
-//     "C:/ORACLE/ORADAT/ORCL/WMS_LARGE.01.DBF",
-//     "ONLINE",
-//     "4,000",
-//     "1,342",
-//     "45.65%"
-//   ),
-// ];
-
 const TableCellHeader = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.primary.light,
