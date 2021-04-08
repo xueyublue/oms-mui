@@ -25,7 +25,6 @@ theme.overrides = {
   MuiButton: {
     root: {
       textTransform: "none",
-      padding: 4,
     },
   },
 };
@@ -34,6 +33,7 @@ theme.props = {
   MuiButton: {
     variant: "contained",
     color: "secondary",
+    size: "small",
   },
 };
 

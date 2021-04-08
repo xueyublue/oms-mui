@@ -10,6 +10,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Button } from "@material-ui/core";
+import RefreshIcon from "@material-ui/icons/Refresh";
 import { loadTablespace } from "./../../store/entities/tablespace";
 
 const useStyles = makeStyles((theme) => ({
@@ -23,28 +24,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function createData(tablespace, path, status, totalSize, freeSize, occupancy) {
-  return { tablespace, path, status, totalSize, freeSize, occupancy };
-}
+// function createData(tablespace, path, status, totalSize, freeSize, occupancy) {
+//   return { tablespace, path, status, totalSize, freeSize, occupancy };
+// }
 
-const rows = [
-  createData(
-    "WMS_LARG",
-    "C:/ORACLE/ORADAT/ORCL/WMS.01.DBF",
-    "ONLINE",
-    "4,000",
-    "1,342",
-    "45.65%"
-  ),
-  createData(
-    "WMS_LARGE",
-    "C:/ORACLE/ORADAT/ORCL/WMS_LARGE.01.DBF",
-    "ONLINE",
-    "4,000",
-    "1,342",
-    "45.65%"
-  ),
-];
+// const rows = [
+//   createData(
+//     "WMS_LARG",
+//     "C:/ORACLE/ORADAT/ORCL/WMS.01.DBF",
+//     "ONLINE",
+//     "4,000",
+//     "1,342",
+//     "45.65%"
+//   ),
+//   createData(
+//     "WMS_LARGE",
+//     "C:/ORACLE/ORADAT/ORCL/WMS_LARGE.01.DBF",
+//     "ONLINE",
+//     "4,000",
+//     "1,342",
+//     "45.65%"
+//   ),
+// ];
 
 const TableCellHeader = withStyles((theme) => ({
   head: {
@@ -61,10 +62,12 @@ const SpaceManager = () => {
     dispatch(loadTablespace());
   });
 
+  const rows = useSelector((state) => state.entities.tablespace.list);
+  console.log(rows);
+
   return (
     <div className={classes.root}>
-      <Button>Search</Button>
-      <Button>Search</Button>
+      <Button startIcon={<RefreshIcon />}>Refresh</Button>
       <TableContainer component={Paper}>
         <Table
           className={classes.table}
@@ -76,20 +79,26 @@ const SpaceManager = () => {
               <TableCellHeader>Tablespace</TableCellHeader>
               <TableCellHeader>Path</TableCellHeader>
               <TableCellHeader>Status</TableCellHeader>
-              <TableCellHeader>Total&nbsp;Size</TableCellHeader>
-              <TableCellHeader>Free&nbsp;Size</TableCellHeader>
-              <TableCellHeader>Occupancy</TableCellHeader>
+              <TableCellHeader align="right">Size&nbsp;(MB)</TableCellHeader>
+              <TableCellHeader align="right">
+                Free&nbsp;Size&nbsp;(MB)
+              </TableCellHeader>
+              <TableCellHeader align="right">Occupancy</TableCellHeader>
+              <TableCellHeader align="right">
+                Next&nbsp;Extend&nbsp;(MB)
+              </TableCellHeader>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow key={row.tablespace}>
-                <TableCell>{row.tablespace}</TableCell>
+              <TableRow key={row.name}>
+                <TableCell>{row.name}</TableCell>
                 <TableCell>{row.path}</TableCell>
                 <TableCell>{row.status}</TableCell>
-                <TableCell align="right">{row.totalSize}</TableCell>
+                <TableCell align="right">{row.size}</TableCell>
                 <TableCell align="right">{row.freeSize}</TableCell>
-                <TableCell align="right">{row.occupancy}</TableCell>
+                <TableCell align="right">{row.occupancy}%</TableCell>
+                <TableCell align="right">{row.nextExtend}</TableCell>
               </TableRow>
             ))}
           </TableBody>
