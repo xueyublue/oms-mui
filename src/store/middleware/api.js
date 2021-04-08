@@ -8,7 +8,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
   next(action);
   try {
     const response = await axios.request({
-      baseURL: "http://localhost:9001/api",
+      baseURL: "http://127.0.0.1:8099/wse/restapi",
       url,
       method,
       data,

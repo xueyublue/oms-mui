@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { sidenavSelected } from "../../store/ui/sidenav";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -10,6 +10,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Button } from "@material-ui/core";
+import { loadTablespace } from "./../../store/entities/tablespace";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,6 +58,7 @@ const SpaceManager = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(sidenavSelected({ selectedMenuIndex: 13 }));
+    dispatch(loadTablespace());
   });
 
   return (
