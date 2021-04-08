@@ -87,6 +87,8 @@ const SpaceManager = () => {
               <TableCellHeader align="right">
                 Next&nbsp;Extend&nbsp;(MB)
               </TableCellHeader>
+              <TableCellHeader>Contents</TableCellHeader>
+              <TableCellHeader>Allocation&nbsp;Type</TableCellHeader>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -99,6 +101,8 @@ const SpaceManager = () => {
                 <TableCell align="right">{row.freeSize}</TableCell>
                 <TableCell align="right">{row.occupancy}%</TableCell>
                 <TableCell align="right">{row.nextExtend}</TableCell>
+                <TableCell>{row.contents}</TableCell>
+                <TableCell>{row.allocationType}</TableCell>
               </TableRow>
             ))}
           </TableBody>
