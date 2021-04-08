@@ -66,8 +66,7 @@ export const loadBugs = () => (dispatch, getState) => {
   );
 };
 
-export const addBug = (bug) =>
-  apiCallBegan({ url, method: "post", data: bug, onSuccess: bugAdded.type });
+export const addBug = (bug) => apiCallBegan({ url, method: "post", data: bug, onSuccess: bugAdded.type });
 
 export const resolveBug = (id) =>
   apiCallBegan({

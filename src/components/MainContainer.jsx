@@ -26,11 +26,7 @@ const MainContainer = () => {
         <Switch>
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/instanceDetail" component={InstanceDetail} />
-          <Route
-            exact
-            path="/performanceMonitor"
-            component={PerformanceMonitor}
-          />
+          <Route exact path="/performanceMonitor" component={PerformanceMonitor} />
           <Route exact path="/spaceManager" component={SpaceManager} />
           <Route exact path="/sessionManager" component={SessionManager} />
           <Route exact path="/setting" component={Setting} />

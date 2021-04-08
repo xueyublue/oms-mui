@@ -1,8 +1,4 @@
-import {
-  configureStore,
-  combineReducers,
-  getDefaultMiddleware,
-} from "@reduxjs/toolkit";
+import { configureStore, combineReducers, getDefaultMiddleware } from "@reduxjs/toolkit";
 import bugs from "./bugs";
 import tablespace from "./entities/tablespace";
 import api from "./middleware/api";
@@ -25,11 +21,6 @@ export default function store() {
         sidenav: sidenav,
       }),
     }),
-    middleware: [
-      ...getDefaultMiddleware(),
-      logger({ destination: "console" }),
-      toast,
-      api,
-    ],
+    middleware: [...getDefaultMiddleware(), logger({ destination: "console" }), toast, api],
   });
 }

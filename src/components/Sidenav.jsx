@@ -139,13 +139,7 @@ const Sidenav = () => {
                 onClick={(event) => handleListItemClick(event, item.index)}
               >
                 <ListItemIcon className={classes.icon}>
-                  {
-                    (item.url = "spaceManager" ? (
-                      <StorageOutlined />
-                    ) : (
-                      <InfoIcon />
-                    ))
-                  }
+                  {(item.url = "spaceManager" ? <StorageOutlined /> : <InfoIcon />)}
                 </ListItemIcon>
                 <ListItemText primary={item.text} />
               </StyledListItem>

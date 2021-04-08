@@ -24,11 +24,7 @@ const slice = createSlice({
   },
 });
 
-const {
-  tablespaceRequested,
-  tablespaceReceived,
-  tablespaceRequestFailed,
-} = slice.actions;
+const { tablespaceRequested, tablespaceReceived, tablespaceRequestFailed } = slice.actions;
 
 const url = "/oracle/tablespace";
 export const loadTablespace = () => (dispatch, getState) => {

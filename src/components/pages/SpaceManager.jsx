@@ -46,24 +46,16 @@ const SpaceManager = () => {
     <div className={classes.root}>
       <Button startIcon={<RefreshIcon />}>Refresh</Button>
       <TableContainer component={Paper}>
-        <Table
-          className={classes.table}
-          size="small"
-          aria-label="a dense table"
-        >
+        <Table className={classes.table} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
               <TableCellHeader>Tablespace</TableCellHeader>
               <TableCellHeader>Path</TableCellHeader>
               <TableCellHeader>Status</TableCellHeader>
               <TableCellHeader align="right">Size&nbsp;(MB)</TableCellHeader>
-              <TableCellHeader align="right">
-                Free&nbsp;Size&nbsp;(MB)
-              </TableCellHeader>
+              <TableCellHeader align="right">Free&nbsp;Size&nbsp;(MB)</TableCellHeader>
               <TableCellHeader align="right">Occupancy</TableCellHeader>
-              <TableCellHeader align="right">
-                Next&nbsp;Extend&nbsp;(MB)
-              </TableCellHeader>
+              <TableCellHeader align="right">Next&nbsp;Extend&nbsp;(MB)</TableCellHeader>
               <TableCellHeader>Contents</TableCellHeader>
               <TableCellHeader>Allocation&nbsp;Type</TableCellHeader>
             </TableRow>
