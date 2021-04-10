@@ -9,7 +9,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Box, Button, lighten, LinearProgress } from "@material-ui/core";
+import { Box, Button, LinearProgress } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import { loadTablespace } from "./../../store/entities/tablespace";
 
@@ -35,7 +35,7 @@ const BorderLinearProgress = withStyles((theme) => ({
   root: {
     height: 15,
     width: 100,
-    backgroundColor: theme.palette.secondary.contrastText,
+    backgroundColor: theme.palette.secondary.white,
   },
   bar: {
     borderRadius: 1,
