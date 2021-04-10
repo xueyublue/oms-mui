@@ -31,17 +31,17 @@ const TableCellHeader = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const BorderLinearProgress = withStyles({
+const BorderLinearProgress = withStyles((theme) => ({
   root: {
-    height: 10,
+    height: 15,
     width: 100,
-    backgroundColor: lighten("#ff6c5c", 0.5),
+    backgroundColor: theme.palette.secondary.contrastText,
   },
   bar: {
-    borderRadius: 20,
-    backgroundColor: "#ff6c5c",
+    borderRadius: 1,
+    backgroundColor: theme.palette.secondary.main,
   },
-})(LinearProgress);
+}))(LinearProgress);
 
 const SpaceManager = () => {
   const classes = useStyles();

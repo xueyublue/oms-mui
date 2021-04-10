@@ -5,11 +5,12 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: blueGrey[900],
-      light: blueGrey[800],
+      light: blueGrey[700],
     },
     secondary: {
-      main: blueGrey[800],
-      contrastText: blueGrey[50],
+      main: blueGrey[700],
+      light: blueGrey[500],
+      contrastText: blueGrey[100],
     },
   },
   typography: {
