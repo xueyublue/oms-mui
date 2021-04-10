@@ -35,7 +35,7 @@ const BorderLinearProgress = withStyles((theme) => ({
   root: {
     height: 15,
     width: 100,
-    backgroundColor: theme.palette.secondary.white,
+    backgroundColor: theme.palette.light.grey,
   },
   bar: {
     borderRadius: 1,
