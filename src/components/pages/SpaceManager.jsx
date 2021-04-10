@@ -9,7 +9,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Button } from "@material-ui/core";
+import { Box, Button, lighten, LinearProgress } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import { loadTablespace } from "./../../store/entities/tablespace";
 
@@ -30,6 +30,18 @@ const TableCellHeader = withStyles((theme) => ({
     color: theme.palette.common.white,
   },
 }))(TableCell);
+
+const BorderLinearProgress = withStyles({
+  root: {
+    height: 10,
+    width: 100,
+    backgroundColor: lighten("#ff6c5c", 0.5),
+  },
+  bar: {
+    borderRadius: 20,
+    backgroundColor: "#ff6c5c",
+  },
+})(LinearProgress);
 
 const SpaceManager = () => {
   const classes = useStyles();
@@ -68,7 +80,19 @@ const SpaceManager = () => {
                 <TableCell>{row.status}</TableCell>
                 <TableCell align="right">{row.size}</TableCell>
                 <TableCell align="right">{row.freeSize}</TableCell>
-                <TableCell align="right">{row.occupancy}%</TableCell>
+                <TableCell align="right">
+                  <Box display="flex" alignItems="center">
+                    <Box>
+                      <BorderLinearProgress
+                        className={classes.margin}
+                        variant="determinate"
+                        color="secondary"
+                        value={row.occupancy}
+                      />
+                    </Box>
+                    <Box minWidth={30}>{row.occupancy}%</Box>
+                  </Box>
+                </TableCell>
                 <TableCell align="right">{row.nextExtend}</TableCell>
                 <TableCell>{row.contents}</TableCell>
                 <TableCell>{row.allocationType}</TableCell>
