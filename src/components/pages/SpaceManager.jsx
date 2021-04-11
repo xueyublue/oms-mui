@@ -52,7 +52,6 @@ const SpaceManager = () => {
   });
 
   const rows = useSelector((state) => state.entities.tablespace.list);
-  console.log(rows);
 
   return (
     <div className={classes.root}>

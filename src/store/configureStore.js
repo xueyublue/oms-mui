@@ -1,5 +1,6 @@
 import { configureStore, combineReducers, getDefaultMiddleware } from "@reduxjs/toolkit";
 import bugs from "./bugs";
+import instance from "./entities/instance";
 import tablespace from "./entities/tablespace";
 import api from "./middleware/api";
 import logger from "./middleware/logger";
@@ -16,6 +17,7 @@ export default function store() {
         projects: projects,
         users: users,
         tablespace: tablespace,
+        instance: instance,
       }),
       ui: combineReducers({
         sidenav: sidenav,
