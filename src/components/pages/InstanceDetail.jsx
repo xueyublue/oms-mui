@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -8,7 +8,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { AppBar, Button, Tab, Tabs } from "@material-ui/core";
+import { AppBar, Button, Tab, TablePagination, Tabs } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 
 import { loadBanners, loadDetails, loadParameters, loadResourceLimit } from "../../store/oracle/instance";
@@ -62,6 +62,18 @@ const InstanceDetail = () => {
     dispatch(setCurrentTab({ currentTab: newValue }));
   };
 
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <div className={classes.root}>
       <Button startIcon={<RefreshIcon />}>Refresh</Button>
@@ -79,8 +91,8 @@ const InstanceDetail = () => {
           <Tab label="Oracle Parameters" {...a11yProps(3)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={currentTab} index={0}>
-        <TableContainer component={Paper}>
+      <TableContainer component={Paper}>
+        <TabPanel value={currentTab} index={0}>
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
@@ -97,10 +109,8 @@ const InstanceDetail = () => {
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
-      </TabPanel>
-      <TabPanel value={currentTab} index={1}>
-        <TableContainer component={Paper}>
+        </TabPanel>
+        <TabPanel value={currentTab} index={1}>
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
@@ -117,10 +127,8 @@ const InstanceDetail = () => {
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
-      </TabPanel>
-      <TabPanel value={currentTab} index={2}>
-        <TableContainer component={Paper}>
+        </TabPanel>
+        <TabPanel value={currentTab} index={2}>
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
@@ -145,10 +153,17 @@ const InstanceDetail = () => {
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
-      </TabPanel>
-      <TabPanel value={currentTab} index={3}>
-        <TableContainer component={Paper}>
+        </TabPanel>
+        <TabPanel value={currentTab} index={3}>
+          <TablePagination
+            rowsPerPageOptions={[10, 15, 30, 100, 500]}
+            component="div"
+            count={parametersData.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
@@ -164,7 +179,7 @@ const InstanceDetail = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {parametersData.map((row) => (
+              {parametersData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                 <TableRow key={row.name}>
                   <TableCell align="center">{row.index}</TableCell>
                   <TableCell>{row.name}</TableCell>
@@ -179,8 +194,8 @@ const InstanceDetail = () => {
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
-      </TabPanel>
+        </TabPanel>
+      </TableContainer>
     </div>
   );
 };

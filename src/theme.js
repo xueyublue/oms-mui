@@ -42,6 +42,19 @@ theme.overrides = {
       minHeight: 36,
     },
   },
+  MuiTablePagination: {
+    root: {
+      display: "flex",
+      justifyContent: "left",
+      width: "100%",
+      alignItems: "center",
+      padding: "0px",
+      height: 48,
+    },
+    toolbar: {
+      minHeight: 32,
+    },
+  },
 };
 
 theme.props = {
