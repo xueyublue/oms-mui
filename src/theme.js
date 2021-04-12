@@ -31,6 +31,17 @@ theme.overrides = {
       textTransform: "none",
     },
   },
+  MuiTabs: {
+    root: {
+      minHeight: 36,
+    },
+  },
+  MuiTab: {
+    root: {
+      textTransform: "none",
+      minHeight: 36,
+    },
+  },
 };
 
 theme.props = {
