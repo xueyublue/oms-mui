@@ -13,7 +13,13 @@ import RefreshIcon from "@material-ui/icons/Refresh";
 
 import { loadBanners, loadDetails, loadParameters, loadResourceLimit } from "../../store/oracle/instance";
 import { sidenavSelected } from "../../store/ui/sidenav";
-import { setCurrentTab } from "../../store/ui/instanceDetail";
+import {
+  parameterPageChanged,
+  parameterPageSizeChanged,
+  resourceLimitPageChanged,
+  resourceLimitPageSizeChanged,
+  setCurrentTab,
+} from "../../store/ui/instanceDetail";
 import TabPanel from "./../common/TabPanel";
 
 const useStyles = makeStyles((theme) => ({
@@ -58,20 +64,29 @@ const InstanceDetail = () => {
   const resourceLimitData = useSelector((state) => state.oracle.instance.resourceLimit.list);
   const parametersData = useSelector((state) => state.oracle.instance.parameters.list);
 
+  const resourceLimitPageSize = useSelector((state) => state.ui.instanceDetail.resourceLimit.pageSize);
+  const resourceLimitCurrentPage = useSelector((state) => state.ui.instanceDetail.resourceLimit.currentPage);
+  const parametersPageSize = useSelector((state) => state.ui.instanceDetail.parameters.pageSize);
+  const parametersCurrentPage = useSelector((state) => state.ui.instanceDetail.parameters.currentPage);
+
   const handleTabChange = (event, newValue) => {
     dispatch(setCurrentTab({ currentTab: newValue }));
   };
 
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+  const handleResourceLimitCurrentPageChange = (event, newPage) => {
+    dispatch(resourceLimitPageChanged({ currentPage: newPage }));
+  };
+  const handleResourceLimitPageSizeChange = (event) => {
+    dispatch(resourceLimitPageSizeChanged({ pageSize: parseInt(event.target.value) }));
+    dispatch(resourceLimitPageChanged({ currentPage: 0 }));
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+  const handleParametersCurrentPageChange = (event, newPage) => {
+    dispatch(parameterPageChanged({ currentPage: newPage }));
+  };
+  const handleParametersPageSizeChange = (event) => {
+    dispatch(parameterPageSizeChanged({ pageSize: parseInt(event.target.value) }));
+    dispatch(parameterPageChanged({ currentPage: 0 }));
   };
 
   return (
@@ -129,6 +144,15 @@ const InstanceDetail = () => {
           </Table>
         </TabPanel>
         <TabPanel value={currentTab} index={2}>
+          <TablePagination
+            rowsPerPageOptions={[10, 15, 30, 100]}
+            component="div"
+            count={resourceLimitData.length}
+            rowsPerPage={resourceLimitPageSize}
+            page={resourceLimitCurrentPage}
+            onChangePage={handleResourceLimitCurrentPageChange}
+            onChangeRowsPerPage={handleResourceLimitPageSizeChange}
+          />
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
@@ -141,16 +165,21 @@ const InstanceDetail = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {resourceLimitData.map((row) => (
-                <TableRow key={row.resourceName}>
-                  <TableCell align="center">{row.index}</TableCell>
-                  <TableCell>{row.resourceName}</TableCell>
-                  <TableCell>{row.currentUtilization}</TableCell>
-                  <TableCell>{row.maxUtilization}</TableCell>
-                  <TableCell>{row.initialAllocation}</TableCell>
-                  <TableCell>{row.limitValue}</TableCell>
-                </TableRow>
-              ))}
+              {resourceLimitData
+                .slice(
+                  resourceLimitCurrentPage * resourceLimitPageSize,
+                  resourceLimitCurrentPage * resourceLimitPageSize + resourceLimitPageSize
+                )
+                .map((row) => (
+                  <TableRow key={row.resourceName}>
+                    <TableCell align="center">{row.index}</TableCell>
+                    <TableCell>{row.resourceName}</TableCell>
+                    <TableCell>{row.currentUtilization}</TableCell>
+                    <TableCell>{row.maxUtilization}</TableCell>
+                    <TableCell>{row.initialAllocation}</TableCell>
+                    <TableCell>{row.limitValue}</TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TabPanel>
@@ -159,10 +188,10 @@ const InstanceDetail = () => {
             rowsPerPageOptions={[10, 15, 30, 100, 500]}
             component="div"
             count={parametersData.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
+            rowsPerPage={parametersPageSize}
+            page={parametersCurrentPage}
+            onChangePage={handleParametersCurrentPageChange}
+            onChangeRowsPerPage={handleParametersPageSizeChange}
           />
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
@@ -179,19 +208,24 @@ const InstanceDetail = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {parametersData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell align="center">{row.index}</TableCell>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.type}</TableCell>
-                  <TableCell>{row.value}</TableCell>
-                  <TableCell>{row.description}</TableCell>
-                  <TableCell>{row.isDefault}</TableCell>
-                  <TableCell>{row.isSessionModifiable}</TableCell>
-                  <TableCell>{row.isSystemModifiable}</TableCell>
-                  <TableCell>{row.isInstanceModifiable}</TableCell>
-                </TableRow>
-              ))}
+              {parametersData
+                .slice(
+                  parametersCurrentPage * parametersPageSize,
+                  parametersCurrentPage * parametersPageSize + parametersPageSize
+                )
+                .map((row) => (
+                  <TableRow key={row.name}>
+                    <TableCell align="center">{row.index}</TableCell>
+                    <TableCell>{row.name}</TableCell>
+                    <TableCell>{row.type}</TableCell>
+                    <TableCell>{row.value}</TableCell>
+                    <TableCell>{row.description}</TableCell>
+                    <TableCell>{row.isDefault}</TableCell>
+                    <TableCell>{row.isSessionModifiable}</TableCell>
+                    <TableCell>{row.isSystemModifiable}</TableCell>
+                    <TableCell>{row.isInstanceModifiable}</TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TabPanel>
