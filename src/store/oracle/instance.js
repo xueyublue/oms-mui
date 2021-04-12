@@ -95,7 +95,7 @@ const {
 
 const url = "/oracle/instance";
 export const loadDetails = () => (dispatch, getState) => {
-  const { lastFetch } = getState().entities.instance.details;
+  const { lastFetch } = getState().oracle.instance.details;
   const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
   if (diffInMinutes < 1) return;
   dispatch(
@@ -109,7 +109,7 @@ export const loadDetails = () => (dispatch, getState) => {
 };
 
 export const loadBanners = () => (dispatch, getState) => {
-  const { lastFetch } = getState().entities.instance.banners;
+  const { lastFetch } = getState().oracle.instance.banners;
   const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
   if (diffInMinutes < 1) return;
   dispatch(
@@ -123,7 +123,7 @@ export const loadBanners = () => (dispatch, getState) => {
 };
 
 export const loadResourceLimit = () => (dispatch, getState) => {
-  const { lastFetch } = getState().entities.instance.resourceLimit;
+  const { lastFetch } = getState().oracle.instance.resourceLimit;
   const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
   if (diffInMinutes < 1) return;
   dispatch(
@@ -137,7 +137,7 @@ export const loadResourceLimit = () => (dispatch, getState) => {
 };
 
 export const loadParameters = () => (dispatch, getState) => {
-  const { lastFetch } = getState().entities.instance.parameters;
+  const { lastFetch } = getState().oracle.instance.parameters;
   const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
   if (diffInMinutes < 1) return;
   dispatch(

@@ -11,7 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import { AppBar, Button, Tab, Tabs } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 
-import { loadBanners, loadDetails, loadParameters, loadResourceLimit } from "./../../store/entities/instance";
+import { loadBanners, loadDetails, loadParameters, loadResourceLimit } from "../../store/oracle/instance";
 import { sidenavSelected } from "../../store/ui/sidenav";
 import { setCurrentTab } from "../../store/ui/instanceDetail";
 import TabPanel from "./../common/TabPanel";
@@ -53,10 +53,10 @@ const InstanceDetail = () => {
   });
 
   const currentTab = useSelector((state) => state.ui.instanceDetail.currentTab);
-  const detailsData = useSelector((state) => state.entities.instance.details.list);
-  const bannersData = useSelector((state) => state.entities.instance.banners.list);
-  const resourceLimitData = useSelector((state) => state.entities.instance.resourceLimit.list);
-  const parametersData = useSelector((state) => state.entities.instance.parameters.list);
+  const detailsData = useSelector((state) => state.oracle.instance.details.list);
+  const bannersData = useSelector((state) => state.oracle.instance.banners.list);
+  const resourceLimitData = useSelector((state) => state.oracle.instance.resourceLimit.list);
+  const parametersData = useSelector((state) => state.oracle.instance.parameters.list);
 
   const handleTabChange = (event, newValue) => {
     dispatch(setCurrentTab({ currentTab: newValue }));

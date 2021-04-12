@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import moment from "moment";
-import { apiCallBegan } from ".././api";
+import { apiCallBegan } from "../api";
 
 const slice = createSlice({
   name: "tablespace",
@@ -28,7 +28,7 @@ const { tablespaceRequested, tablespaceReceived, tablespaceRequestFailed } = sli
 
 const url = "/oracle/tablespace";
 export const loadTablespace = () => (dispatch, getState) => {
-  const { lastFetch } = getState().entities.tablespace;
+  const { lastFetch } = getState().oracle.tablespace;
   const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
   if (diffInMinutes < 1) return;
   dispatch(
