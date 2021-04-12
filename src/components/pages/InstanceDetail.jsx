@@ -124,6 +124,7 @@ const InstanceDetail = () => {
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
+                <TableCellHeader align="center">#</TableCellHeader>
                 <TableCellHeader>ResourceI&nbsp;Name</TableCellHeader>
                 <TableCellHeader>CurrentI&nbsp;Utilization</TableCellHeader>
                 <TableCellHeader>MaxI&nbsp;Utilization</TableCellHeader>
@@ -134,6 +135,7 @@ const InstanceDetail = () => {
             <TableBody>
               {resourceLimitData.map((row) => (
                 <TableRow key={row.resourceName}>
+                  <TableCell align="center">{row.index}</TableCell>
                   <TableCell>{row.resourceName}</TableCell>
                   <TableCell>{row.currentUtilization}</TableCell>
                   <TableCell>{row.maxUtilization}</TableCell>
@@ -150,6 +152,7 @@ const InstanceDetail = () => {
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
+                <TableCellHeader align="center">#</TableCellHeader>
                 <TableCellHeader>Name</TableCellHeader>
                 <TableCellHeader>Type</TableCellHeader>
                 <TableCellHeader>Value</TableCellHeader>
@@ -163,6 +166,7 @@ const InstanceDetail = () => {
             <TableBody>
               {parametersData.map((row) => (
                 <TableRow key={row.name}>
+                  <TableCell align="center">{row.index}</TableCell>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.type}</TableCell>
                   <TableCell>{row.value}</TableCell>
