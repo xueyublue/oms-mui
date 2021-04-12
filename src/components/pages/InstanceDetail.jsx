@@ -11,6 +11,8 @@ import Paper from "@material-ui/core/Paper";
 import { AppBar, Button, Tab, TablePagination, Tabs } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 
+import { Pie } from "react-chartjs-2";
+
 import { loadBanners, loadDetails, loadParameters, loadResourceLimit } from "../../store/oracle/instance";
 import { sidenavSelected } from "../../store/ui/sidenav";
 import {
@@ -124,6 +126,49 @@ const InstanceDetail = () => {
               ))}
             </TableBody>
           </Table>
+          <Pie
+            data={{
+              labels: [
+                "Buffer Cache Size (12%)",
+                "Fixed SGA Size",
+                "Free SGA Memory Available",
+                "Granule Size",
+                "Java Pool Size",
+                "Large Pool Size",
+                "Redo Buffers",
+                "Shared IO Pool Size",
+                "Shared Pool Size",
+                "Startup overhead in Shared Pool",
+              ],
+              datasets: [
+                {
+                  data: [1664, 8, 2672, 16, 16, 32, 279, 96, 448, 239],
+                  backgroundColor: [
+                    "rgba(255, 99, 132, 0.4)",
+                    "rgba(54, 162, 235, 0.4)",
+                    "rgba(255, 206, 86, 0.4)",
+                    "rgba(75, 192, 192, 0.4)",
+                    "rgba(153, 102, 255, 0.4)",
+                    "rgba(255, 159, 24, 0.4)",
+                    "rgba(177, 100, 14, 0.4)",
+                    "rgba(221, 159, 94, 0.4)",
+                    "rgba(29, 15, 12, 0.4)",
+                    "rgba(10, 159, 66, 0.4)",
+                  ],
+                },
+              ],
+            }}
+            options={{
+              title: { display: true, text: "SGA Configuration (5120 MB Max)" },
+              maintainAspectRatio: true,
+              scales: {
+                yAxes: [{ ticks: { display: false }, gridLines: { display: false } }],
+              },
+              legend: { position: "right" },
+            }}
+            height={1}
+            width={2}
+          />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
           <Table className={classes.table} size="small" aria-label="a dense table">
