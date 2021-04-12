@@ -11,7 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import { AppBar, Button, Tab, Tabs } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 
-import { loadBanners, loadDetails, loadResourceLimit } from "./../../store/entities/instance";
+import { loadBanners, loadDetails, loadParameters, loadResourceLimit } from "./../../store/entities/instance";
 import { sidenavSelected } from "../../store/ui/sidenav";
 import { setCurrentTab } from "../../store/ui/instanceDetail";
 import TabPanel from "./../common/TabPanel";
@@ -49,12 +49,14 @@ const InstanceDetail = () => {
     dispatch(loadDetails());
     dispatch(loadBanners());
     dispatch(loadResourceLimit());
+    dispatch(loadParameters());
   });
 
   const currentTab = useSelector((state) => state.ui.instanceDetail.currentTab);
   const detailsData = useSelector((state) => state.entities.instance.details.list);
   const bannersData = useSelector((state) => state.entities.instance.banners.list);
   const resourceLimitData = useSelector((state) => state.entities.instance.resourceLimit.list);
+  const parametersData = useSelector((state) => state.entities.instance.parameters.list);
 
   const handleTabChange = (event, newValue) => {
     dispatch(setCurrentTab({ currentTab: newValue }));
@@ -74,6 +76,7 @@ const InstanceDetail = () => {
           <Tab label="Instance Details" {...a11yProps(0)} />
           <Tab label="Banners" {...a11yProps(1)} />
           <Tab label="Resource Limit" {...a11yProps(2)} />
+          <Tab label="Oracle Parameters" {...a11yProps(3)} />
         </Tabs>
       </AppBar>
       <TabPanel value={currentTab} index={0}>
@@ -121,11 +124,11 @@ const InstanceDetail = () => {
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <TableCellHeader>Resource Name</TableCellHeader>
-                <TableCellHeader>Current Utilization</TableCellHeader>
-                <TableCellHeader>max Utilization</TableCellHeader>
-                <TableCellHeader>Initial Allocation</TableCellHeader>
-                <TableCellHeader>Limit Value</TableCellHeader>
+                <TableCellHeader>ResourceI&nbsp;Name</TableCellHeader>
+                <TableCellHeader>CurrentI&nbsp;Utilization</TableCellHeader>
+                <TableCellHeader>MaxI&nbsp;Utilization</TableCellHeader>
+                <TableCellHeader>InitialI&nbsp;Allocation</TableCellHeader>
+                <TableCellHeader>LimitI&nbsp;Value</TableCellHeader>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -136,6 +139,38 @@ const InstanceDetail = () => {
                   <TableCell>{row.maxUtilization}</TableCell>
                   <TableCell>{row.initialAllocation}</TableCell>
                   <TableCell>{row.limitValue}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </TabPanel>
+      <TabPanel value={currentTab} index={3}>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} size="small" aria-label="a dense table">
+            <TableHead>
+              <TableRow>
+                <TableCellHeader>Name</TableCellHeader>
+                <TableCellHeader>Type</TableCellHeader>
+                <TableCellHeader>Value</TableCellHeader>
+                <TableCellHeader>Description</TableCellHeader>
+                <TableCellHeader>Is&nbsp;Default</TableCellHeader>
+                <TableCellHeader>Is&nbsp;SessionI&nbsp;Modifiable</TableCellHeader>
+                <TableCellHeader>Is&nbsp;SystemI&nbsp;Modifiable</TableCellHeader>
+                <TableCellHeader>Is&nbsp;InstanceI&nbsp;Modifiable</TableCellHeader>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {parametersData.map((row) => (
+                <TableRow key={row.name}>
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell>{row.type}</TableCell>
+                  <TableCell>{row.value}</TableCell>
+                  <TableCell>{row.description}</TableCell>
+                  <TableCell>{row.isDefault}</TableCell>
+                  <TableCell>{row.isSessionModifiable}</TableCell>
+                  <TableCell>{row.isSystemModifiable}</TableCell>
+                  <TableCell>{row.isInstanceModifiable}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

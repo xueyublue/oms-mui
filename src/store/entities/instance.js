@@ -20,8 +20,14 @@ const slice = createSlice({
       loading: false,
       lastFetch: null,
     },
+    parameters: {
+      list: [],
+      loading: false,
+      lastFetch: null,
+    },
   },
   reducers: {
+    // Details
     detailsRequested: (state, action) => {
       state.details.loading = true;
     },
@@ -33,7 +39,7 @@ const slice = createSlice({
     detailsRequestFailed: (state, action) => {
       state.details.loading = false;
     },
-
+    // Banners
     bannersRequested: (state, action) => {
       state.banners.loading = true;
     },
@@ -45,7 +51,7 @@ const slice = createSlice({
     bannersRequestFailed: (state, action) => {
       state.banners.loading = false;
     },
-
+    // Resource Limit
     resourceLimitRequested: (state, action) => {
       state.resourceLimit.loading = true;
     },
@@ -56,6 +62,18 @@ const slice = createSlice({
     },
     resourceLimitRequestFailed: (state, action) => {
       state.resourceLimit.loading = false;
+    },
+    // Oracle Parameters
+    parametersRequested: (state, action) => {
+      state.parameters.loading = true;
+    },
+    parametersReceived: (state, action) => {
+      state.parameters.list = action.payload;
+      state.parameters.loading = false;
+      state.parameters.lastFetch = Date.now();
+    },
+    parametersRequestFailed: (state, action) => {
+      state.parameters.loading = false;
     },
   },
 });
@@ -70,6 +88,9 @@ const {
   resourceLimitRequested,
   resourceLimitReceived,
   resourceLimitRequestFailed,
+  parametersRequested,
+  parametersReceived,
+  parametersRequestFailed,
 } = slice.actions;
 
 const url = "/oracle/instance";
@@ -111,6 +132,20 @@ export const loadResourceLimit = () => (dispatch, getState) => {
       onStart: resourceLimitRequested.type,
       onSuccess: resourceLimitReceived.type,
       onError: resourceLimitRequestFailed.type,
+    })
+  );
+};
+
+export const loadParameters = () => (dispatch, getState) => {
+  const { lastFetch } = getState().entities.instance.parameters;
+  const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
+  if (diffInMinutes < 1) return;
+  dispatch(
+    apiCallBegan({
+      url: url + "/parameters",
+      onStart: parametersRequested.type,
+      onSuccess: parametersReceived.type,
+      onError: parametersRequestFailed.type,
     })
   );
 };
