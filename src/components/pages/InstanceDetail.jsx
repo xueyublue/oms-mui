@@ -13,7 +13,13 @@ import RefreshIcon from "@material-ui/icons/Refresh";
 
 import { Pie } from "react-chartjs-2";
 
-import { loadBanners, loadDetails, loadParameters, loadResourceLimit } from "../../store/oracle/instance";
+import {
+  loadBanners,
+  loadDetails,
+  loadParameters,
+  loadResourceLimit,
+  loadSgaConfig,
+} from "../../store/oracle/instance";
 import { sidenavSelected } from "../../store/ui/sidenav";
 import {
   parameterPageChanged,
@@ -55,17 +61,19 @@ const InstanceDetail = () => {
   useEffect(() => {
     dispatch(sidenavSelected({ selectedMenuIndex: 11 }));
     dispatch(loadDetails());
+    dispatch(loadSgaConfig());
     dispatch(loadBanners());
     dispatch(loadResourceLimit());
     dispatch(loadParameters());
   });
-
+  // Data from Redux Store
   const currentTab = useSelector((state) => state.ui.instanceDetail.currentTab);
   const detailsData = useSelector((state) => state.oracle.instance.details.list);
+  const sgaconfigData = useSelector((state) => state.oracle.instance.sgaconfig.list);
   const bannersData = useSelector((state) => state.oracle.instance.banners.list);
   const resourceLimitData = useSelector((state) => state.oracle.instance.resourceLimit.list);
   const parametersData = useSelector((state) => state.oracle.instance.parameters.list);
-
+  // Pagination Data
   const resourceLimitPageSize = useSelector((state) => state.ui.instanceDetail.resourceLimit.pageSize);
   const resourceLimitCurrentPage = useSelector((state) => state.ui.instanceDetail.resourceLimit.currentPage);
   const parametersPageSize = useSelector((state) => state.ui.instanceDetail.parameters.pageSize);
@@ -128,38 +136,16 @@ const InstanceDetail = () => {
           </Table>
           <Pie
             data={{
-              labels: [
-                "Buffer Cache Size (12%)",
-                "Fixed SGA Size",
-                "Free SGA Memory Available",
-                "Granule Size",
-                "Java Pool Size",
-                "Large Pool Size",
-                "Redo Buffers",
-                "Shared IO Pool Size",
-                "Shared Pool Size",
-                "Startup overhead in Shared Pool",
-              ],
+              labels: sgaconfigData.name,
               datasets: [
                 {
-                  data: [1664, 8, 2672, 16, 16, 32, 279, 96, 448, 239],
-                  backgroundColor: [
-                    "rgba(255, 99, 132, 0.4)",
-                    "rgba(54, 162, 235, 0.4)",
-                    "rgba(0, 0, 0, 0.4)",
-                    "rgba(75, 192, 192, 0.4)",
-                    "rgba(153, 102, 255, 0.4)",
-                    "rgba(255, 159, 24, 0.4)",
-                    "rgba(177, 100, 14, 0.4)",
-                    "rgba(221, 159, 94, 0.4)",
-                    "rgba(255, 206, 86, 0.4)",
-                    "rgba(10, 159, 66, 0.4)",
-                  ],
+                  data: sgaconfigData.data,
+                  backgroundColor: sgaconfigData.backgroundColor,
                 },
               ],
             }}
             options={{
-              title: { display: true, text: "SGA Configuration (5120 MB Max)" },
+              title: { display: true, text: "SGA Configuration (" + sgaconfigData.maxSgaSize + "MB In Total)" },
               maintainAspectRatio: true,
               scales: {
                 yAxes: [{ ticks: { display: false }, gridLines: { display: false } }],

@@ -10,6 +10,11 @@ const slice = createSlice({
       loading: false,
       lastFetch: null,
     },
+    sgaconfig: {
+      list: [],
+      loading: false,
+      lastFetch: null,
+    },
     banners: {
       list: [],
       loading: false,
@@ -38,6 +43,18 @@ const slice = createSlice({
     },
     detailsRequestFailed: (state, action) => {
       state.details.loading = false;
+    },
+    // SGA Config
+    sgaConfigRequested: (state, action) => {
+      state.sgaconfig.loading = true;
+    },
+    sgaConfigReceived: (state, action) => {
+      state.sgaconfig.list = action.payload;
+      state.sgaconfig.loading = false;
+      state.sgaconfig.lastFetch = Date.now();
+    },
+    sgaConfigRequestFailed: (state, action) => {
+      state.sgaconfig.loading = false;
     },
     // Banners
     bannersRequested: (state, action) => {
@@ -82,6 +99,9 @@ const {
   detailsRequested,
   detailsReceived,
   detailsRequestFailed,
+  sgaConfigRequested,
+  sgaConfigReceived,
+  sgaConfigRequestFailed,
   bannersRequested,
   bannersReceived,
   bannersRequestFailed,
@@ -104,6 +124,20 @@ export const loadDetails = () => (dispatch, getState) => {
       onStart: detailsRequested.type,
       onSuccess: detailsReceived.type,
       onError: detailsRequestFailed.type,
+    })
+  );
+};
+
+export const loadSgaConfig = () => (dispatch, getState) => {
+  const { lastFetch } = getState().oracle.instance.sgaconfig;
+  const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
+  if (diffInMinutes < 1) return;
+  dispatch(
+    apiCallBegan({
+      url: url + "/sgaconfig",
+      onStart: sgaConfigRequested.type,
+      onSuccess: sgaConfigReceived.type,
+      onError: sgaConfigRequestFailed.type,
     })
   );
 };
