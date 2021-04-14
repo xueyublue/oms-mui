@@ -3,37 +3,49 @@ import moment from "moment";
 import { apiCallBegan } from "../api";
 
 const slice = createSlice({
-  name: "tablespace",
+  name: "space",
   initialState: {
-    list: [],
-    loading: false,
-    lastFetch: null,
+    tablespace: {
+      list: [],
+      loading: false,
+      lastFetch: null,
+    },
+    topTables: {
+      list: [],
+      loading: false,
+      lastFetch: null,
+    },
+    topIndexes: {
+      list: [],
+      loading: false,
+      lastFetch: null,
+    },
   },
   reducers: {
     tablespaceRequested: (state, action) => {
-      state.loading = true;
+      state.tablespace.loading = true;
     },
     tablespaceReceived: (state, action) => {
-      state.list = action.payload;
-      state.loading = false;
-      state.lastFetch = Date.now();
+      state.tablespace.list = action.payload;
+      state.tablespace.loading = false;
+      state.tablespace.lastFetch = Date.now();
     },
     tablespaceRequestFailed: (state, action) => {
-      state.loading = false;
+      state.tablespace.loading = false;
     },
   },
 });
 
 const { tablespaceRequested, tablespaceReceived, tablespaceRequestFailed } = slice.actions;
 
-const url = "/oracle/tablespace";
+const url = "/oracle/space";
 export const loadTablespace = () => (dispatch, getState) => {
-  const { lastFetch } = getState().oracle.tablespace;
+  const { lastFetch } = getState().oracle.space.tablespace;
   const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
   if (diffInMinutes < 1) return;
   dispatch(
     apiCallBegan({
-      url,
+      url: url + "/tablespace",
       onStart: tablespaceRequested.type,
       onSuccess: tablespaceReceived.type,
       onError: tablespaceRequestFailed.type,

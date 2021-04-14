@@ -1,6 +1,6 @@
 import { configureStore, combineReducers, getDefaultMiddleware } from "@reduxjs/toolkit";
 import instance from "./oracle/instance";
-import tablespace from "./oracle/tablespace";
+import space from "./oracle/space";
 import api from "./middleware/api";
 import logger from "./middleware/logger";
 import toast from "./middleware/toast";
@@ -11,7 +11,7 @@ export default function store() {
   return configureStore({
     reducer: combineReducers({
       oracle: combineReducers({
-        tablespace: tablespace,
+        space: space,
         instance: instance,
       }),
       ui: combineReducers({

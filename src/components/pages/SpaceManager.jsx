@@ -11,7 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Box, Button, LinearProgress } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import { loadTablespace } from "../../store/oracle/tablespace";
+import { loadTablespace } from "../../store/oracle/space";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,7 +51,7 @@ const SpaceManager = () => {
     dispatch(loadTablespace());
   });
 
-  const rows = useSelector((state) => state.oracle.tablespace.list);
+  const rows = useSelector((state) => state.oracle.space.tablespace.list);
 
   return (
     <div className={classes.root}>
