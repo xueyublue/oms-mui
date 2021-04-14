@@ -20,8 +20,14 @@ const slice = createSlice({
       loading: false,
       lastFetch: null,
     },
+    tableRecords: {
+      list: [],
+      loading: false,
+      lastFetch: null,
+    },
   },
   reducers: {
+    // Tablespace
     tablespaceRequested: (state, action) => {
       state.tablespace.loading = true;
     },
@@ -33,12 +39,63 @@ const slice = createSlice({
     tablespaceRequestFailed: (state, action) => {
       state.tablespace.loading = false;
     },
+    // Top Tables
+    topTablesRequested: (state, action) => {
+      state.topTables.loading = true;
+    },
+    topTablesReceived: (state, action) => {
+      state.topTables.list = action.payload;
+      state.topTables.loading = false;
+      state.topTables.lastFetch = Date.now();
+    },
+    topTablesRequestFailed: (state, action) => {
+      state.topTables.loading = false;
+    },
+    // Top Indexes
+    topIndexesRequested: (state, action) => {
+      state.topIndexes.loading = true;
+    },
+    topIndexesReceived: (state, action) => {
+      state.topIndexes.list = action.payload;
+      state.topIndexes.loading = false;
+      state.topIndexes.lastFetch = Date.now();
+    },
+    topIndexesRequestFailed: (state, action) => {
+      state.topIndexes.loading = false;
+    },
+    // Table Records
+    tableRecordsRequested: (state, action) => {
+      state.tableRecords.loading = true;
+    },
+    tableRecordsReceived: (state, action) => {
+      state.tableRecords.list = action.payload;
+      state.tableRecords.loading = false;
+      state.tableRecords.lastFetch = Date.now();
+    },
+    tableRecordsRequestFailed: (state, action) => {
+      state.tableRecords.loading = false;
+    },
   },
 });
 
-const { tablespaceRequested, tablespaceReceived, tablespaceRequestFailed } = slice.actions;
+const {
+  tablespaceRequested,
+  tablespaceReceived,
+  tablespaceRequestFailed,
+  topTablesRequested,
+  topTablesReceived,
+  topTablesRequestFailed,
+  topIndexesRequested,
+  topIndexesReceived,
+  topIndexesRequestFailed,
+  tableRecordsRequested,
+  tableRecordsReceived,
+  tableRecordsRequestFailed,
+} = slice.actions;
 
 const url = "/oracle/space";
+
+// Load All Tablespace Information
 export const loadTablespace = () => (dispatch, getState) => {
   const { lastFetch } = getState().oracle.space.tablespace;
   const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
@@ -49,6 +106,51 @@ export const loadTablespace = () => (dispatch, getState) => {
       onStart: tablespaceRequested.type,
       onSuccess: tablespaceReceived.type,
       onError: tablespaceRequestFailed.type,
+    })
+  );
+};
+
+// Load Top X Tables
+export const loadTopTables = () => (dispatch, getState) => {
+  const { lastFetch } = getState().oracle.space.topTables;
+  const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
+  if (diffInMinutes < 1) return;
+  dispatch(
+    apiCallBegan({
+      url: url + "/toptables",
+      onStart: topTablesRequested.type,
+      onSuccess: topTablesReceived.type,
+      onError: topTablesRequestFailed.type,
+    })
+  );
+};
+
+// Load Top X Indexes
+export const loadTopIndexes = () => (dispatch, getState) => {
+  const { lastFetch } = getState().oracle.space.topIndexes;
+  const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
+  if (diffInMinutes < 1) return;
+  dispatch(
+    apiCallBegan({
+      url: url + "/topindexes",
+      onStart: topIndexesRequested.type,
+      onSuccess: topIndexesReceived.type,
+      onError: topIndexesRequestFailed.type,
+    })
+  );
+};
+
+// Load Table Records
+export const loadTableRecords = () => (dispatch, getState) => {
+  const { lastFetch } = getState().oracle.space.tableRecords;
+  const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
+  if (diffInMinutes < 1) return;
+  dispatch(
+    apiCallBegan({
+      url: url + "/tablerecords",
+      onStart: tableRecordsRequested.type,
+      onSuccess: tableRecordsReceived.type,
+      onError: tableRecordsRequestFailed.type,
     })
   );
 };
