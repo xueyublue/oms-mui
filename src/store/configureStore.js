@@ -6,6 +6,7 @@ import logger from "./middleware/logger";
 import toast from "./middleware/toast";
 import instanceDetail from "./ui/instanceDetail";
 import sidenav from "./ui/sidenav";
+import spaceManager from "./ui/spaceManager";
 
 export default function store() {
   return configureStore({
@@ -17,6 +18,7 @@ export default function store() {
       ui: combineReducers({
         sidenav: sidenav,
         instanceDetail: instanceDetail,
+        spaceManager: spaceManager,
       }),
     }),
     middleware: [...getDefaultMiddleware(), logger({ destination: "console" }), toast, api],
