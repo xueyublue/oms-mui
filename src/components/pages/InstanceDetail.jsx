@@ -8,7 +8,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { AppBar, Button, Tab, TablePagination, Tabs } from "@material-ui/core";
+import { AppBar, Button, Tab, TablePagination, Tabs, Box } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 
 import { Pie } from "react-chartjs-2";
@@ -99,6 +99,8 @@ const InstanceDetail = () => {
     dispatch(parameterPageChanged({ currentPage: 0 }));
   };
 
+  if (!sgaconfigData.chart) return <div></div>;
+
   return (
     <div className={classes.root}>
       <Button startIcon={<RefreshIcon />}>Refresh</Button>
@@ -111,9 +113,10 @@ const InstanceDetail = () => {
           aria-label="simple tabs example"
         >
           <Tab label="Instance Details" {...a11yProps(0)} />
-          <Tab label="Banners" {...a11yProps(1)} />
-          <Tab label="Resource Limit" {...a11yProps(2)} />
-          <Tab label="Oracle Parameters" {...a11yProps(3)} />
+          <Tab label="SGA Configuration" {...a11yProps(1)} />
+          <Tab label="Banners" {...a11yProps(2)} />
+          <Tab label="Resource Limit" {...a11yProps(3)} />
+          <Tab label="Oracle Parameters" {...a11yProps(4)} />
         </Tabs>
       </AppBar>
       <TableContainer component={Paper}>
@@ -134,18 +137,41 @@ const InstanceDetail = () => {
               ))}
             </TableBody>
           </Table>
+        </TabPanel>
+        <TabPanel value={currentTab} index={1}>
+          <span>{sgaconfigData.maxSgaSize} MB in total.</span>
+          <Table className={classes.table} size="small" aria-label="a dense table">
+            <TableHead>
+              <TableRow>
+                <TableCellHeader align="center">#</TableCellHeader>
+                <TableCellHeader>Name</TableCellHeader>
+                <TableCellHeader align="right">Size</TableCellHeader>
+                <TableCellHeader align="right">Percentage</TableCellHeader>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {sgaconfigData.table.map((row) => (
+                <TableRow key={row.index}>
+                  <TableCell align="center">{row.index}</TableCell>
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell align="right">{row.size}</TableCell>
+                  <TableCell align="right">{row.percentage}%</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
           <Pie
             data={{
-              labels: sgaconfigData.name,
+              labels: sgaconfigData.chart.name,
               datasets: [
                 {
-                  data: sgaconfigData.data,
-                  backgroundColor: sgaconfigData.backgroundColor,
+                  data: sgaconfigData.chart.data,
+                  backgroundColor: sgaconfigData.chart.backgroundColor,
                 },
               ],
             }}
             options={{
-              title: { display: true, text: "SGA Configuration (" + sgaconfigData.maxSgaSize + "MB In Total)" },
+              title: { display: false, text: "SGA Configuration (" + sgaconfigData.maxSgaSize + "MB In Total)" },
               maintainAspectRatio: true,
               scales: {
                 yAxes: [{ ticks: { display: false }, gridLines: { display: false } }],
@@ -153,10 +179,10 @@ const InstanceDetail = () => {
               legend: { position: "right" },
             }}
             height={1}
-            width={2}
+            width={3}
           />
         </TabPanel>
-        <TabPanel value={currentTab} index={1}>
+        <TabPanel value={currentTab} index={2}>
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
@@ -174,7 +200,7 @@ const InstanceDetail = () => {
             </TableBody>
           </Table>
         </TabPanel>
-        <TabPanel value={currentTab} index={2}>
+        <TabPanel value={currentTab} index={3}>
           <TablePagination
             rowsPerPageOptions={[10, 15, 30, 100]}
             component="div"
@@ -214,7 +240,7 @@ const InstanceDetail = () => {
             </TableBody>
           </Table>
         </TabPanel>
-        <TabPanel value={currentTab} index={3}>
+        <TabPanel value={currentTab} index={4}>
           <TablePagination
             rowsPerPageOptions={[10, 15, 30, 100, 500]}
             component="div"
