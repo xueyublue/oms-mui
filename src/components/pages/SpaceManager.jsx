@@ -19,16 +19,17 @@ import InputLabel from "@material-ui/core/InputLabel";
 import { loadOwners, loadTableRecords, loadTablespace, loadTopTables } from "../../store/oracle/space";
 import {
   setCurrentTab,
-  tableRecordsOwnerChanged,
-  tableRecordsPageChanged,
-  tableRecordsPageSizeChanged,
-  topIndexesOwnerChanged,
-  topIndexesPageChanged,
-  topIndexesPageSizeChanged,
   topTablesOwnerChanged,
   topTablesDisplayLimitChanged,
   topTablesPageChanged,
   topTablesPageSizeChanged,
+  topIndexesOwnerChanged,
+  topIndexesDisplayLimitChanged,
+  topIndexesPageChanged,
+  topIndexesPageSizeChanged,
+  tableRecordsOwnerChanged,
+  tableRecordsPageChanged,
+  tableRecordsPageSizeChanged,
 } from "../../store/ui/spaceManager";
 import TabPanel from "./../common/TabPanel";
 import { loadTopIndexes } from "./../../store/oracle/space";
@@ -98,6 +99,7 @@ const SpaceManager = () => {
   const topTablesPageSize = useSelector((state) => state.ui.spaceManager.topTables.pageSize);
   const topTablesCurrentPage = useSelector((state) => state.ui.spaceManager.topTables.currentPage);
   const topIndexesSelectedOwner = useSelector((state) => state.ui.spaceManager.topIndexes.selectedOwner);
+  const topIndexesSelectedDisplayLimit = useSelector((state) => state.ui.spaceManager.topIndexes.selectedDisplayLimit);
   const topIndexesPageSize = useSelector((state) => state.ui.spaceManager.topIndexes.pageSize);
   const topIndexesCurrentPage = useSelector((state) => state.ui.spaceManager.topIndexes.currentPage);
   const tableRecordsSelectedOwner = useSelector((state) => state.ui.spaceManager.tableRecords.selectedOwner);
@@ -126,6 +128,11 @@ const SpaceManager = () => {
 
   const handleTopIndexesOwnerChange = (event) => {
     dispatch(topIndexesOwnerChanged({ selectedOwner: event.target.value }));
+    dispatch(topIndexesPageChanged({ currentPage: 0 }));
+  };
+  const handleTopIndexesDisplayLimitChange = (event) => {
+    dispatch(topIndexesDisplayLimitChanged({ selectedDisplayLimit: event.target.value }));
+    dispatch(topIndexesPageChanged({ currentPage: 0 }));
   };
   const handleTopIndexesCurrentPageChange = (event, newPage) => {
     dispatch(topIndexesPageChanged({ currentPage: newPage }));
@@ -212,10 +219,10 @@ const SpaceManager = () => {
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
           <FormControl className={classes.formControl}>
-            <InputLabel id="label-owner">Owner</InputLabel>
+            <InputLabel id="top-tables-label-owner">Owner</InputLabel>
             <Select
-              labelId="label-owner"
-              id="select-owner"
+              labelId="top-tables-label-owner"
+              id="top-tables-select-owner"
               value={topTablesSelectedOwner}
               onChange={handleTopTablesOwnerChange}
             >
@@ -227,10 +234,10 @@ const SpaceManager = () => {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel id="label-display-limit">Display Limit</InputLabel>
+            <InputLabel id="top-tables-label-display-limit">Display Limit</InputLabel>
             <Select
-              labelId="label-display-limit"
-              id="select-display-limit"
+              labelId="top-tables-label-display-limit"
+              id="top-tables-select-display-limit"
               value={topTablesSelectedDisplayLimit}
               onChange={handleTopTablesDisplayLimitChange}
             >
@@ -292,10 +299,51 @@ const SpaceManager = () => {
           </Table>
         </TabPanel>
         <TabPanel value={currentTab} index={2}>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="top-indexes-label-owner">Owner</InputLabel>
+            <Select
+              labelId="top-indexes-label-owner"
+              id="top-indexes-select-owner"
+              value={topIndexesSelectedOwner}
+              onChange={handleTopIndexesOwnerChange}
+            >
+              {ownersData.map((owner) => (
+                <MenuItem dense={true} value={owner} key={owner}>
+                  {owner}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="top-indexes-label-display-limit">Display Limit</InputLabel>
+            <Select
+              labelId="top-indexes-label-display-limit"
+              id="top-indexes-select-display-limit"
+              value={topIndexesSelectedDisplayLimit}
+              onChange={handleTopIndexesDisplayLimitChange}
+            >
+              <MenuItem dense={true} value={50}>
+                50
+              </MenuItem>
+              <MenuItem dense={true} value={100}>
+                100
+              </MenuItem>
+              <MenuItem dense={true} value={500}>
+                500
+              </MenuItem>
+              <MenuItem dense={true} value={1000}>
+                1000
+              </MenuItem>
+            </Select>
+          </FormControl>
           <TablePagination
             rowsPerPageOptions={[10, 15, 30, 100, 500]}
             component="div"
-            count={topIndexesData.length}
+            count={
+              topIndexesData
+                .filter((row) => (topIndexesSelectedOwner.length === 0 ? true : row.owner === topIndexesSelectedOwner))
+                .slice(0, topIndexesSelectedDisplayLimit).length
+            }
             rowsPerPage={topIndexesPageSize}
             page={topIndexesCurrentPage}
             onChangePage={handleTopIndexesCurrentPageChange}
@@ -314,13 +362,15 @@ const SpaceManager = () => {
             </TableHead>
             <TableBody>
               {topIndexesData
+                .filter((row) => (topIndexesSelectedOwner.length === 0 ? true : row.owner === topIndexesSelectedOwner))
+                .slice(0, topIndexesSelectedDisplayLimit)
                 .slice(
                   topIndexesCurrentPage * topIndexesPageSize,
                   topIndexesCurrentPage * topIndexesPageSize + topIndexesPageSize
                 )
-                .map((row) => (
-                  <TableRow key={row.index}>
-                    <TableCell align="center">{row.index}</TableCell>
+                .map((row, index) => (
+                  <TableRow key={index}>
+                    <TableCell align="center">{index + topIndexesCurrentPage * topIndexesPageSize + 1}</TableCell>
                     <TableCell>{row.owner}</TableCell>
                     <TableCell>{row.segmentName}</TableCell>
                     <TableCell align="right">{row.segmentSize}</TableCell>

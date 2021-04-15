@@ -18,7 +18,6 @@ const slice = createSlice({
     },
     tableRecords: {
       selectedOwner: "",
-      selectedDisplayLimit: 50,
       pageSize: 30,
       currentPage: 0,
     },
@@ -43,6 +42,9 @@ const slice = createSlice({
     // Top Indexes
     topIndexesOwnerChanged: (state, action) => {
       state.topIndexes.selectedOwner = action.payload.selectedOwner;
+    },
+    topIndexesDisplayLimitChanged: (state, action) => {
+      state.topIndexes.selectedDisplayLimit = action.payload.selectedDisplayLimit;
     },
     topIndexesPageSizeChanged: (state, action) => {
       state.topIndexes.pageSize = action.payload.pageSize;
@@ -70,6 +72,7 @@ export const {
   topTablesPageChanged,
   topTablesPageSizeChanged,
   topIndexesOwnerChanged,
+  topIndexesDisplayLimitChanged,
   topIndexesPageChanged,
   topIndexesPageSizeChanged,
   tableRecordsOwnerChanged,
