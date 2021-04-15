@@ -12,9 +12,10 @@ import Paper from "@material-ui/core/Paper";
 import { Box, Button, LinearProgress, AppBar, Tabs, Tab } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 
-import { loadTablespace } from "../../store/oracle/space";
+import { loadTableRecords, loadTablespace, loadTopTables } from "../../store/oracle/space";
 import { setCurrentTab } from "../../store/ui/spaceManager";
 import TabPanel from "./../common/TabPanel";
+import { loadTopIndexes } from "./../../store/oracle/space";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,10 +60,16 @@ const SpaceManager = () => {
   useEffect(() => {
     dispatch(sidenavSelected({ selectedMenuIndex: 13 }));
     dispatch(loadTablespace());
+    dispatch(loadTopTables());
+    dispatch(loadTopIndexes());
+    dispatch(loadTableRecords());
   });
 
   const currentTab = useSelector((state) => state.ui.spaceManager.currentTab);
-  const rows = useSelector((state) => state.oracle.space.tablespace.list);
+  const tablespaceData = useSelector((state) => state.oracle.space.tablespace.list);
+  const topTablesData = useSelector((state) => state.oracle.space.topTables.list);
+  const topIndexesData = useSelector((state) => state.oracle.space.topIndexes.list);
+  const tableRecordsData = useSelector((state) => state.oracle.space.tableRecords.list);
 
   const handleTabChange = (event, newValue) => {
     dispatch(setCurrentTab({ currentTab: newValue }));
@@ -103,7 +110,7 @@ const SpaceManager = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {tablespaceData.map((row) => (
                 <TableRow key={row.name}>
                   <TableCell align="center">{row.index}</TableCell>
                   <TableCell>{row.name}</TableCell>
@@ -133,13 +140,70 @@ const SpaceManager = () => {
           </Table>
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
-          Top Tables
+          <Table className={classes.table} size="small" aria-label="a dense table">
+            <TableHead>
+              <TableRow>
+                <TableCellHeader align="center">#</TableCellHeader>
+                <TableCellHeader>Owner</TableCellHeader>
+                <TableCellHeader>Segment&nbsp;Name</TableCellHeader>
+                <TableCellHeader align="right">Segment&nbsp;Size&nbsp;(MB)</TableCellHeader>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {topTablesData.map((row) => (
+                <TableRow key={row.index}>
+                  <TableCell align="center">{row.index}</TableCell>
+                  <TableCell>{row.owner}</TableCell>
+                  <TableCell>{row.segmentName}</TableCell>
+                  <TableCell align="right">{row.segmentSize}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </TabPanel>
         <TabPanel value={currentTab} index={2}>
-          Top Indexes
+          <Table className={classes.table} size="small" aria-label="a dense table">
+            <TableHead>
+              <TableRow>
+                <TableCellHeader align="center">#</TableCellHeader>
+                <TableCellHeader>Owner</TableCellHeader>
+                <TableCellHeader>Segment&nbsp;Name</TableCellHeader>
+                <TableCellHeader align="right">Segment&nbsp;Size&nbsp;(MB)</TableCellHeader>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {topIndexesData.map((row) => (
+                <TableRow key={row.index}>
+                  <TableCell align="center">{row.index}</TableCell>
+                  <TableCell>{row.owner}</TableCell>
+                  <TableCell>{row.segmentName}</TableCell>
+                  <TableCell align="right">{row.segmentSize}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </TabPanel>
         <TabPanel value={currentTab} index={3}>
-          Table Records
+          <Table className={classes.table} size="small" aria-label="a dense table">
+            <TableHead>
+              <TableRow>
+                <TableCellHeader align="center">#</TableCellHeader>
+                <TableCellHeader>Table Name</TableCellHeader>
+                <TableCellHeader align="right">Total&nbsp;Records</TableCellHeader>
+                <TableCellHeader>Tablespace</TableCellHeader>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {tableRecordsData.map((row) => (
+                <TableRow key={row.index}>
+                  <TableCell align="center">{row.index}</TableCell>
+                  <TableCell>{row.tableName}</TableCell>
+                  <TableCell align="right">{row.totalRecords}</TableCell>
+                  <TableCell>{row.tablespace}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </TabPanel>
       </TableContainer>
     </div>
