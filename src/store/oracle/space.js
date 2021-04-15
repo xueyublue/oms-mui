@@ -10,6 +10,11 @@ const slice = createSlice({
       loading: false,
       lastFetch: null,
     },
+    owners: {
+      list: [],
+      loading: false,
+      lastFetch: null,
+    },
     topTables: {
       list: [],
       loading: false,
@@ -38,6 +43,18 @@ const slice = createSlice({
     },
     tablespaceRequestFailed: (state, action) => {
       state.tablespace.loading = false;
+    },
+    // Owners
+    ownersRequested: (state, action) => {
+      state.owners.loading = true;
+    },
+    ownersReceived: (state, action) => {
+      state.owners.list = action.payload;
+      state.owners.loading = false;
+      state.owners.lastFetch = Date.now();
+    },
+    ownersRequestFailed: (state, action) => {
+      state.owners.loading = false;
     },
     // Top Tables
     topTablesRequested: (state, action) => {
@@ -82,6 +99,9 @@ const {
   tablespaceRequested,
   tablespaceReceived,
   tablespaceRequestFailed,
+  ownersRequested,
+  ownersReceived,
+  ownersRequestFailed,
   topTablesRequested,
   topTablesReceived,
   topTablesRequestFailed,
@@ -106,6 +126,20 @@ export const loadTablespace = () => (dispatch, getState) => {
       onStart: tablespaceRequested.type,
       onSuccess: tablespaceReceived.type,
       onError: tablespaceRequestFailed.type,
+    })
+  );
+};
+
+export const loadOwners = () => (dispatch, getState) => {
+  const { lastFetch } = getState().oracle.space.owners;
+  const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
+  if (diffInMinutes < 1) return;
+  dispatch(
+    apiCallBegan({
+      url: url + "/segowners",
+      onStart: ownersRequested.type,
+      onSuccess: ownersReceived.type,
+      onError: ownersRequestFailed.type,
     })
   );
 };

@@ -139,11 +139,15 @@ const InstanceDetail = () => {
           </Table>
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
-          <span>{sgaconfigData.maxSgaSize} MB in total.</span>
           <Table className={classes.table} size="small" aria-label="a dense table">
+            <caption>
+              <h4>SGA memory {sgaconfigData.maxSgaSize} MB in total.</h4>
+            </caption>
             <TableHead>
               <TableRow>
-                <TableCellHeader align="center">#</TableCellHeader>
+                <TableCellHeader align="center" style={{ width: 60 }}>
+                  #
+                </TableCellHeader>
                 <TableCellHeader>Name</TableCellHeader>
                 <TableCellHeader align="right">Size</TableCellHeader>
                 <TableCellHeader align="right">Percentage</TableCellHeader>
@@ -186,7 +190,9 @@ const InstanceDetail = () => {
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <TableCellHeader align="center">#</TableCellHeader>
+                <TableCellHeader align="center" style={{ width: 60 }}>
+                  #
+                </TableCellHeader>
                 <TableCellHeader>Banner</TableCellHeader>
               </TableRow>
             </TableHead>
@@ -213,7 +219,9 @@ const InstanceDetail = () => {
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <TableCellHeader align="center">#</TableCellHeader>
+                <TableCellHeader align="center" style={{ width: 60 }}>
+                  #
+                </TableCellHeader>
                 <TableCellHeader>ResourceI&nbsp;Name</TableCellHeader>
                 <TableCellHeader>CurrentI&nbsp;Utilization</TableCellHeader>
                 <TableCellHeader>MaxI&nbsp;Utilization</TableCellHeader>
@@ -253,7 +261,9 @@ const InstanceDetail = () => {
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <TableCellHeader align="center">#</TableCellHeader>
+                <TableCellHeader align="center" style={{ width: 60 }}>
+                  #
+                </TableCellHeader>
                 <TableCellHeader>Name</TableCellHeader>
                 <TableCellHeader>Type</TableCellHeader>
                 <TableCellHeader>Value</TableCellHeader>

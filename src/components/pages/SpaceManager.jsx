@@ -11,14 +11,22 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Box, Button, LinearProgress, AppBar, Tabs, Tab, TablePagination } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
 
-import { loadTableRecords, loadTablespace, loadTopTables } from "../../store/oracle/space";
+import { loadOwners, loadTableRecords, loadTablespace, loadTopTables } from "../../store/oracle/space";
 import {
   setCurrentTab,
+  tableRecordsOwnerChanged,
   tableRecordsPageChanged,
   tableRecordsPageSizeChanged,
+  topIndexesOwnerChanged,
   topIndexesPageChanged,
   topIndexesPageSizeChanged,
+  topTablesOwnerChanged,
+  topTablesDisplayLimitChanged,
   topTablesPageChanged,
   topTablesPageSizeChanged,
 } from "../../store/ui/spaceManager";
@@ -33,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
   },
   table: {
     minWidth: 650,
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    width: 180,
   },
 }));
 
@@ -68,6 +80,7 @@ const SpaceManager = () => {
   useEffect(() => {
     dispatch(sidenavSelected({ selectedMenuIndex: 13 }));
     dispatch(loadTablespace());
+    dispatch(loadOwners());
     dispatch(loadTopTables());
     dispatch(loadTopIndexes());
     dispatch(loadTableRecords());
@@ -75,14 +88,19 @@ const SpaceManager = () => {
   // Data from Redux Store
   const currentTab = useSelector((state) => state.ui.spaceManager.currentTab);
   const tablespaceData = useSelector((state) => state.oracle.space.tablespace.list);
+  const ownersData = useSelector((state) => state.oracle.space.owners.list);
   const topTablesData = useSelector((state) => state.oracle.space.topTables.list);
   const topIndexesData = useSelector((state) => state.oracle.space.topIndexes.list);
   const tableRecordsData = useSelector((state) => state.oracle.space.tableRecords.list);
-  // Pagination Data
+  // UI Data
+  const topTablesSelectedOwner = useSelector((state) => state.ui.spaceManager.topTables.selectedOwner);
+  const topTablesSelectedDisplayLimit = useSelector((state) => state.ui.spaceManager.topTables.selectedDisplayLimit);
   const topTablesPageSize = useSelector((state) => state.ui.spaceManager.topTables.pageSize);
   const topTablesCurrentPage = useSelector((state) => state.ui.spaceManager.topTables.currentPage);
+  const topIndexesSelectedOwner = useSelector((state) => state.ui.spaceManager.topIndexes.selectedOwner);
   const topIndexesPageSize = useSelector((state) => state.ui.spaceManager.topIndexes.pageSize);
   const topIndexesCurrentPage = useSelector((state) => state.ui.spaceManager.topIndexes.currentPage);
+  const tableRecordsSelectedOwner = useSelector((state) => state.ui.spaceManager.tableRecords.selectedOwner);
   const tableRecordsPageSize = useSelector((state) => state.ui.spaceManager.tableRecords.pageSize);
   const tableRecordsCurrentPage = useSelector((state) => state.ui.spaceManager.tableRecords.currentPage);
 
@@ -90,6 +108,14 @@ const SpaceManager = () => {
     dispatch(setCurrentTab({ currentTab: newValue }));
   };
 
+  const handleTopTablesOwnerChange = (event) => {
+    dispatch(topTablesOwnerChanged({ selectedOwner: event.target.value }));
+    dispatch(topTablesPageChanged({ currentPage: 0 }));
+  };
+  const handleTopTablesDisplayLimitChange = (event) => {
+    dispatch(topTablesDisplayLimitChanged({ selectedDisplayLimit: event.target.value }));
+    dispatch(topTablesPageChanged({ currentPage: 0 }));
+  };
   const handleTopTablesCurrentPageChange = (event, newPage) => {
     dispatch(topTablesPageChanged({ currentPage: newPage }));
   };
@@ -98,6 +124,9 @@ const SpaceManager = () => {
     dispatch(topTablesPageChanged({ currentPage: 0 }));
   };
 
+  const handleTopIndexesOwnerChange = (event) => {
+    dispatch(topIndexesOwnerChanged({ selectedOwner: event.target.value }));
+  };
   const handleTopIndexesCurrentPageChange = (event, newPage) => {
     dispatch(topIndexesPageChanged({ currentPage: newPage }));
   };
@@ -106,6 +135,9 @@ const SpaceManager = () => {
     dispatch(topIndexesPageChanged({ currentPage: 0 }));
   };
 
+  const handleTableRecordsOwnerChange = (event) => {
+    dispatch(tableRecordsOwnerChanged({ selectedOwner: event.target.value }));
+  };
   const handleTableRecordsCurrentPageChange = (event, newPage) => {
     dispatch(tableRecordsPageChanged({ currentPage: newPage }));
   };
@@ -179,10 +211,51 @@ const SpaceManager = () => {
           </Table>
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="label-owner">Owner</InputLabel>
+            <Select
+              labelId="label-owner"
+              id="select-owner"
+              value={topTablesSelectedOwner}
+              onChange={handleTopTablesOwnerChange}
+            >
+              {ownersData.map((owner) => (
+                <MenuItem dense={true} value={owner} key={owner}>
+                  {owner}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="label-display-limit">Display Limit</InputLabel>
+            <Select
+              labelId="label-display-limit"
+              id="select-display-limit"
+              value={topTablesSelectedDisplayLimit}
+              onChange={handleTopTablesDisplayLimitChange}
+            >
+              <MenuItem dense={true} value={50}>
+                50
+              </MenuItem>
+              <MenuItem dense={true} value={100}>
+                100
+              </MenuItem>
+              <MenuItem dense={true} value={500}>
+                500
+              </MenuItem>
+              <MenuItem dense={true} value={1000}>
+                1000
+              </MenuItem>
+            </Select>
+          </FormControl>
           <TablePagination
             rowsPerPageOptions={[10, 15, 30, 100, 500]}
             component="div"
-            count={topTablesData.length}
+            count={
+              topTablesData
+                .filter((row) => (topTablesSelectedOwner.length === 0 ? true : row.owner === topTablesSelectedOwner))
+                .slice(0, topTablesSelectedDisplayLimit).length
+            }
             rowsPerPage={topTablesPageSize}
             page={topTablesCurrentPage}
             onChangePage={handleTopTablesCurrentPageChange}
@@ -191,7 +264,9 @@ const SpaceManager = () => {
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <TableCellHeader align="center">#</TableCellHeader>
+                <TableCellHeader align="center" style={{ width: 60 }}>
+                  #
+                </TableCellHeader>
                 <TableCellHeader>Owner</TableCellHeader>
                 <TableCellHeader>Segment&nbsp;Name</TableCellHeader>
                 <TableCellHeader align="right">Segment&nbsp;Size&nbsp;(MB)</TableCellHeader>
@@ -199,13 +274,15 @@ const SpaceManager = () => {
             </TableHead>
             <TableBody>
               {topTablesData
+                .filter((row) => (topTablesSelectedOwner.length === 0 ? true : row.owner === topTablesSelectedOwner))
+                .slice(0, topTablesSelectedDisplayLimit)
                 .slice(
                   topTablesCurrentPage * topTablesPageSize,
                   topTablesCurrentPage * topTablesPageSize + topTablesPageSize
                 )
-                .map((row) => (
-                  <TableRow key={row.index}>
-                    <TableCell align="center">{row.index}</TableCell>
+                .map((row, index) => (
+                  <TableRow key={index}>
+                    <TableCell align="center">{index + topTablesCurrentPage * topTablesPageSize + 1}</TableCell>
                     <TableCell>{row.owner}</TableCell>
                     <TableCell>{row.segmentName}</TableCell>
                     <TableCell align="right">{row.segmentSize}</TableCell>
@@ -227,7 +304,9 @@ const SpaceManager = () => {
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <TableCellHeader align="center">#</TableCellHeader>
+                <TableCellHeader align="center" style={{ width: 60 }}>
+                  #
+                </TableCellHeader>
                 <TableCellHeader>Owner</TableCellHeader>
                 <TableCellHeader>Segment&nbsp;Name</TableCellHeader>
                 <TableCellHeader align="right">Segment&nbsp;Size&nbsp;(MB)</TableCellHeader>
@@ -263,7 +342,9 @@ const SpaceManager = () => {
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <TableCellHeader align="center">#</TableCellHeader>
+                <TableCellHeader align="center" style={{ width: 60 }}>
+                  #
+                </TableCellHeader>
                 <TableCellHeader>Table Name</TableCellHeader>
                 <TableCellHeader align="right">Total&nbsp;Records</TableCellHeader>
                 <TableCellHeader>Tablespace</TableCellHeader>
