@@ -5,11 +5,11 @@ const slice = createSlice({
   initialState: {
     currentTab: 0,
     resourceLimit: {
-      pageSize: 15,
+      pageSize: 30,
       currentPage: 0,
     },
     parameters: {
-      pageSize: 15,
+      pageSize: 30,
       currentPage: 0,
     },
   },

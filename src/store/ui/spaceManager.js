@@ -5,15 +5,15 @@ const slice = createSlice({
   initialState: {
     currentTab: 0,
     topTables: {
-      pageSize: 15,
+      pageSize: 30,
       currentPage: 0,
     },
     topIndexes: {
-      pageSize: 15,
+      pageSize: 30,
       currentPage: 0,
     },
     tableRecords: {
-      pageSize: 15,
+      pageSize: 30,
       currentPage: 0,
     },
   },
