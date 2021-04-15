@@ -9,11 +9,19 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Box, Button, LinearProgress, AppBar, Tabs, Tab } from "@material-ui/core";
+import { Box, Button, LinearProgress, AppBar, Tabs, Tab, TablePagination } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 
 import { loadTableRecords, loadTablespace, loadTopTables } from "../../store/oracle/space";
-import { setCurrentTab } from "../../store/ui/spaceManager";
+import {
+  setCurrentTab,
+  tableRecordsPageChanged,
+  tableRecordsPageSizeChanged,
+  topIndexesPageChanged,
+  topIndexesPageSizeChanged,
+  topTablesPageChanged,
+  topTablesPageSizeChanged,
+} from "../../store/ui/spaceManager";
 import TabPanel from "./../common/TabPanel";
 import { loadTopIndexes } from "./../../store/oracle/space";
 
@@ -64,15 +72,46 @@ const SpaceManager = () => {
     dispatch(loadTopIndexes());
     dispatch(loadTableRecords());
   });
-
+  // Data from Redux Store
   const currentTab = useSelector((state) => state.ui.spaceManager.currentTab);
   const tablespaceData = useSelector((state) => state.oracle.space.tablespace.list);
   const topTablesData = useSelector((state) => state.oracle.space.topTables.list);
   const topIndexesData = useSelector((state) => state.oracle.space.topIndexes.list);
   const tableRecordsData = useSelector((state) => state.oracle.space.tableRecords.list);
+  // Pagination Data
+  const topTablesPageSize = useSelector((state) => state.ui.spaceManager.topTables.pageSize);
+  const topTablesCurrentPage = useSelector((state) => state.ui.spaceManager.topTables.currentPage);
+  const topIndexesPageSize = useSelector((state) => state.ui.spaceManager.topIndexes.pageSize);
+  const topIndexesCurrentPage = useSelector((state) => state.ui.spaceManager.topIndexes.currentPage);
+  const tableRecordsPageSize = useSelector((state) => state.ui.spaceManager.tableRecords.pageSize);
+  const tableRecordsCurrentPage = useSelector((state) => state.ui.spaceManager.tableRecords.currentPage);
 
   const handleTabChange = (event, newValue) => {
     dispatch(setCurrentTab({ currentTab: newValue }));
+  };
+
+  const handleTopTablesCurrentPageChange = (event, newPage) => {
+    dispatch(topTablesPageChanged({ currentPage: newPage }));
+  };
+  const handleTopTablesPageSizeChange = (event) => {
+    dispatch(topTablesPageSizeChanged({ pageSize: parseInt(event.target.value) }));
+    dispatch(topTablesPageChanged({ currentPage: 0 }));
+  };
+
+  const handleTopIndexesCurrentPageChange = (event, newPage) => {
+    dispatch(topIndexesPageChanged({ currentPage: newPage }));
+  };
+  const handleTopIndexesPageSizeChange = (event) => {
+    dispatch(topIndexesPageSizeChanged({ pageSize: parseInt(event.target.value) }));
+    dispatch(topIndexesPageChanged({ currentPage: 0 }));
+  };
+
+  const handleTableRecordsCurrentPageChange = (event, newPage) => {
+    dispatch(tableRecordsPageChanged({ currentPage: newPage }));
+  };
+  const handleTableRecordsPageSizeChange = (event) => {
+    dispatch(tableRecordsPageSizeChanged({ pageSize: parseInt(event.target.value) }));
+    dispatch(tableRecordsPageChanged({ currentPage: 0 }));
   };
 
   return (
@@ -140,6 +179,15 @@ const SpaceManager = () => {
           </Table>
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
+          <TablePagination
+            rowsPerPageOptions={[10, 15, 30, 100, 500]}
+            component="div"
+            count={topTablesData.length}
+            rowsPerPage={topTablesPageSize}
+            page={topTablesCurrentPage}
+            onChangePage={handleTopTablesCurrentPageChange}
+            onChangeRowsPerPage={handleTopTablesPageSizeChange}
+          />
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
@@ -150,18 +198,32 @@ const SpaceManager = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {topTablesData.map((row) => (
-                <TableRow key={row.index}>
-                  <TableCell align="center">{row.index}</TableCell>
-                  <TableCell>{row.owner}</TableCell>
-                  <TableCell>{row.segmentName}</TableCell>
-                  <TableCell align="right">{row.segmentSize}</TableCell>
-                </TableRow>
-              ))}
+              {topTablesData
+                .slice(
+                  topTablesCurrentPage * topTablesPageSize,
+                  topTablesCurrentPage * topTablesPageSize + topTablesPageSize
+                )
+                .map((row) => (
+                  <TableRow key={row.index}>
+                    <TableCell align="center">{row.index}</TableCell>
+                    <TableCell>{row.owner}</TableCell>
+                    <TableCell>{row.segmentName}</TableCell>
+                    <TableCell align="right">{row.segmentSize}</TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TabPanel>
         <TabPanel value={currentTab} index={2}>
+          <TablePagination
+            rowsPerPageOptions={[10, 15, 30, 100, 500]}
+            component="div"
+            count={topIndexesData.length}
+            rowsPerPage={topIndexesPageSize}
+            page={topIndexesCurrentPage}
+            onChangePage={handleTopIndexesCurrentPageChange}
+            onChangeRowsPerPage={handleTopIndexesPageSizeChange}
+          />
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
@@ -172,18 +234,32 @@ const SpaceManager = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {topIndexesData.map((row) => (
-                <TableRow key={row.index}>
-                  <TableCell align="center">{row.index}</TableCell>
-                  <TableCell>{row.owner}</TableCell>
-                  <TableCell>{row.segmentName}</TableCell>
-                  <TableCell align="right">{row.segmentSize}</TableCell>
-                </TableRow>
-              ))}
+              {topIndexesData
+                .slice(
+                  topIndexesCurrentPage * topIndexesPageSize,
+                  topIndexesCurrentPage * topIndexesPageSize + topIndexesPageSize
+                )
+                .map((row) => (
+                  <TableRow key={row.index}>
+                    <TableCell align="center">{row.index}</TableCell>
+                    <TableCell>{row.owner}</TableCell>
+                    <TableCell>{row.segmentName}</TableCell>
+                    <TableCell align="right">{row.segmentSize}</TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TabPanel>
         <TabPanel value={currentTab} index={3}>
+          <TablePagination
+            rowsPerPageOptions={[10, 15, 30, 100]}
+            component="div"
+            count={tableRecordsData.length}
+            rowsPerPage={tableRecordsPageSize}
+            page={tableRecordsCurrentPage}
+            onChangePage={handleTableRecordsCurrentPageChange}
+            onChangeRowsPerPage={handleTableRecordsPageSizeChange}
+          />
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
@@ -194,14 +270,19 @@ const SpaceManager = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableRecordsData.map((row) => (
-                <TableRow key={row.index}>
-                  <TableCell align="center">{row.index}</TableCell>
-                  <TableCell>{row.tableName}</TableCell>
-                  <TableCell align="right">{row.totalRecords}</TableCell>
-                  <TableCell>{row.tablespace}</TableCell>
-                </TableRow>
-              ))}
+              {tableRecordsData
+                .slice(
+                  tableRecordsCurrentPage * tableRecordsPageSize,
+                  tableRecordsCurrentPage * tableRecordsPageSize + tableRecordsPageSize
+                )
+                .map((row) => (
+                  <TableRow key={row.index}>
+                    <TableCell align="center">{row.index}</TableCell>
+                    <TableCell>{row.tableName}</TableCell>
+                    <TableCell align="right">{row.totalRecords}</TableCell>
+                    <TableCell>{row.tablespace}</TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TabPanel>
