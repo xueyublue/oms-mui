@@ -11,24 +11,24 @@ import Paper from "@material-ui/core/Paper";
 import { AppBar, Button, Tab, TablePagination, Tabs } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 
-import { Pie } from "react-chartjs-2";
-
 import {
   loadBanners,
   loadDetails,
   loadParameters,
   loadResourceLimit,
   loadSgaConfig,
-} from "../../store/oracle/instance";
-import { sidenavSelected } from "../../store/ui/sidenav";
+} from "../../../store/oracle/instance";
+import { sidenavSelected } from "../../../store/ui/sidenav";
 import {
   parameterPageChanged,
   parameterPageSizeChanged,
   resourceLimitPageChanged,
   resourceLimitPageSizeChanged,
   setCurrentTab,
-} from "../../store/ui/instanceDetail";
-import TabPanel from "./../common/TabPanel";
+} from "../../../store/ui/instanceDetail";
+import TabPanel from "../../common/TabPanel";
+import InstanceDetails from "./InstanceDetails";
+import SgaConfiguration from "./SgaConfiguration";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,8 +68,6 @@ const InstancePage = () => {
   });
   // Data from Redux Store
   const currentTab = useSelector((state) => state.ui.instanceDetail.currentTab);
-  const detailsData = useSelector((state) => state.oracle.instance.details.list);
-  const sgaconfigData = useSelector((state) => state.oracle.instance.sgaconfig.list);
   const bannersData = useSelector((state) => state.oracle.instance.banners.list);
   const resourceLimitData = useSelector((state) => state.oracle.instance.resourceLimit.list);
   const parametersData = useSelector((state) => state.oracle.instance.parameters.list);
@@ -99,8 +97,6 @@ const InstancePage = () => {
     dispatch(parameterPageChanged({ currentPage: 0 }));
   };
 
-  if (!sgaconfigData.chart) return <div></div>;
-
   return (
     <div className={classes.root}>
       <Button startIcon={<RefreshIcon />}>Refresh</Button>
@@ -121,70 +117,10 @@ const InstancePage = () => {
       </AppBar>
       <TableContainer component={Paper}>
         <TabPanel value={currentTab} index={0}>
-          <Table className={classes.table} size="small" aria-label="a dense table">
-            <TableHead>
-              <TableRow>
-                <TableCellHeader>Field</TableCellHeader>
-                <TableCellHeader>Value</TableCellHeader>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {detailsData.map((row) => (
-                <TableRow key={row.key}>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.value}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <InstanceDetails />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
-          <Table className={classes.table} size="small" aria-label="a dense table">
-            <caption>
-              <h4>SGA memory {sgaconfigData.maxSgaSize} MB in total.</h4>
-            </caption>
-            <TableHead>
-              <TableRow>
-                <TableCellHeader align="center" style={{ width: 60 }}>
-                  #
-                </TableCellHeader>
-                <TableCellHeader>Name</TableCellHeader>
-                <TableCellHeader align="right">Size</TableCellHeader>
-                <TableCellHeader align="right">Percentage</TableCellHeader>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {sgaconfigData.table.map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell align="center">{index + 1}</TableCell>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell align="right">{row.size}</TableCell>
-                  <TableCell align="right">{row.percentage}%</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          <Pie
-            data={{
-              labels: sgaconfigData.chart.name,
-              datasets: [
-                {
-                  data: sgaconfigData.chart.data,
-                  backgroundColor: sgaconfigData.chart.backgroundColor,
-                },
-              ],
-            }}
-            options={{
-              title: { display: false, text: "SGA Configuration (" + sgaconfigData.maxSgaSize + "MB In Total)" },
-              maintainAspectRatio: true,
-              scales: {
-                yAxes: [{ ticks: { display: false }, gridLines: { display: false } }],
-              },
-              legend: { position: "right" },
-            }}
-            height={1}
-            width={3}
-          />
+          <SgaConfiguration />
         </TabPanel>
         <TabPanel value={currentTab} index={2}>
           <Table className={classes.table} size="small" aria-label="a dense table">
