@@ -8,6 +8,7 @@ import instanceUI from "./ui/instance";
 import sidenavUI from "./ui/sidenav";
 import spaceUI from "./ui/space";
 import userUI from "./ui/user";
+import user from "./oracle/user";
 
 export default function store() {
   return configureStore({
@@ -15,6 +16,7 @@ export default function store() {
       oracle: combineReducers({
         space: space,
         instance: instance,
+        user: user,
       }),
       ui: combineReducers({
         sidenav: sidenavUI,

@@ -6,7 +6,6 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Pie } from "react-chartjs-2";
 
 import { loadBanners } from "../../../store/oracle/instance";
 import { TableCellHeader } from "../../common/TableCellHeader";
