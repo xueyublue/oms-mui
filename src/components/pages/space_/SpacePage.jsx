@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { sidenavSelected } from "../../store/ui/sidenav";
+import { sidenavSelected } from "../../../store/ui/sidenav";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -16,7 +16,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 
-import { loadOwners, loadTableRecords, loadTablespace, loadTopTables } from "../../store/oracle/space";
+import { loadOwners, loadTableRecords, loadTablespace, loadTopTables } from "../../../store/oracle/space";
 import {
   setCurrentTab,
   topTablesOwnerChanged,
@@ -30,9 +30,9 @@ import {
   tableRecordsOwnerChanged,
   tableRecordsPageChanged,
   tableRecordsPageSizeChanged,
-} from "../../store/ui/spaceManager";
-import TabPanel from "../common/TabPanel";
-import { loadTopIndexes } from "../../store/oracle/space";
+} from "../../../store/ui/spaceManager";
+import TabPanel from "../../common/TabPanel";
+import { loadTopIndexes } from "../../../store/oracle/space";
 
 const useStyles = makeStyles((theme) => ({
   root: {

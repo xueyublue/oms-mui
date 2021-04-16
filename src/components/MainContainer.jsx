@@ -5,11 +5,11 @@ import { Route, Switch } from "react-router-dom";
 
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
-import SpacePage from "./pages/SpacePage";
+import SpacePage from "./pages/space_/SpacePage";
 import InstancePage from "./pages/instance/InstancePage";
-import PerformancePage from "./pages/PerformancePage";
-import SessionPage from "./pages/SessionPage";
-import UserPage from "./pages/UserPage";
+import PerformancePage from "./pages/performance/PerformancePage";
+import SessionPage from "./pages/session/SessionPage";
+import UserPage from "./pages/user/UserPage";
 
 const useStyles = makeStyles((theme) => ({
   content: {
