@@ -5,7 +5,7 @@ import { Route, Switch } from "react-router-dom";
 
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
-import SpacePage from "./pages/space_/SpacePage";
+import SpacePage from "./pages/space/SpacePage";
 import InstancePage from "./pages/instance/InstancePage";
 import PerformancePage from "./pages/performance/PerformancePage";
 import SessionPage from "./pages/session/SessionPage";
