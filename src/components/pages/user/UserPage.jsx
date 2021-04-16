@@ -9,6 +9,12 @@ import RefreshIcon from "@material-ui/icons/Refresh";
 
 import { setCurrentTab } from "../../../store/ui/user";
 import TabPanel from "../../common/TabPanel";
+import Profiles from "./Profiles";
+import Roles from "./Roles";
+import Users from "./Users";
+import UserPrivileges from "./UserPrivileges";
+import RolePrivileges from "./RolePrivileges";
+import Privileges from "./Privileges";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,22 +65,22 @@ const UserPage = () => {
       </AppBar>
       <TableContainer component={Paper}>
         <TabPanel value={currentTab} index={0}>
-          1
+          <Profiles />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
-          2
+          <Roles />
         </TabPanel>
         <TabPanel value={currentTab} index={2}>
-          3
+          <Users />
         </TabPanel>
         <TabPanel value={currentTab} index={3}>
-          4
+          <Privileges />
         </TabPanel>
         <TabPanel value={currentTab} index={4}>
-          5
+          <RolePrivileges />
         </TabPanel>
         <TabPanel value={currentTab} index={5}>
-          6
+          <UserPrivileges />
         </TabPanel>
       </TableContainer>
     </div>
