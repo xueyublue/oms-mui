@@ -31,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const displayLimits = [50, 100, 500, 1000];
+
 const TopTables = () => {
   // call API
   useEffect(() => {
@@ -88,18 +90,11 @@ const TopTables = () => {
           value={topTablesSelectedDisplayLimit}
           onChange={handleTopTablesDisplayLimitChange}
         >
-          <MenuItem dense={true} value={50}>
-            50
-          </MenuItem>
-          <MenuItem dense={true} value={100}>
-            100
-          </MenuItem>
-          <MenuItem dense={true} value={500}>
-            500
-          </MenuItem>
-          <MenuItem dense={true} value={1000}>
-            1000
-          </MenuItem>
+          {displayLimits.map((displayLimit) => (
+            <MenuItem dense={true} value={displayLimit}>
+              {displayLimit}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
       <TablePagination
