@@ -10,7 +10,7 @@ import { TablePagination } from "@material-ui/core";
 
 import { loadParameters } from "../../../store/oracle/instance";
 import { TableCellHeader } from "../../common/TableCellHeader";
-import { parameterPageChanged, parameterPageSizeChanged } from "../../../store/ui/instanceDetail";
+import { parameterPageChanged, parameterPageSizeChanged } from "../../../store/ui/instance";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -27,8 +27,8 @@ const OracleParameters = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const parametersData = useSelector((state) => state.oracle.instance.parameters.list);
-  const parametersPageSize = useSelector((state) => state.ui.instanceDetail.parameters.pageSize);
-  const parametersCurrentPage = useSelector((state) => state.ui.instanceDetail.parameters.currentPage);
+  const parametersPageSize = useSelector((state) => state.ui.instance.parameters.pageSize);
+  const parametersCurrentPage = useSelector((state) => state.ui.instance.parameters.currentPage);
 
   const handleParametersCurrentPageChange = (event, newPage) => {
     dispatch(parameterPageChanged({ currentPage: newPage }));

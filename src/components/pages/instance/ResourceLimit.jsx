@@ -10,7 +10,7 @@ import { TablePagination } from "@material-ui/core";
 
 import { loadResourceLimit } from "../../../store/oracle/instance";
 import { TableCellHeader } from "../../common/TableCellHeader";
-import { resourceLimitPageChanged, resourceLimitPageSizeChanged } from "../../../store/ui/instanceDetail";
+import { resourceLimitPageChanged, resourceLimitPageSizeChanged } from "../../../store/ui/instance";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -27,8 +27,8 @@ const ResourceLimit = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const resourceLimitData = useSelector((state) => state.oracle.instance.resourceLimit.list);
-  const resourceLimitPageSize = useSelector((state) => state.ui.instanceDetail.resourceLimit.pageSize);
-  const resourceLimitCurrentPage = useSelector((state) => state.ui.instanceDetail.resourceLimit.currentPage);
+  const resourceLimitPageSize = useSelector((state) => state.ui.instance.resourceLimit.pageSize);
+  const resourceLimitCurrentPage = useSelector((state) => state.ui.instance.resourceLimit.currentPage);
 
   const handleResourceLimitCurrentPageChange = (event, newPage) => {
     dispatch(resourceLimitPageChanged({ currentPage: newPage }));

@@ -7,7 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import { Button, AppBar, Tabs, Tab } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 
-import { setCurrentTab } from "../../../store/ui/spaceManager";
+import { setCurrentTab } from "../../../store/ui/space";
 import TabPanel from "../../common/TabPanel";
 import Tablespace from "./Tablespace";
 import TopTables from "./TopTables";
@@ -36,7 +36,7 @@ const SpacePage = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const currentTab = useSelector((state) => state.ui.spaceManager.currentTab);
+  const currentTab = useSelector((state) => state.ui.space.currentTab);
 
   const handleTabChange = (event, newValue) => {
     dispatch(setCurrentTab({ currentTab: newValue }));

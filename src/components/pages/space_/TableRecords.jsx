@@ -17,7 +17,7 @@ import {
   tableRecordsOwnerChanged,
   tableRecordsPageChanged,
   tableRecordsPageSizeChanged,
-} from "../../../store/ui/spaceManager";
+} from "../../../store/ui/space";
 import { TablePagination } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,9 +42,9 @@ const TableRecords = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const tableRecordsData = useSelector((state) => state.oracle.space.tableRecords.list);
-  const tableRecordsSelectedOwner = useSelector((state) => state.ui.spaceManager.tableRecords.selectedOwner);
-  const tableRecordsPageSize = useSelector((state) => state.ui.spaceManager.tableRecords.pageSize);
-  const tableRecordsCurrentPage = useSelector((state) => state.ui.spaceManager.tableRecords.currentPage);
+  const tableRecordsSelectedOwner = useSelector((state) => state.ui.space.tableRecords.selectedOwner);
+  const tableRecordsPageSize = useSelector((state) => state.ui.space.tableRecords.pageSize);
+  const tableRecordsCurrentPage = useSelector((state) => state.ui.space.tableRecords.currentPage);
 
   const handleTableRecordsOwnerChange = (event) => {
     dispatch(tableRecordsOwnerChanged({ selectedOwner: event.target.value }));

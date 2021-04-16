@@ -4,9 +4,10 @@ import space from "./oracle/space";
 import api from "./middleware/api";
 import logger from "./middleware/logger";
 import toast from "./middleware/toast";
-import instanceDetail from "./ui/instanceDetail";
-import sidenav from "./ui/sidenav";
-import spaceManager from "./ui/spaceManager";
+import instanceUI from "./ui/instance";
+import sidenavUI from "./ui/sidenav";
+import spaceUI from "./ui/space";
+import userUI from "./ui/user";
 
 export default function store() {
   return configureStore({
@@ -16,9 +17,10 @@ export default function store() {
         instance: instance,
       }),
       ui: combineReducers({
-        sidenav: sidenav,
-        instanceDetail: instanceDetail,
-        spaceManager: spaceManager,
+        sidenav: sidenavUI,
+        instance: instanceUI,
+        space: spaceUI,
+        user: userUI,
       }),
     }),
     middleware: [...getDefaultMiddleware(), logger({ destination: "console" }), toast, api],

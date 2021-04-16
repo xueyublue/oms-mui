@@ -8,7 +8,7 @@ import { AppBar, Button, Tab, Tabs } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 
 import { sidenavSelected } from "../../../store/ui/sidenav";
-import { setCurrentTab } from "../../../store/ui/instanceDetail";
+import { setCurrentTab } from "../../../store/ui/instance";
 import TabPanel from "../../common/TabPanel";
 import InstanceDetails from "./InstanceDetails";
 import SgaConfiguration from "./SgaConfiguration";
@@ -39,7 +39,7 @@ const InstancePage = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const currentTab = useSelector((state) => state.ui.instanceDetail.currentTab);
+  const currentTab = useSelector((state) => state.ui.instance.currentTab);
 
   const handleTabChange = (event, newValue) => {
     dispatch(setCurrentTab({ currentTab: newValue }));

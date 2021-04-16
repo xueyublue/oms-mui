@@ -18,7 +18,7 @@ import {
   topTablesDisplayLimitChanged,
   topTablesPageChanged,
   topTablesPageSizeChanged,
-} from "../../../store/ui/spaceManager";
+} from "../../../store/ui/space";
 import { TablePagination } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -44,10 +44,10 @@ const TopTables = () => {
   const dispatch = useDispatch();
   const ownersData = useSelector((state) => state.oracle.space.owners.list);
   const topTablesData = useSelector((state) => state.oracle.space.topTables.list);
-  const topTablesSelectedOwner = useSelector((state) => state.ui.spaceManager.topTables.selectedOwner);
-  const topTablesSelectedDisplayLimit = useSelector((state) => state.ui.spaceManager.topTables.selectedDisplayLimit);
-  const topTablesPageSize = useSelector((state) => state.ui.spaceManager.topTables.pageSize);
-  const topTablesCurrentPage = useSelector((state) => state.ui.spaceManager.topTables.currentPage);
+  const topTablesSelectedOwner = useSelector((state) => state.ui.space.topTables.selectedOwner);
+  const topTablesSelectedDisplayLimit = useSelector((state) => state.ui.space.topTables.selectedDisplayLimit);
+  const topTablesPageSize = useSelector((state) => state.ui.space.topTables.pageSize);
+  const topTablesCurrentPage = useSelector((state) => state.ui.space.topTables.currentPage);
 
   const handleTopTablesOwnerChange = (event) => {
     dispatch(topTablesOwnerChanged({ selectedOwner: event.target.value }));
