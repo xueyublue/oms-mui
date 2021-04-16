@@ -183,6 +183,7 @@ const SpaceManager = () => {
                 <TableCellHeader align="right">Size&nbsp;(MB)</TableCellHeader>
                 <TableCellHeader align="right">Free&nbsp;Size&nbsp;(MB)</TableCellHeader>
                 <TableCellHeader align="right">Occupancy</TableCellHeader>
+                <TableCellHeader>Auto&nbsp;Extend</TableCellHeader>
                 <TableCellHeader align="right">Next&nbsp;Extend&nbsp;(MB)</TableCellHeader>
                 <TableCellHeader>Contents</TableCellHeader>
                 <TableCellHeader>Allocation&nbsp;Type</TableCellHeader>
@@ -210,6 +211,7 @@ const SpaceManager = () => {
                       <Box minWidth={30}>{row.occupancy}%</Box>
                     </Box>
                   </TableCell>
+                  <TableCell>{row.autoExtensible}</TableCell>
                   <TableCell align="right">{row.nextExtend}</TableCell>
                   <TableCell>{row.contents}</TableCell>
                   <TableCell>{row.allocationType}</TableCell>
