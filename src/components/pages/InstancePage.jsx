@@ -55,7 +55,7 @@ function a11yProps(index) {
   };
 }
 
-const InstanceDetail = () => {
+const InstancePage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -301,4 +301,4 @@ const InstanceDetail = () => {
   );
 };
 
-export default InstanceDetail;
+export default InstancePage;

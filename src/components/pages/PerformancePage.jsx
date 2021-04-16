@@ -1,7 +1,7 @@
 import React from "react";
 
-const PerformanceMonitor = () => {
+const PerformancePage = () => {
   return <div>Performance Monitor</div>;
 };
 
-export default PerformanceMonitor;
+export default PerformancePage;

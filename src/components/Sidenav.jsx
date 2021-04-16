@@ -15,7 +15,7 @@ import { DashboardOutlined, StorageOutlined } from "@material-ui/icons";
 import theme from ".././theme";
 import { sidenavSelected } from "../store/ui/sidenav";
 
-const drawerWidth = 200;
+const drawerWidth = 180;
 const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
@@ -67,23 +67,28 @@ const Sidenav = () => {
   const listItemData = [
     {
       index: 11,
-      text: "Instance Detail",
-      url: "/instanceDetail",
+      text: "Instance",
+      url: "/instance",
     },
     {
       index: 12,
-      text: "Performance Monitor",
-      url: "/performanceMonitor",
+      text: "Performance",
+      url: "/performance",
     },
     {
       index: 13,
-      text: "Space Manager",
-      url: "/spaceManager",
+      text: "Space",
+      url: "/space",
     },
     {
       index: 14,
-      text: "Session Manager",
-      url: "/sessionManager",
+      text: "Session",
+      url: "/session",
+    },
+    {
+      index: 15,
+      text: "User",
+      url: "/user",
     },
     {
       index: 90,

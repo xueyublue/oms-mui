@@ -31,8 +31,8 @@ import {
   tableRecordsPageChanged,
   tableRecordsPageSizeChanged,
 } from "../../store/ui/spaceManager";
-import TabPanel from "./../common/TabPanel";
-import { loadTopIndexes } from "./../../store/oracle/space";
+import TabPanel from "../common/TabPanel";
+import { loadTopIndexes } from "../../store/oracle/space";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,7 +75,7 @@ function a11yProps(index) {
   };
 }
 
-const SpaceManager = () => {
+const SpacePage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -453,4 +453,4 @@ const SpaceManager = () => {
   );
 };
 
-export default SpaceManager;
+export default SpacePage;
