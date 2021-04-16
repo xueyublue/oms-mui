@@ -92,11 +92,6 @@ const Sidenav = () => {
     },
     {
       index: 90,
-      text: "Setting",
-      url: "/setting",
-    },
-    {
-      index: 99,
       text: "About",
       url: "/about",
     },

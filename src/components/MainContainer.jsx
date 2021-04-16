@@ -2,9 +2,9 @@ import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles } from "@material-ui/core/styles";
 import { Route, Switch } from "react-router-dom";
+
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
-import Setting from "./pages/Setting";
 import SpacePage from "./pages/SpacePage";
 import InstancePage from "./pages/InstancePage";
 import PerformancePage from "./pages/PerformancePage";
@@ -31,7 +31,6 @@ const MainContainer = () => {
           <Route exact path="/space" component={SpacePage} />
           <Route exact path="/session" component={SessionPage} />
           <Route exact path="/user" component={UserPage} />
-          <Route exact path="/setting" component={Setting} />
           <Route exact path="/about" component={About} />
         </Switch>
       </main>
