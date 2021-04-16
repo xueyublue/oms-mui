@@ -154,9 +154,9 @@ const InstanceDetail = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {sgaconfigData.table.map((row) => (
-                <TableRow key={row.index}>
-                  <TableCell align="center">{row.index}</TableCell>
+              {sgaconfigData.table.map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell align="center">{index + 1}</TableCell>
                   <TableCell>{row.name}</TableCell>
                   <TableCell align="right">{row.size}</TableCell>
                   <TableCell align="right">{row.percentage}%</TableCell>
@@ -197,9 +197,9 @@ const InstanceDetail = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {bannersData.map((row) => (
-                <TableRow key={row.index}>
-                  <TableCell align="center">{row.index}</TableCell>
+              {bannersData.map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell align="center">{index + 1}</TableCell>
                   <TableCell>{row.banner}</TableCell>
                 </TableRow>
               ))}
@@ -235,9 +235,9 @@ const InstanceDetail = () => {
                   resourceLimitCurrentPage * resourceLimitPageSize,
                   resourceLimitCurrentPage * resourceLimitPageSize + resourceLimitPageSize
                 )
-                .map((row) => (
+                .map((row, index) => (
                   <TableRow key={row.resourceName}>
-                    <TableCell align="center">{row.index}</TableCell>
+                    <TableCell align="center">{index + resourceLimitCurrentPage * resourceLimitPageSize + 1}</TableCell>
                     <TableCell>{row.resourceName}</TableCell>
                     <TableCell>{row.currentUtilization}</TableCell>
                     <TableCell>{row.maxUtilization}</TableCell>
@@ -280,9 +280,9 @@ const InstanceDetail = () => {
                   parametersCurrentPage * parametersPageSize,
                   parametersCurrentPage * parametersPageSize + parametersPageSize
                 )
-                .map((row) => (
+                .map((row, index) => (
                   <TableRow key={row.name}>
-                    <TableCell align="center">{row.index}</TableCell>
+                    <TableCell align="center">{index + parametersCurrentPage * parametersPageSize + 1}</TableCell>
                     <TableCell>{row.name}</TableCell>
                     <TableCell>{row.type}</TableCell>
                     <TableCell>{row.value}</TableCell>

@@ -144,6 +144,7 @@ const SpaceManager = () => {
 
   const handleTableRecordsOwnerChange = (event) => {
     dispatch(tableRecordsOwnerChanged({ selectedOwner: event.target.value }));
+    dispatch(tableRecordsPageChanged({ currentPage: 0 }));
   };
   const handleTableRecordsCurrentPageChange = (event, newPage) => {
     dispatch(tableRecordsPageChanged({ currentPage: newPage }));
@@ -188,9 +189,9 @@ const SpaceManager = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tablespaceData.map((row) => (
+              {tablespaceData.map((row, index) => (
                 <TableRow key={row.name}>
-                  <TableCell align="center">{row.index}</TableCell>
+                  <TableCell align="center">{index + 1}</TableCell>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.path}</TableCell>
                   <TableCell>{row.status}</TableCell>
@@ -380,10 +381,33 @@ const SpaceManager = () => {
           </Table>
         </TabPanel>
         <TabPanel value={currentTab} index={3}>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="table-records-label-owner">Owner</InputLabel>
+            <Select
+              labelId="table-records-label-owner"
+              id="table-records-select-owner"
+              value={tableRecordsSelectedOwner}
+              onChange={handleTableRecordsOwnerChange}
+            >
+              <MenuItem dense={true} value={"MC"}>
+                MC
+              </MenuItem>
+              <MenuItem dense={true} value={"WMS"}>
+                WMS
+              </MenuItem>
+              <MenuItem dense={true} value={"WMS_TOOL"}>
+                WMS_TOOL
+              </MenuItem>
+            </Select>
+          </FormControl>
           <TablePagination
             rowsPerPageOptions={[10, 15, 30, 100]}
             component="div"
-            count={tableRecordsData.length}
+            count={
+              tableRecordsData.filter((row) =>
+                tableRecordsSelectedOwner.length === 0 ? true : row.owner === tableRecordsSelectedOwner
+              ).length
+            }
             rowsPerPage={tableRecordsPageSize}
             page={tableRecordsCurrentPage}
             onChangePage={handleTableRecordsCurrentPageChange}
@@ -395,20 +419,25 @@ const SpaceManager = () => {
                 <TableCellHeader align="center" style={{ width: 60 }}>
                   #
                 </TableCellHeader>
-                <TableCellHeader>Table Name</TableCellHeader>
+                <TableCellHeader>Owner</TableCellHeader>
+                <TableCellHeader>Table&nbsp;Name</TableCellHeader>
                 <TableCellHeader align="right">Total&nbsp;Records</TableCellHeader>
                 <TableCellHeader>Tablespace</TableCellHeader>
               </TableRow>
             </TableHead>
             <TableBody>
               {tableRecordsData
+                .filter((row) =>
+                  tableRecordsSelectedOwner.length === 0 ? true : row.owner === tableRecordsSelectedOwner
+                )
                 .slice(
                   tableRecordsCurrentPage * tableRecordsPageSize,
                   tableRecordsCurrentPage * tableRecordsPageSize + tableRecordsPageSize
                 )
-                .map((row) => (
-                  <TableRow key={row.index}>
-                    <TableCell align="center">{row.index}</TableCell>
+                .map((row, index) => (
+                  <TableRow key={index}>
+                    <TableCell align="center">{index + tableRecordsCurrentPage * tableRecordsPageSize + 1}</TableCell>
+                    <TableCell>{row.owner}</TableCell>
                     <TableCell>{row.tableName}</TableCell>
                     <TableCell align="right">{row.totalRecords}</TableCell>
                     <TableCell>{row.tablespace}</TableCell>
