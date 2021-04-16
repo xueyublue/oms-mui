@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const OracleParameters = () => {
+  // call API
   useEffect(() => {
     dispatch(loadParameters());
   });
@@ -48,7 +49,7 @@ const OracleParameters = () => {
         onChangePage={handleParametersCurrentPageChange}
         onChangeRowsPerPage={handleParametersPageSizeChange}
       />
-      <Table className={classes.table} size="small" aria-label="a dense table">
+      <Table className={classes.table} size="small">
         <TableHead>
           <TableRow>
             <TableCellHeader align="center" style={{ width: 60 }}>

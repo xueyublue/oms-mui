@@ -8,8 +8,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { Pie } from "react-chartjs-2";
 
-import { loadSgaConfig } from "./../../../store/oracle/instance";
 import { TableCellHeader } from "../../common/TableCellHeader";
+import { loadSgaConfig } from "../../../store/oracle/instance";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SgaConfiguration = () => {
+  // call API
   useEffect(() => {
     dispatch(loadSgaConfig());
   });
@@ -25,10 +26,11 @@ const SgaConfiguration = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const sgaconfigData = useSelector((state) => state.oracle.instance.sgaconfig.list);
+  if (!sgaconfigData.chart) return <div></div>;
 
   return (
     <>
-      <Table className={classes.table} size="small" aria-label="a dense table">
+      <Table className={classes.table} size="small">
         <caption>
           <h4>SGA memory {sgaconfigData.maxSgaSize} MB in total.</h4>
         </caption>

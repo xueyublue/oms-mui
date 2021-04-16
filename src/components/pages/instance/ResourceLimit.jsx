@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ResourceLimit = () => {
+  // call API
   useEffect(() => {
     dispatch(loadResourceLimit());
   });
@@ -48,7 +49,7 @@ const ResourceLimit = () => {
         onChangePage={handleResourceLimitCurrentPageChange}
         onChangeRowsPerPage={handleResourceLimitPageSizeChange}
       />
-      <Table className={classes.table} size="small" aria-label="a dense table">
+      <Table className={classes.table} size="small">
         <TableHead>
           <TableRow>
             <TableCellHeader align="center" style={{ width: 60 }}>

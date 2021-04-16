@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const InstanceDetails = () => {
+  // call API
   useEffect(() => {
     dispatch(loadDetails());
   });
@@ -26,7 +27,7 @@ const InstanceDetails = () => {
   const detailsData = useSelector((state) => state.oracle.instance.details.list);
 
   return (
-    <Table className={classes.table} size="small" aria-label="a dense table">
+    <Table className={classes.table} size="small">
       <TableHead>
         <TableRow>
           <TableCellHeader>Field</TableCellHeader>

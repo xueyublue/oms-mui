@@ -32,12 +32,13 @@ function a11yProps(index) {
 }
 
 const InstancePage = () => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
+  // call API
   useEffect(() => {
     dispatch(sidenavSelected({ selectedMenuIndex: 11 }));
   });
 
+  const classes = useStyles();
+  const dispatch = useDispatch();
   const currentTab = useSelector((state) => state.ui.instanceDetail.currentTab);
 
   const handleTabChange = (event, newValue) => {
