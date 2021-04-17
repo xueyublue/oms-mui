@@ -20,6 +20,16 @@ const slice = createSlice({
       loading: false,
       lastFetch: null,
     },
+    rolePrivileges: {
+      list: [],
+      loading: false,
+      lastFetch: null,
+    },
+    userPrivileges: {
+      list: [],
+      loading: false,
+      lastFetch: null,
+    },
   },
   reducers: {
     // Profiles
@@ -58,6 +68,30 @@ const slice = createSlice({
     usersRequestFailed: (state, action) => {
       state.users.loading = false;
     },
+    // Role Privileges
+    rolePrivilegesRequested: (state, action) => {
+      state.rolePrivileges.loading = true;
+    },
+    rolePrivilegesReceived: (state, action) => {
+      state.rolePrivileges.list = action.payload;
+      state.rolePrivileges.loading = false;
+      state.rolePrivileges.lastFetch = Date.now();
+    },
+    rolePrivilegesRequestFailed: (state, action) => {
+      state.rolePrivileges.loading = false;
+    },
+    // User Privileges
+    userPrivilegesRequested: (state, action) => {
+      state.userPrivileges.loading = true;
+    },
+    userPrivilegesReceived: (state, action) => {
+      state.userPrivileges.list = action.payload;
+      state.userPrivileges.loading = false;
+      state.userPrivileges.lastFetch = Date.now();
+    },
+    userPrivilegesRequestFailed: (state, action) => {
+      state.userPrivileges.loading = false;
+    },
   },
 });
 
@@ -71,6 +105,12 @@ const {
   usersRequested,
   usersReceived,
   usersRequestFailed,
+  rolePrivilegesRequested,
+  rolePrivilegesReceived,
+  rolePrivilegesRequestFailed,
+  userPrivilegesRequested,
+  userPrivilegesReceived,
+  userPrivilegesRequestFailed,
 } = slice.actions;
 
 const url = "/oracle/user";
@@ -116,6 +156,36 @@ export const loadUsers = () => (dispatch, getState) => {
       onStart: usersRequested.type,
       onSuccess: usersReceived.type,
       onError: usersRequestFailed.type,
+    })
+  );
+};
+
+// Load Role Privileges
+export const loadRolePrivileges = () => (dispatch, getState) => {
+  const { lastFetch } = getState().oracle.user.rolePrivileges;
+  const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
+  if (diffInMinutes < 5) return;
+  dispatch(
+    apiCallBegan({
+      url: url + "/roleprivileges",
+      onStart: rolePrivilegesRequested.type,
+      onSuccess: rolePrivilegesReceived.type,
+      onError: rolePrivilegesRequestFailed.type,
+    })
+  );
+};
+
+// Load User Privileges
+export const loadUserPrivileges = () => (dispatch, getState) => {
+  const { lastFetch } = getState().oracle.user.userPrivileges;
+  const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
+  if (diffInMinutes < 5) return;
+  dispatch(
+    apiCallBegan({
+      url: url + "/userprivileges",
+      onStart: userPrivilegesRequested.type,
+      onSuccess: userPrivilegesReceived.type,
+      onError: userPrivilegesRequestFailed.type,
     })
   );
 };

@@ -33,7 +33,7 @@ const Users = () => {
           <TableCellHeader align="center" style={{ width: 60 }}>
             #
           </TableCellHeader>
-          <TableCellHeader>User Name</TableCellHeader>
+          <TableCellHeader>User&nbsp;Name</TableCellHeader>
           <TableCellHeader>User&nbsp;ID</TableCellHeader>
           <TableCellHeader>Account&nbsp;Status</TableCellHeader>
           <TableCellHeader>Lock&nbsp;Date</TableCellHeader>
