@@ -52,13 +52,7 @@ const SpacePage = () => {
   return (
     <div className={classes.root}>
       <AppBar position="static" color="inherit">
-        <Tabs
-          value={currentTab}
-          indicatorColor="primary"
-          textColor="primary"
-          onChange={handleTabChange}
-          aria-label="simple tabs example"
-        >
+        <Tabs value={currentTab} indicatorColor="primary" textColor="primary" onChange={handleTabChange}>
           <Tab label="Tablespace" {...a11yProps(0)} />
           <Tab label="Top Tables" {...a11yProps(1)} />
           <Tab label="Top Indexes" {...a11yProps(2)} />

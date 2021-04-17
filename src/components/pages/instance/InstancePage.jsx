@@ -63,13 +63,7 @@ const InstancePage = () => {
   return (
     <div className={classes.root}>
       <AppBar position="static" color="inherit">
-        <Tabs
-          value={currentTab}
-          indicatorColor="primary"
-          textColor="primary"
-          onChange={handleTabChange}
-          aria-label="simple tabs example"
-        >
+        <Tabs value={currentTab} indicatorColor="primary" textColor="primary" onChange={handleTabChange}>
           <Tab label="Instance Details" {...a11yProps(0)} />
           <Tab label="SGA Configuration" {...a11yProps(1)} />
           <Tab label="Banners" {...a11yProps(2)} />

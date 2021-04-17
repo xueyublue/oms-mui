@@ -60,13 +60,7 @@ const UserPage = () => {
   return (
     <div className={classes.root}>
       <AppBar position="static" color="inherit">
-        <Tabs
-          value={currentTab}
-          indicatorColor="primary"
-          textColor="primary"
-          onChange={handleTabChange}
-          aria-label="simple tabs example"
-        >
+        <Tabs value={currentTab} indicatorColor="primary" textColor="primary" onChange={handleTabChange}>
           <Tab label="Profiles" {...a11yProps(0)} />
           <Tab label="Roles" {...a11yProps(1)} />
           <Tab label="Users" {...a11yProps(2)} />

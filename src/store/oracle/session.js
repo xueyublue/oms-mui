@@ -29,8 +29,8 @@ const { sessionsRequested, sessionsReceived, sessionsRequestFailed } = slice.act
 const url = "/oracle/sessions";
 
 // Load Sessions
-export const loadProfiles = () => (dispatch, getState) => {
-  const { lastFetch } = getState().oracle.sessions;
+export const loadSessions = () => (dispatch, getState) => {
+  const { lastFetch } = getState().oracle.session;
   const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
   if (diffInMinutes < 5) return;
   dispatch(
