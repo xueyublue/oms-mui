@@ -12,6 +12,7 @@ import Tablespace from "./Tablespace";
 import TopTables from "./TopTables";
 import TopIndexes from "./TopIndexes";
 import TableRecords from "./TableRecords";
+import { loadTablespace, loadTopTables, loadTopIndexes, loadTableRecords } from "./../../../store/oracle/space";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +43,10 @@ const SpacePage = () => {
 
   const handleTabChange = (event, newValue) => {
     dispatch(setCurrentTab({ currentTab: newValue }));
+    if (currentTab === newValue && newValue === 0) dispatch(loadTablespace());
+    if (currentTab === newValue && newValue === 1) dispatch(loadTopTables());
+    if (currentTab === newValue && newValue === 2) dispatch(loadTopIndexes());
+    if (currentTab === newValue && newValue === 3) dispatch(loadTableRecords());
   };
 
   return (

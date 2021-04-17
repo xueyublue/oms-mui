@@ -13,6 +13,13 @@ import SgaConfiguration from "./SgaConfiguration";
 import Banners from "./Banners";
 import ResourceLimit from "./ResourceLimit";
 import OracleParameters from "./OracleParameters";
+import {
+  loadDetails,
+  loadBanners,
+  loadSgaConfig,
+  loadResourceLimit,
+  loadParameters,
+} from "./../../../store/oracle/instance";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,6 +51,13 @@ const InstancePage = () => {
 
   const handleTabChange = (event, newValue) => {
     dispatch(setCurrentTab({ currentTab: newValue }));
+    if (currentTab === newValue && newValue === 0) dispatch(loadDetails());
+    if (currentTab === newValue && newValue === 1) {
+      dispatch(loadBanners());
+      dispatch(loadSgaConfig());
+    }
+    if (currentTab === newValue && newValue === 2) dispatch(loadResourceLimit());
+    if (currentTab === newValue && newValue === 3) dispatch(loadParameters());
   };
 
   return (
