@@ -1,7 +1,6 @@
 import { Grid } from "@material-ui/core";
 import React from "react";
 import InstanceDetails from "./instance/InstanceDetails";
-import SgaConfiguration from "./instance/SgaConfiguration";
 import Tablespace from "./space/Tablespace";
 import SgaConfigurationChart from "./instance/SgaConfigurationChart";
 

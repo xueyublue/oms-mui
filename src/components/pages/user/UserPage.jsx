@@ -13,6 +13,13 @@ import Roles from "./Roles";
 import Users from "./Users";
 import UserPrivileges from "./UserPrivileges";
 import RolePrivileges from "./RolePrivileges";
+import {
+  loadProfiles,
+  loadRoles,
+  loadUsers,
+  loadRolePrivileges,
+  loadUserPrivileges,
+} from "./../../../store/oracle/user";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +50,11 @@ const UserPage = () => {
 
   const handleTabChange = (event, newValue) => {
     dispatch(setCurrentTab({ currentTab: newValue }));
+    if (currentTab === newValue && newValue === 0) dispatch(loadProfiles());
+    if (currentTab === newValue && newValue === 1) dispatch(loadRoles());
+    if (currentTab === newValue && newValue === 2) dispatch(loadUsers());
+    if (currentTab === newValue && newValue === 3) dispatch(loadRolePrivileges());
+    if (currentTab === newValue && newValue === 4) dispatch(loadUserPrivileges());
   };
 
   return (
