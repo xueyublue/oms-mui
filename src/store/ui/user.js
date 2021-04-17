@@ -4,13 +4,16 @@ const slice = createSlice({
   name: "user",
   initialState: {
     currentTab: 0,
+    users: {
+      selectedAccountStatus: "All",
+    },
     rolePrivileges: {
-      selectedRole: "",
+      selectedRole: "All",
       pageSize: 30,
       currentPage: 0,
     },
     userPrivileges: {
-      selectedUserName: "",
+      selectedUserName: "All",
       pageSize: 30,
       currentPage: 0,
     },
@@ -18,6 +21,10 @@ const slice = createSlice({
   reducers: {
     setCurrentTab: (state, action) => {
       state.currentTab = action.payload.currentTab;
+    },
+    // Users
+    usersAccountStatusChanged: (state, action) => {
+      state.users.selectedAccountStatus = action.payload.selectedAccountStatus;
     },
     // Role Privileges
     rolePrivilegesUserNameChanged: (state, action) => {
@@ -44,6 +51,7 @@ const slice = createSlice({
 
 export const {
   setCurrentTab,
+  usersAccountStatusChanged,
   rolePrivilegesUserNameChanged,
   rolePrivilegesPageSizeChanged,
   rolePrivilegesPageChanged,

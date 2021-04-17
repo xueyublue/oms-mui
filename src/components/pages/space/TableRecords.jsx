@@ -30,8 +30,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const owners = ["MC", "WMS", "WMS_TOOL"];
-
 //-------------------------------------------------------------
 // COMPONENT START
 //-------------------------------------------------------------
@@ -71,7 +69,7 @@ const TableRecords = () => {
           value={selectedOwner}
           onChange={handleOwnerChange}
         >
-          {owners.map((owner) => (
+          {["All", "MC", "WMS", "WMS_TOOL"].map((owner) => (
             <MenuItem dense={true} value={owner}>
               {owner}
             </MenuItem>
@@ -81,7 +79,7 @@ const TableRecords = () => {
       <TablePagination
         rowsPerPageOptions={[10, 15, 30, 100]}
         component="div"
-        count={tableData.filter((row) => (selectedOwner.length === 0 ? true : row.owner === selectedOwner)).length}
+        count={tableData.filter((row) => (selectedOwner === "All" ? true : row.owner === selectedOwner)).length}
         rowsPerPage={pageSize}
         page={currentPage}
         onChangePage={handlePageChange}
@@ -101,7 +99,7 @@ const TableRecords = () => {
         </TableHead>
         <TableBody>
           {tableData
-            .filter((row) => (selectedOwner.length === 0 ? true : row.owner === selectedOwner))
+            .filter((row) => (selectedOwner === "All" ? true : row.owner === selectedOwner))
             .slice(currentPage * pageSize, currentPage * pageSize + pageSize)
             .map((row, index) => (
               <TableRow key={index}>

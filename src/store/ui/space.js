@@ -5,19 +5,19 @@ const slice = createSlice({
   initialState: {
     currentTab: 0,
     topTables: {
-      selectedOwner: "",
+      selectedOwner: "All",
       selectedDisplayLimit: 50,
       pageSize: 30,
       currentPage: 0,
     },
     topIndexes: {
-      selectedOwner: "",
+      selectedOwner: "All",
       selectedDisplayLimit: 50,
       pageSize: 30,
       currentPage: 0,
     },
     tableRecords: {
-      selectedOwner: "",
+      selectedOwner: "All",
       pageSize: 30,
       currentPage: 0,
     },

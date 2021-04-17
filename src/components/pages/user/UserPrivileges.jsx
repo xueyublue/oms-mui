@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const getDistinctUserNames = (data) => {
   let users = [];
   data.map((row) => users.push(row.userName));
-  return [...new Set(users)];
+  return ["All", ...new Set(users)];
 };
 
 //-------------------------------------------------------------
@@ -86,7 +86,7 @@ const UserPrivileges = () => {
         rowsPerPageOptions={[10, 15, 30, 100]}
         component="div"
         count={
-          tableData.filter((row) => (selectedUserName.length === 0 ? true : row.userName === selectedUserName)).length
+          tableData.filter((row) => (selectedUserName === "All" ? true : row.userName === selectedUserName)).length
         }
         rowsPerPage={pageSize}
         page={currentPage}
@@ -106,7 +106,7 @@ const UserPrivileges = () => {
         </TableHead>
         <TableBody>
           {tableData
-            .filter((row) => (selectedUserName.length === 0 ? true : row.userName === selectedUserName))
+            .filter((row) => (selectedUserName === "All" ? true : row.userName === selectedUserName))
             .slice(currentPage * pageSize, currentPage * pageSize + pageSize)
             .map((row, index) => (
               <TableRow key={index}>

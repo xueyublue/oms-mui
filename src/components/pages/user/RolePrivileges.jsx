@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const getDistinctRoles = (data) => {
   let roles = [];
   data.map((row) => roles.push(row.role));
-  return [...new Set(roles)];
+  return ["All", ...new Set(roles)];
 };
 
 //-------------------------------------------------------------
@@ -85,7 +85,7 @@ const RolePrivileges = () => {
       <TablePagination
         rowsPerPageOptions={[10, 15, 30, 100]}
         component="div"
-        count={tableData.filter((row) => (selectedRole.length === 0 ? true : row.role === selectedRole)).length}
+        count={tableData.filter((row) => (selectedRole === "All" ? true : row.role === selectedRole)).length}
         rowsPerPage={pageSize}
         page={currentPage}
         onChangePage={handlePageChange}
@@ -104,7 +104,7 @@ const RolePrivileges = () => {
         </TableHead>
         <TableBody>
           {tableData
-            .filter((row) => (selectedRole.length === 0 ? true : row.role === selectedRole))
+            .filter((row) => (selectedRole === "All" ? true : row.role === selectedRole))
             .slice(currentPage * pageSize, currentPage * pageSize + pageSize)
             .map((row, index) => (
               <TableRow key={index}>

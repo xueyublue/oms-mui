@@ -78,7 +78,7 @@ const TopTables = () => {
           value={selectedOwner}
           onChange={handleTopTablesOwnerChange}
         >
-          {ownersData.map((owner) => (
+          {["All", ...ownersData].map((owner) => (
             <MenuItem dense={true} value={owner} key={owner}>
               {owner}
             </MenuItem>
@@ -105,7 +105,7 @@ const TopTables = () => {
         component="div"
         count={
           tableData
-            .filter((row) => (selectedOwner.length === 0 ? true : row.owner === selectedOwner))
+            .filter((row) => (selectedOwner === "All" ? true : row.owner === selectedOwner))
             .slice(0, selectedDisplayLimit).length
         }
         rowsPerPage={pageSize}
@@ -126,7 +126,7 @@ const TopTables = () => {
         </TableHead>
         <TableBody>
           {tableData
-            .filter((row) => (selectedOwner.length === 0 ? true : row.owner === selectedOwner))
+            .filter((row) => (selectedOwner === "All" ? true : row.owner === selectedOwner))
             .slice(0, selectedDisplayLimit)
             .slice(currentPage * pageSize, currentPage * pageSize + pageSize)
             .map((row, index) => (
