@@ -69,7 +69,7 @@ const TableRecords = () => {
           value={selectedOwner}
           onChange={handleOwnerChange}
         >
-          {["All", "MC", "WMS", "WMS_TOOL"].map((owner) => (
+          {["All", "MC", "WMS", "WMSTOOL"].map((owner) => (
             <MenuItem dense={true} value={owner} key={owner}>
               {owner}
             </MenuItem>

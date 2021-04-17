@@ -37,7 +37,7 @@ const SgaConfigurationChart = () => {
           ],
         }}
         options={{
-          title: { display: true, text: "SGA memory (" + pageData.maxSgaSize + " MB In Total)" },
+          title: { display: true, text: "SGA Configuration (" + pageData.maxSgaSize + " MB In Total)" },
           maintainAspectRatio: true,
           scales: {
             yAxes: [{ ticks: { display: false }, gridLines: { display: false } }],
