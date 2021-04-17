@@ -68,13 +68,8 @@ const UserPrivileges = () => {
   return (
     <>
       <FormControl className={classes.formControl}>
-        <InputLabel id="table-records-label-owner">User&nbsp;Name</InputLabel>
-        <Select
-          labelId="table-records-label-owner"
-          id="table-records-select-owner"
-          value={selectedUserName}
-          onChange={handleUserNameChange}
-        >
+        <InputLabel id="label-username">User&nbsp;Name</InputLabel>
+        <Select labelId="label-username" id="select-username" value={selectedUserName} onChange={handleUserNameChange}>
           {userNames.map((userName) => (
             <MenuItem dense={true} value={userName} key={userName}>
               {userName}

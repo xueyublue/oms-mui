@@ -53,10 +53,10 @@ const Users = () => {
   return (
     <>
       <FormControl className={classes.formControl}>
-        <InputLabel id="table-records-label-owner">Role</InputLabel>
+        <InputLabel id="label-account-status">Role</InputLabel>
         <Select
-          labelId="table-records-label-owner"
-          id="table-records-select-owner"
+          labelId="label-account-status"
+          id="select-account-status"
           value={selectedAccountStatus}
           onChange={handleAccountStatusChange}
         >
@@ -81,6 +81,7 @@ const Users = () => {
             <TableCellHeader>Default&nbsp;Tablespace</TableCellHeader>
             <TableCellHeader>Temporary&nbsp;Tablespace</TableCellHeader>
             <TableCellHeader>Created&nbsp;Date</TableCellHeader>
+            <TableCellHeader>Last&nbsp;Login&nbsp;Date</TableCellHeader>
             <TableCellHeader>Profile</TableCellHeader>
           </TableRow>
         </TableHead>
@@ -98,6 +99,7 @@ const Users = () => {
                 <TableCell>{row.defaultTablespace}</TableCell>
                 <TableCell>{row.temporaryTablespace}</TableCell>
                 <TableCell>{row.createdDate}</TableCell>
+                <TableCell>{row.lastLogin}</TableCell>
                 <TableCell>{row.profile}</TableCell>
               </TableRow>
             ))}

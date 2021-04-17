@@ -68,13 +68,8 @@ const RolePrivileges = () => {
   return (
     <>
       <FormControl className={classes.formControl}>
-        <InputLabel id="table-records-label-owner">Role</InputLabel>
-        <Select
-          labelId="table-records-label-owner"
-          id="table-records-select-owner"
-          value={selectedRole}
-          onChange={handleRoleChange}
-        >
+        <InputLabel id="label-role">Role</InputLabel>
+        <Select labelId="label-role" id="select-role" value={selectedRole} onChange={handleRoleChange}>
           {roles.map((role) => (
             <MenuItem dense={true} value={role} key={role}>
               {role}
