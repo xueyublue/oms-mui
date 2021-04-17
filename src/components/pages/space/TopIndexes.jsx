@@ -94,7 +94,7 @@ const TopIndexes = () => {
           onChange={handleDisplayLimitChange}
         >
           {displayLimits.map((displayLimit) => (
-            <MenuItem dense={true} value={displayLimit}>
+            <MenuItem dense={true} value={displayLimit} key={displayLimit}>
               {displayLimit}
             </MenuItem>
           ))}

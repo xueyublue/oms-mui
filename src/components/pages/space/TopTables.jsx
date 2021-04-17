@@ -79,7 +79,7 @@ const TopTables = () => {
           onChange={handleTopTablesOwnerChange}
         >
           {["All", ...ownersData].map((owner) => (
-            <MenuItem dense={true} value={owner} key={owner}>
+            <MenuItem dense={true} value={owner} key={owner} key={owner}>
               {owner}
             </MenuItem>
           ))}
@@ -94,7 +94,7 @@ const TopTables = () => {
           onChange={handleTopTablesDisplayLimitChange}
         >
           {displayLimits.map((displayLimit) => (
-            <MenuItem dense={true} value={displayLimit}>
+            <MenuItem dense={true} value={displayLimit} key={displayLimit}>
               {displayLimit}
             </MenuItem>
           ))}
