@@ -29,6 +29,9 @@ function a11yProps(index) {
   };
 }
 
+//-------------------------------------------------------------
+// COMPONENT START
+//-------------------------------------------------------------
 const SpacePage = () => {
   useEffect(() => {
     dispatch(sidenavSelected({ selectedMenuIndex: 13 }));

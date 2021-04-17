@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//-------------------------------------------------------------
+// COMPONENT START
+//-------------------------------------------------------------
 const InstanceDetails = () => {
   // call API
   useEffect(() => {

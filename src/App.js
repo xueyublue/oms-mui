@@ -7,6 +7,9 @@ import configureStore from "./store/configureStore";
 
 const store = configureStore();
 
+//-------------------------------------------------------------
+// COMPONENT START
+//-------------------------------------------------------------
 function App() {
   return (
     <Provider store={store}>

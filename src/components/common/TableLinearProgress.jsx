@@ -1,6 +1,9 @@
 import { LinearProgress } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
+//-------------------------------------------------------------
+// COMPONENT START
+//-------------------------------------------------------------
 export const TableLinearProgress = withStyles((theme) => ({
   root: {
     height: 15,

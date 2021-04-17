@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
 
 const displayLimits = [50, 100, 500, 1000];
 
+//-------------------------------------------------------------
+// COMPONENT START
+//-------------------------------------------------------------
 const TopIndexes = () => {
   // call API
   useEffect(() => {

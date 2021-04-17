@@ -2,6 +2,9 @@ import React from "react";
 import { Box } from "@material-ui/core";
 import PropTypes from "prop-types";
 
+//-------------------------------------------------------------
+// COMPONENT START
+//-------------------------------------------------------------
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
 

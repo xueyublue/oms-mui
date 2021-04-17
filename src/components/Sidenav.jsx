@@ -63,6 +63,9 @@ const StyledListItem = withStyles({
   selected: {},
 })(ListItem);
 
+//-------------------------------------------------------------
+// COMPONENT START
+//-------------------------------------------------------------
 const Sidenav = () => {
   const listItemData = [
     {

@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//-------------------------------------------------------------
+// COMPONENT START
+//-------------------------------------------------------------
 export default function Container() {
   const classes = useStyles();
 

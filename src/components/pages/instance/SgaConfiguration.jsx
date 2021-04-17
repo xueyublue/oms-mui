@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//-------------------------------------------------------------
+// COMPONENT START
+//-------------------------------------------------------------
 const SgaConfiguration = () => {
   // call API
   useEffect(() => {

@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//-------------------------------------------------------------
+// COMPONENT START
+//-------------------------------------------------------------
 const OracleParameters = () => {
   // call API
   useEffect(() => {

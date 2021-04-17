@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//-------------------------------------------------------------
+// COMPONENT START
+//-------------------------------------------------------------
 const Appbar = () => {
   const classes = useStyles();
   return (

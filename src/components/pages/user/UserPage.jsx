@@ -31,6 +31,9 @@ function a11yProps(index) {
   };
 }
 
+//-------------------------------------------------------------
+// COMPONENT START
+//-------------------------------------------------------------
 const UserPage = () => {
   useEffect(() => {
     dispatch(sidenavSelected({ selectedMenuIndex: 15 }));
