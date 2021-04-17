@@ -14,7 +14,6 @@ import Roles from "./Roles";
 import Users from "./Users";
 import UserPrivileges from "./UserPrivileges";
 import RolePrivileges from "./RolePrivileges";
-import Privileges from "./Privileges";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,9 +60,8 @@ const UserPage = () => {
           <Tab label="Profiles" {...a11yProps(0)} />
           <Tab label="Roles" {...a11yProps(1)} />
           <Tab label="Users" {...a11yProps(2)} />
-          <Tab label="Privileges" {...a11yProps(3)} />
-          <Tab label="Role&nbsp;Privileges" {...a11yProps(4)} />
-          <Tab label="User&nbsp;Privileges" {...a11yProps(5)} />
+          <Tab label="Role&nbsp;Privileges" {...a11yProps(3)} />
+          <Tab label="User&nbsp;Privileges" {...a11yProps(4)} />
         </Tabs>
       </AppBar>
       <TableContainer component={Paper}>
@@ -77,12 +75,9 @@ const UserPage = () => {
           <Users />
         </TabPanel>
         <TabPanel value={currentTab} index={3}>
-          <Privileges />
-        </TabPanel>
-        <TabPanel value={currentTab} index={4}>
           <RolePrivileges />
         </TabPanel>
-        <TabPanel value={currentTab} index={5}>
+        <TabPanel value={currentTab} index={4}>
           <UserPrivileges />
         </TabPanel>
       </TableContainer>
