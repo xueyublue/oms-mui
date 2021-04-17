@@ -2,10 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import TableContainer from "@material-ui/core/TableContainer";
-
 import Paper from "@material-ui/core/Paper";
-import { AppBar, Button, Tab, Tabs } from "@material-ui/core";
-import RefreshIcon from "@material-ui/icons/Refresh";
+import { AppBar, Tabs, Tab } from "@material-ui/core";
 
 import { sidenavSelected } from "../../../store/ui/sidenav";
 import { setCurrentTab } from "../../../store/ui/instance";
@@ -50,7 +48,6 @@ const InstancePage = () => {
 
   return (
     <div className={classes.root}>
-      <Button startIcon={<RefreshIcon />}>Refresh</Button>
       <AppBar position="static" color="inherit">
         <Tabs
           value={currentTab}

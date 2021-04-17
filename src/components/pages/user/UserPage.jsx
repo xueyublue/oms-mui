@@ -4,8 +4,7 @@ import { sidenavSelected } from "../../../store/ui/sidenav";
 import { makeStyles } from "@material-ui/core/styles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
-import { Button, AppBar, Tabs, Tab } from "@material-ui/core";
-import RefreshIcon from "@material-ui/icons/Refresh";
+import { AppBar, Tabs, Tab } from "@material-ui/core";
 
 import { setCurrentTab } from "../../../store/ui/user";
 import TabPanel from "../../common/TabPanel";
@@ -48,7 +47,6 @@ const UserPage = () => {
 
   return (
     <div className={classes.root}>
-      <Button startIcon={<RefreshIcon />}>Refresh</Button>
       <AppBar position="static" color="inherit">
         <Tabs
           value={currentTab}
