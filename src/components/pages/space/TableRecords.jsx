@@ -44,19 +44,19 @@ const TableRecords = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const tableRecordsData = useSelector((state) => state.oracle.space.tableRecords.list);
-  const tableRecordsSelectedOwner = useSelector((state) => state.ui.space.tableRecords.selectedOwner);
-  const tableRecordsPageSize = useSelector((state) => state.ui.space.tableRecords.pageSize);
-  const tableRecordsCurrentPage = useSelector((state) => state.ui.space.tableRecords.currentPage);
+  const tableData = useSelector((state) => state.oracle.space.tableRecords.list);
+  const selectedOwner = useSelector((state) => state.ui.space.tableRecords.selectedOwner);
+  const pageSize = useSelector((state) => state.ui.space.tableRecords.pageSize);
+  const currentPage = useSelector((state) => state.ui.space.tableRecords.currentPage);
 
-  const handleTableRecordsOwnerChange = (event) => {
+  const handleOwnerChange = (event) => {
     dispatch(tableRecordsOwnerChanged({ selectedOwner: event.target.value }));
     dispatch(tableRecordsPageChanged({ currentPage: 0 }));
   };
-  const handleTableRecordsCurrentPageChange = (event, newPage) => {
+  const handlePageChange = (event, newPage) => {
     dispatch(tableRecordsPageChanged({ currentPage: newPage }));
   };
-  const handleTableRecordsPageSizeChange = (event) => {
+  const handlePageSizeChange = (event) => {
     dispatch(tableRecordsPageSizeChanged({ pageSize: parseInt(event.target.value) }));
     dispatch(tableRecordsPageChanged({ currentPage: 0 }));
   };
@@ -68,8 +68,8 @@ const TableRecords = () => {
         <Select
           labelId="table-records-label-owner"
           id="table-records-select-owner"
-          value={tableRecordsSelectedOwner}
-          onChange={handleTableRecordsOwnerChange}
+          value={selectedOwner}
+          onChange={handleOwnerChange}
         >
           {owners.map((owner) => (
             <MenuItem dense={true} value={owner}>
@@ -81,15 +81,11 @@ const TableRecords = () => {
       <TablePagination
         rowsPerPageOptions={[10, 15, 30, 100]}
         component="div"
-        count={
-          tableRecordsData.filter((row) =>
-            tableRecordsSelectedOwner.length === 0 ? true : row.owner === tableRecordsSelectedOwner
-          ).length
-        }
-        rowsPerPage={tableRecordsPageSize}
-        page={tableRecordsCurrentPage}
-        onChangePage={handleTableRecordsCurrentPageChange}
-        onChangeRowsPerPage={handleTableRecordsPageSizeChange}
+        count={tableData.filter((row) => (selectedOwner.length === 0 ? true : row.owner === selectedOwner)).length}
+        rowsPerPage={pageSize}
+        page={currentPage}
+        onChangePage={handlePageChange}
+        onChangeRowsPerPage={handlePageSizeChange}
       />
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
@@ -104,15 +100,12 @@ const TableRecords = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tableRecordsData
-            .filter((row) => (tableRecordsSelectedOwner.length === 0 ? true : row.owner === tableRecordsSelectedOwner))
-            .slice(
-              tableRecordsCurrentPage * tableRecordsPageSize,
-              tableRecordsCurrentPage * tableRecordsPageSize + tableRecordsPageSize
-            )
+          {tableData
+            .filter((row) => (selectedOwner.length === 0 ? true : row.owner === selectedOwner))
+            .slice(currentPage * pageSize, currentPage * pageSize + pageSize)
             .map((row, index) => (
               <TableRow key={index}>
-                <TableCell align="center">{index + tableRecordsCurrentPage * tableRecordsPageSize + 1}</TableCell>
+                <TableCell align="center">{index + currentPage * pageSize + 1}</TableCell>
                 <TableCell>{row.owner}</TableCell>
                 <TableCell>{row.tableName}</TableCell>
                 <TableCell align="right">{row.totalRecords}</TableCell>

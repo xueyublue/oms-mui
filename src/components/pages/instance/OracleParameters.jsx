@@ -29,14 +29,14 @@ const OracleParameters = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const parametersData = useSelector((state) => state.oracle.instance.parameters.list);
-  const parametersPageSize = useSelector((state) => state.ui.instance.parameters.pageSize);
-  const parametersCurrentPage = useSelector((state) => state.ui.instance.parameters.currentPage);
+  const tableData = useSelector((state) => state.oracle.instance.parameters.list);
+  const pageSize = useSelector((state) => state.ui.instance.parameters.pageSize);
+  const currentPage = useSelector((state) => state.ui.instance.parameters.currentPage);
 
-  const handleParametersCurrentPageChange = (event, newPage) => {
+  const handlePageChange = (event, newPage) => {
     dispatch(parameterPageChanged({ currentPage: newPage }));
   };
-  const handleParametersPageSizeChange = (event) => {
+  const handlePageSizeChange = (event) => {
     dispatch(parameterPageSizeChanged({ pageSize: parseInt(event.target.value) }));
     dispatch(parameterPageChanged({ currentPage: 0 }));
   };
@@ -46,11 +46,11 @@ const OracleParameters = () => {
       <TablePagination
         rowsPerPageOptions={[10, 15, 30, 100, 500]}
         component="div"
-        count={parametersData.length}
-        rowsPerPage={parametersPageSize}
-        page={parametersCurrentPage}
-        onChangePage={handleParametersCurrentPageChange}
-        onChangeRowsPerPage={handleParametersPageSizeChange}
+        count={tableData.length}
+        rowsPerPage={pageSize}
+        page={currentPage}
+        onChangePage={handlePageChange}
+        onChangeRowsPerPage={handlePageSizeChange}
       />
       <Table className={classes.table} size="small">
         <TableHead>
@@ -69,24 +69,19 @@ const OracleParameters = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {parametersData
-            .slice(
-              parametersCurrentPage * parametersPageSize,
-              parametersCurrentPage * parametersPageSize + parametersPageSize
-            )
-            .map((row, index) => (
-              <TableRow key={row.name}>
-                <TableCell align="center">{index + parametersCurrentPage * parametersPageSize + 1}</TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.type}</TableCell>
-                <TableCell>{row.value}</TableCell>
-                <TableCell>{row.description}</TableCell>
-                <TableCell>{row.isDefault}</TableCell>
-                <TableCell>{row.isSessionModifiable}</TableCell>
-                <TableCell>{row.isSystemModifiable}</TableCell>
-                <TableCell>{row.isInstanceModifiable}</TableCell>
-              </TableRow>
-            ))}
+          {tableData.slice(currentPage * pageSize, currentPage * pageSize + pageSize).map((row, index) => (
+            <TableRow key={row.name}>
+              <TableCell align="center">{index + currentPage * pageSize + 1}</TableCell>
+              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.type}</TableCell>
+              <TableCell>{row.value}</TableCell>
+              <TableCell>{row.description}</TableCell>
+              <TableCell>{row.isDefault}</TableCell>
+              <TableCell>{row.isSessionModifiable}</TableCell>
+              <TableCell>{row.isSystemModifiable}</TableCell>
+              <TableCell>{row.isInstanceModifiable}</TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </>

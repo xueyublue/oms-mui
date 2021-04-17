@@ -27,7 +27,7 @@ const InstanceDetails = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const detailsData = useSelector((state) => state.oracle.instance.details.list);
+  const tableData = useSelector((state) => state.oracle.instance.details.list);
 
   return (
     <Table className={classes.table} size="small">
@@ -38,7 +38,7 @@ const InstanceDetails = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {detailsData.map((row) => (
+        {tableData.map((row) => (
           <TableRow key={row.key}>
             <TableCell>{row.name}</TableCell>
             <TableCell>{row.value}</TableCell>

@@ -46,24 +46,24 @@ const TopIndexes = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const ownersData = useSelector((state) => state.oracle.space.owners.list);
-  const topIndexesData = useSelector((state) => state.oracle.space.topIndexes.list);
-  const topIndexesSelectedOwner = useSelector((state) => state.ui.space.topIndexes.selectedOwner);
-  const topIndexesSelectedDisplayLimit = useSelector((state) => state.ui.space.topIndexes.selectedDisplayLimit);
-  const topIndexesPageSize = useSelector((state) => state.ui.space.topIndexes.pageSize);
-  const topIndexesCurrentPage = useSelector((state) => state.ui.space.topIndexes.currentPage);
+  const tableData = useSelector((state) => state.oracle.space.topIndexes.list);
+  const selectedOwner = useSelector((state) => state.ui.space.topIndexes.selectedOwner);
+  const selectedDisplayLimit = useSelector((state) => state.ui.space.topIndexes.selectedDisplayLimit);
+  const pageSize = useSelector((state) => state.ui.space.topIndexes.pageSize);
+  const currentPage = useSelector((state) => state.ui.space.topIndexes.currentPage);
 
-  const handleTopIndexesOwnerChange = (event) => {
+  const handleOwnerChange = (event) => {
     dispatch(topIndexesOwnerChanged({ selectedOwner: event.target.value }));
     dispatch(topIndexesPageChanged({ currentPage: 0 }));
   };
-  const handleTopIndexesDisplayLimitChange = (event) => {
+  const handleDisplayLimitChange = (event) => {
     dispatch(topIndexesDisplayLimitChanged({ selectedDisplayLimit: event.target.value }));
     dispatch(topIndexesPageChanged({ currentPage: 0 }));
   };
-  const handleTopIndexesCurrentPageChange = (event, newPage) => {
+  const handlePageChange = (event, newPage) => {
     dispatch(topIndexesPageChanged({ currentPage: newPage }));
   };
-  const handleTopIndexesPageSizeChange = (event) => {
+  const handlePageSizeChange = (event) => {
     dispatch(topIndexesPageSizeChanged({ pageSize: parseInt(event.target.value) }));
     dispatch(topIndexesPageChanged({ currentPage: 0 }));
   };
@@ -75,8 +75,8 @@ const TopIndexes = () => {
         <Select
           labelId="top-indexes-label-owner"
           id="top-indexes-select-owner"
-          value={topIndexesSelectedOwner}
-          onChange={handleTopIndexesOwnerChange}
+          value={selectedOwner}
+          onChange={handleOwnerChange}
         >
           {ownersData.map((owner) => (
             <MenuItem dense={true} value={owner} key={owner}>
@@ -90,8 +90,8 @@ const TopIndexes = () => {
         <Select
           labelId="top-indexes-label-display-limit"
           id="top-indexes-select-display-limit"
-          value={topIndexesSelectedDisplayLimit}
-          onChange={handleTopIndexesDisplayLimitChange}
+          value={selectedDisplayLimit}
+          onChange={handleDisplayLimitChange}
         >
           {displayLimits.map((displayLimit) => (
             <MenuItem dense={true} value={displayLimit}>
@@ -104,14 +104,14 @@ const TopIndexes = () => {
         rowsPerPageOptions={[10, 15, 30, 100, 500]}
         component="div"
         count={
-          topIndexesData
-            .filter((row) => (topIndexesSelectedOwner.length === 0 ? true : row.owner === topIndexesSelectedOwner))
-            .slice(0, topIndexesSelectedDisplayLimit).length
+          tableData
+            .filter((row) => (selectedOwner.length === 0 ? true : row.owner === selectedOwner))
+            .slice(0, selectedDisplayLimit).length
         }
-        rowsPerPage={topIndexesPageSize}
-        page={topIndexesCurrentPage}
-        onChangePage={handleTopIndexesCurrentPageChange}
-        onChangeRowsPerPage={handleTopIndexesPageSizeChange}
+        rowsPerPage={pageSize}
+        page={currentPage}
+        onChangePage={handlePageChange}
+        onChangeRowsPerPage={handlePageSizeChange}
       />
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
@@ -125,16 +125,13 @@ const TopIndexes = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {topIndexesData
-            .filter((row) => (topIndexesSelectedOwner.length === 0 ? true : row.owner === topIndexesSelectedOwner))
-            .slice(0, topIndexesSelectedDisplayLimit)
-            .slice(
-              topIndexesCurrentPage * topIndexesPageSize,
-              topIndexesCurrentPage * topIndexesPageSize + topIndexesPageSize
-            )
+          {tableData
+            .filter((row) => (selectedOwner.length === 0 ? true : row.owner === selectedOwner))
+            .slice(0, selectedDisplayLimit)
+            .slice(currentPage * pageSize, currentPage * pageSize + pageSize)
             .map((row, index) => (
               <TableRow key={index}>
-                <TableCell align="center">{index + topIndexesCurrentPage * topIndexesPageSize + 1}</TableCell>
+                <TableCell align="center">{index + currentPage * pageSize + 1}</TableCell>
                 <TableCell>{row.owner}</TableCell>
                 <TableCell>{row.segmentName}</TableCell>
                 <TableCell align="right">{row.segmentSize}</TableCell>

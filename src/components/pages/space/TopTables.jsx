@@ -46,11 +46,11 @@ const TopTables = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const ownersData = useSelector((state) => state.oracle.space.owners.list);
-  const topTablesData = useSelector((state) => state.oracle.space.topTables.list);
-  const topTablesSelectedOwner = useSelector((state) => state.ui.space.topTables.selectedOwner);
-  const topTablesSelectedDisplayLimit = useSelector((state) => state.ui.space.topTables.selectedDisplayLimit);
-  const topTablesPageSize = useSelector((state) => state.ui.space.topTables.pageSize);
-  const topTablesCurrentPage = useSelector((state) => state.ui.space.topTables.currentPage);
+  const tableData = useSelector((state) => state.oracle.space.topTables.list);
+  const selectedOwner = useSelector((state) => state.ui.space.topTables.selectedOwner);
+  const selectedDisplayLimit = useSelector((state) => state.ui.space.topTables.selectedDisplayLimit);
+  const pageSize = useSelector((state) => state.ui.space.topTables.pageSize);
+  const currentPage = useSelector((state) => state.ui.space.topTables.currentPage);
 
   const handleTopTablesOwnerChange = (event) => {
     dispatch(topTablesOwnerChanged({ selectedOwner: event.target.value }));
@@ -75,7 +75,7 @@ const TopTables = () => {
         <Select
           labelId="top-tables-label-owner"
           id="top-tables-select-owner"
-          value={topTablesSelectedOwner}
+          value={selectedOwner}
           onChange={handleTopTablesOwnerChange}
         >
           {ownersData.map((owner) => (
@@ -90,7 +90,7 @@ const TopTables = () => {
         <Select
           labelId="top-tables-label-display-limit"
           id="top-tables-select-display-limit"
-          value={topTablesSelectedDisplayLimit}
+          value={selectedDisplayLimit}
           onChange={handleTopTablesDisplayLimitChange}
         >
           {displayLimits.map((displayLimit) => (
@@ -104,12 +104,12 @@ const TopTables = () => {
         rowsPerPageOptions={[10, 15, 30, 100, 500]}
         component="div"
         count={
-          topTablesData
-            .filter((row) => (topTablesSelectedOwner.length === 0 ? true : row.owner === topTablesSelectedOwner))
-            .slice(0, topTablesSelectedDisplayLimit).length
+          tableData
+            .filter((row) => (selectedOwner.length === 0 ? true : row.owner === selectedOwner))
+            .slice(0, selectedDisplayLimit).length
         }
-        rowsPerPage={topTablesPageSize}
-        page={topTablesCurrentPage}
+        rowsPerPage={pageSize}
+        page={currentPage}
         onChangePage={handleTopTablesCurrentPageChange}
         onChangeRowsPerPage={handleTopTablesPageSizeChange}
       />
@@ -125,16 +125,13 @@ const TopTables = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {topTablesData
-            .filter((row) => (topTablesSelectedOwner.length === 0 ? true : row.owner === topTablesSelectedOwner))
-            .slice(0, topTablesSelectedDisplayLimit)
-            .slice(
-              topTablesCurrentPage * topTablesPageSize,
-              topTablesCurrentPage * topTablesPageSize + topTablesPageSize
-            )
+          {tableData
+            .filter((row) => (selectedOwner.length === 0 ? true : row.owner === selectedOwner))
+            .slice(0, selectedDisplayLimit)
+            .slice(currentPage * pageSize, currentPage * pageSize + pageSize)
             .map((row, index) => (
               <TableRow key={index}>
-                <TableCell align="center">{index + topTablesCurrentPage * topTablesPageSize + 1}</TableCell>
+                <TableCell align="center">{index + currentPage * pageSize + 1}</TableCell>
                 <TableCell>{row.owner}</TableCell>
                 <TableCell>{row.segmentName}</TableCell>
                 <TableCell align="right">{row.segmentSize}</TableCell>

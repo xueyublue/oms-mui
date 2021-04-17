@@ -29,7 +29,7 @@ const Tablespace = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const tablespaceData = useSelector((state) => state.oracle.space.tablespace.list);
+  const tableData = useSelector((state) => state.oracle.space.tablespace.list);
 
   return (
     <Table className={classes.table} size="small" aria-label="a dense table">
@@ -49,7 +49,7 @@ const Tablespace = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {tablespaceData.map((row, index) => (
+        {tableData.map((row, index) => (
           <TableRow key={row.name}>
             <TableCell align="center">{index + 1}</TableCell>
             <TableCell>{row.name}</TableCell>

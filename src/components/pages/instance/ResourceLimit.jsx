@@ -29,14 +29,14 @@ const ResourceLimit = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const resourceLimitData = useSelector((state) => state.oracle.instance.resourceLimit.list);
-  const resourceLimitPageSize = useSelector((state) => state.ui.instance.resourceLimit.pageSize);
-  const resourceLimitCurrentPage = useSelector((state) => state.ui.instance.resourceLimit.currentPage);
+  const tableData = useSelector((state) => state.oracle.instance.resourceLimit.list);
+  const pageSize = useSelector((state) => state.ui.instance.resourceLimit.pageSize);
+  const currentPage = useSelector((state) => state.ui.instance.resourceLimit.currentPage);
 
-  const handleResourceLimitCurrentPageChange = (event, newPage) => {
+  const handlePageChange = (event, newPage) => {
     dispatch(resourceLimitPageChanged({ currentPage: newPage }));
   };
-  const handleResourceLimitPageSizeChange = (event) => {
+  const handlePageSizeChange = (event) => {
     dispatch(resourceLimitPageSizeChanged({ pageSize: parseInt(event.target.value) }));
     dispatch(resourceLimitPageChanged({ currentPage: 0 }));
   };
@@ -46,11 +46,11 @@ const ResourceLimit = () => {
       <TablePagination
         rowsPerPageOptions={[10, 15, 30, 100]}
         component="div"
-        count={resourceLimitData.length}
-        rowsPerPage={resourceLimitPageSize}
-        page={resourceLimitCurrentPage}
-        onChangePage={handleResourceLimitCurrentPageChange}
-        onChangeRowsPerPage={handleResourceLimitPageSizeChange}
+        count={tableData.length}
+        rowsPerPage={pageSize}
+        page={currentPage}
+        onChangePage={handlePageChange}
+        onChangeRowsPerPage={handlePageSizeChange}
       />
       <Table className={classes.table} size="small">
         <TableHead>
@@ -66,21 +66,16 @@ const ResourceLimit = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {resourceLimitData
-            .slice(
-              resourceLimitCurrentPage * resourceLimitPageSize,
-              resourceLimitCurrentPage * resourceLimitPageSize + resourceLimitPageSize
-            )
-            .map((row, index) => (
-              <TableRow key={row.resourceName}>
-                <TableCell align="center">{index + resourceLimitCurrentPage * resourceLimitPageSize + 1}</TableCell>
-                <TableCell>{row.resourceName}</TableCell>
-                <TableCell>{row.currentUtilization}</TableCell>
-                <TableCell>{row.maxUtilization}</TableCell>
-                <TableCell>{row.initialAllocation}</TableCell>
-                <TableCell>{row.limitValue}</TableCell>
-              </TableRow>
-            ))}
+          {tableData.slice(currentPage * pageSize, currentPage * pageSize + pageSize).map((row, index) => (
+            <TableRow key={row.resourceName}>
+              <TableCell align="center">{index + currentPage * pageSize + 1}</TableCell>
+              <TableCell>{row.resourceName}</TableCell>
+              <TableCell>{row.currentUtilization}</TableCell>
+              <TableCell>{row.maxUtilization}</TableCell>
+              <TableCell>{row.initialAllocation}</TableCell>
+              <TableCell>{row.limitValue}</TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </>

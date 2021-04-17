@@ -27,7 +27,7 @@ const Banners = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const bannersData = useSelector((state) => state.oracle.instance.banners.list);
+  const tableData = useSelector((state) => state.oracle.instance.banners.list);
 
   return (
     <Table className={classes.table} size="small">
@@ -40,7 +40,7 @@ const Banners = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {bannersData.map((row, index) => (
+        {tableData.map((row, index) => (
           <TableRow key={index}>
             <TableCell align="center">{index + 1}</TableCell>
             <TableCell>{row.banner}</TableCell>

@@ -28,14 +28,14 @@ const SgaConfiguration = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const sgaconfigData = useSelector((state) => state.oracle.instance.sgaconfig.list);
-  if (!sgaconfigData.chart) return <div></div>;
+  const pageData = useSelector((state) => state.oracle.instance.sgaconfig.list);
+  if (!pageData.chart) return <div></div>;
 
   return (
     <>
       <Table className={classes.table} size="small">
         <caption>
-          <h4>SGA memory {sgaconfigData.maxSgaSize} MB in total.</h4>
+          <h4>SGA memory {pageData.maxSgaSize} MB in total.</h4>
         </caption>
         <TableHead>
           <TableRow>
@@ -48,7 +48,7 @@ const SgaConfiguration = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {sgaconfigData.table.map((row, index) => (
+          {pageData.table.map((row, index) => (
             <TableRow key={index}>
               <TableCell align="center">{index + 1}</TableCell>
               <TableCell>{row.name}</TableCell>
@@ -60,16 +60,16 @@ const SgaConfiguration = () => {
       </Table>
       <Pie
         data={{
-          labels: sgaconfigData.chart.name,
+          labels: pageData.chart.name,
           datasets: [
             {
-              data: sgaconfigData.chart.data,
-              backgroundColor: sgaconfigData.chart.backgroundColor,
+              data: pageData.chart.data,
+              backgroundColor: pageData.chart.backgroundColor,
             },
           ],
         }}
         options={{
-          title: { display: false, text: "SGA Configuration (" + sgaconfigData.maxSgaSize + "MB In Total)" },
+          title: { display: false, text: "SGA Configuration (" + pageData.maxSgaSize + "MB In Total)" },
           maintainAspectRatio: true,
           scales: {
             yAxes: [{ ticks: { display: false }, gridLines: { display: false } }],
