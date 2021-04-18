@@ -13,7 +13,13 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 
 import { TableCellHeader } from "../../common/TableCellHeader";
-import { statusChanged, pageChanged, pageSizeChanged, showAllColumnsChanged } from "../../../store/ui/session";
+import {
+  userNameChanged,
+  statusChanged,
+  pageChanged,
+  pageSizeChanged,
+  showAllColumnsChanged,
+} from "../../../store/ui/session";
 import { loadSessions } from "../../../store/oracle/session";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +31,12 @@ const useStyles = makeStyles((theme) => ({
     width: 180,
   },
 }));
+
+const getDistinctUserNames = (data) => {
+  let usernames = [];
+  data.map((row) => row.userName && usernames.push(row.userName));
+  return ["All", ...new Set(usernames)];
+};
 
 //-------------------------------------------------------------
 // COMPONENT START
@@ -38,11 +50,17 @@ const Sessions = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const tableData = useSelector((state) => state.oracle.session.list);
+  const userNames = getDistinctUserNames(tableData);
+  const selectedUserName = useSelector((state) => state.ui.session.selectedUserName);
   const selectedStatus = useSelector((state) => state.ui.session.selectedStatus);
   const showAllColumns = useSelector((state) => state.ui.session.showAllColumns);
   const pageSize = useSelector((state) => state.ui.session.pageSize);
   const currentPage = useSelector((state) => state.ui.session.currentPage);
 
+  const handleUserNameChange = (event) => {
+    dispatch(userNameChanged({ selectedUserName: event.target.value }));
+    dispatch(pageChanged({ currentPage: 0 }));
+  };
   const handleStatusChange = (event) => {
     dispatch(statusChanged({ selectedStatus: event.target.value }));
     dispatch(pageChanged({ currentPage: 0 }));
@@ -63,6 +81,23 @@ const Sessions = () => {
       <Grid container alignItems="flex-end">
         <Grid item>
           <FormControl className={classes.formControl}>
+            <InputLabel id="label-username">User&nbsp;Name</InputLabel>
+            <Select
+              labelId="label-username"
+              id="select-username"
+              value={selectedUserName}
+              onChange={handleUserNameChange}
+            >
+              {userNames.map((username) => (
+                <MenuItem dense={true} value={username} key={username} key={username}>
+                  {username}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item>
+          <FormControl className={classes.formControl}>
             <InputLabel id="label-status">Status</InputLabel>
             <Select labelId="label-status" id="select-status" value={selectedStatus} onChange={handleStatusChange}>
               {["All", "Active", "Inactive"].map((status) => (
@@ -80,7 +115,11 @@ const Sessions = () => {
       <TablePagination
         rowsPerPageOptions={[10, 15, 30, 100, 500]}
         component="div"
-        count={tableData.filter((row) => (selectedStatus === "All" ? true : row.status === selectedStatus)).length}
+        count={
+          tableData
+            .filter((row) => (selectedUserName === "All" ? true : row.userName === selectedUserName))
+            .filter((row) => (selectedStatus === "All" ? true : row.status === selectedStatus)).length
+        }
         rowsPerPage={pageSize}
         page={currentPage}
         onChangePage={handlePageChange}
@@ -115,6 +154,7 @@ const Sessions = () => {
         </TableHead>
         <TableBody>
           {tableData
+            .filter((row) => (selectedUserName === "All" ? true : row.userName === selectedUserName))
             .filter((row) => (selectedStatus === "All" ? true : row.status === selectedStatus))
             .slice(currentPage * pageSize, currentPage * pageSize + pageSize)
             .map((row, index) => (

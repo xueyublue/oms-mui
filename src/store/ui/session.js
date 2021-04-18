@@ -4,6 +4,7 @@ const slice = createSlice({
   name: "session",
   initialState: {
     currentTab: 0,
+    selectedUserName: "All",
     selectedStatus: "All",
     showAllColumns: false,
     pageSize: 30,
@@ -12,6 +13,9 @@ const slice = createSlice({
   reducers: {
     setCurrentTab: (state, action) => {
       state.currentTab = action.payload.currentTab;
+    },
+    userNameChanged: (state, action) => {
+      state.selectedUserName = action.payload.selectedUserName;
     },
     statusChanged: (state, action) => {
       state.selectedStatus = action.payload.selectedStatus;
@@ -28,5 +32,12 @@ const slice = createSlice({
   },
 });
 
-export const { setCurrentTab, statusChanged, showAllColumnsChanged, pageSizeChanged, pageChanged } = slice.actions;
+export const {
+  setCurrentTab,
+  userNameChanged,
+  statusChanged,
+  showAllColumnsChanged,
+  pageSizeChanged,
+  pageChanged,
+} = slice.actions;
 export default slice.reducer;
