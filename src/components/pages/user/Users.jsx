@@ -10,10 +10,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
+import { Grid, Switch } from "@material-ui/core";
 
 import { TableCellHeader } from "../../common/TableCellHeader";
 import { loadUsers } from "./../../../store/oracle/user";
-import { usersAccountStatusChanged } from "../../../store/ui/user";
+import { usersAccountStatusChanged, usersShowAllColumnsChanged } from "../../../store/ui/user";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -45,28 +46,39 @@ const Users = () => {
   const tableData = useSelector((state) => state.oracle.user.users.list);
   const accountStatusList = getDistinctAccountStatus(tableData);
   const selectedAccountStatus = useSelector((state) => state.ui.user.users.selectedAccountStatus);
+  const showAllColumns = useSelector((state) => state.ui.user.users.showAllColumns);
 
   const handleAccountStatusChange = (event) => {
     dispatch(usersAccountStatusChanged({ selectedAccountStatus: event.target.value }));
   };
+  const handleShowAllColumnsChange = (event) => {
+    dispatch(usersShowAllColumnsChanged({ showAllColumns: event.target.checked }));
+  };
 
   return (
     <>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="label-account-status">Role</InputLabel>
-        <Select
-          labelId="label-account-status"
-          id="select-account-status"
-          value={selectedAccountStatus}
-          onChange={handleAccountStatusChange}
-        >
-          {accountStatusList.map((accountStatus) => (
-            <MenuItem dense={true} value={accountStatus} key={accountStatus}>
-              {accountStatus}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <Grid container alignItems="flex-end">
+        <Grid item>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="label-account-status">Account Status</InputLabel>
+            <Select
+              labelId="label-account-status"
+              id="select-account-status"
+              value={selectedAccountStatus}
+              onChange={handleAccountStatusChange}
+            >
+              {accountStatusList.map((accountStatus) => (
+                <MenuItem dense={true} value={accountStatus} key={accountStatus}>
+                  {accountStatus}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item>
+          <Switch checked={showAllColumns} onChange={handleShowAllColumnsChange} /> Show All Columns
+        </Grid>
+      </Grid>
       <Table className={classes.table} size="small">
         <TableHead>
           <TableRow>
@@ -76,13 +88,13 @@ const Users = () => {
             <TableCellHeader>User&nbsp;Name</TableCellHeader>
             <TableCellHeader>User&nbsp;ID</TableCellHeader>
             <TableCellHeader>Account&nbsp;Status</TableCellHeader>
+            <TableCellHeader>Profile</TableCellHeader>
             <TableCellHeader>Lock&nbsp;Date</TableCellHeader>
             <TableCellHeader>Expiry&nbsp;Date</TableCellHeader>
-            <TableCellHeader>Default&nbsp;Tablespace</TableCellHeader>
-            <TableCellHeader>Temporary&nbsp;Tablespace</TableCellHeader>
             <TableCellHeader>Created&nbsp;Date</TableCellHeader>
-            <TableCellHeader>Last&nbsp;Login&nbsp;Date</TableCellHeader>
-            <TableCellHeader>Profile</TableCellHeader>
+            {showAllColumns && <TableCellHeader>Default&nbsp;Tablespace</TableCellHeader>}
+            {showAllColumns && <TableCellHeader>Temporary&nbsp;Tablespace</TableCellHeader>}
+            {showAllColumns && <TableCellHeader>Last&nbsp;Login&nbsp;Date</TableCellHeader>}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -94,13 +106,13 @@ const Users = () => {
                 <TableCell>{row.userName}</TableCell>
                 <TableCell>{row.userId}</TableCell>
                 <TableCell>{row.accountStatus}</TableCell>
+                <TableCell>{row.profile}</TableCell>
                 <TableCell>{row.lockDate}</TableCell>
                 <TableCell>{row.expiryDate}</TableCell>
-                <TableCell>{row.defaultTablespace}</TableCell>
-                <TableCell>{row.temporaryTablespace}</TableCell>
                 <TableCell>{row.createdDate}</TableCell>
-                <TableCell>{row.lastLogin}</TableCell>
-                <TableCell>{row.profile}</TableCell>
+                {showAllColumns && <TableCell>{row.defaultTablespace}</TableCell>}
+                {showAllColumns && <TableCell>{row.temporaryTablespace}</TableCell>}
+                {showAllColumns && <TableCell>{row.lastLogin}</TableCell>}
               </TableRow>
             ))}
         </TableBody>

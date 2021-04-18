@@ -6,6 +6,7 @@ const slice = createSlice({
     currentTab: 0,
     users: {
       selectedAccountStatus: "All",
+      showAllColumns: false,
     },
     rolePrivileges: {
       selectedRole: "All",
@@ -25,6 +26,9 @@ const slice = createSlice({
     // Users
     usersAccountStatusChanged: (state, action) => {
       state.users.selectedAccountStatus = action.payload.selectedAccountStatus;
+    },
+    usersShowAllColumnsChanged: (state, action) => {
+      state.users.showAllColumns = action.payload.showAllColumns;
     },
     // Role Privileges
     rolePrivilegesUserNameChanged: (state, action) => {
@@ -52,6 +56,7 @@ const slice = createSlice({
 export const {
   setCurrentTab,
   usersAccountStatusChanged,
+  usersShowAllColumnsChanged,
   rolePrivilegesUserNameChanged,
   rolePrivilegesPageSizeChanged,
   rolePrivilegesPageChanged,
