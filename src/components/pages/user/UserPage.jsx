@@ -52,8 +52,8 @@ const UserPage = () => {
     dispatch(setCurrentTab({ currentTab: newValue }));
     if (currentTab === newValue && newValue === 0) dispatch(loadProfiles());
     if (currentTab === newValue && newValue === 1) dispatch(loadRoles());
-    if (currentTab === newValue && newValue === 2) dispatch(loadUsers());
-    if (currentTab === newValue && newValue === 3) dispatch(loadRolePrivileges());
+    if (currentTab === newValue && newValue === 2) dispatch(loadRolePrivileges());
+    if (currentTab === newValue && newValue === 3) dispatch(loadUsers());
     if (currentTab === newValue && newValue === 4) dispatch(loadUserPrivileges());
   };
 
@@ -63,8 +63,8 @@ const UserPage = () => {
         <Tabs value={currentTab} indicatorColor="primary" textColor="primary" onChange={handleTabChange}>
           <Tab label="Profiles" {...a11yProps(0)} />
           <Tab label="Roles" {...a11yProps(1)} />
-          <Tab label="Users" {...a11yProps(2)} />
-          <Tab label="Role&nbsp;Privileges" {...a11yProps(3)} />
+          <Tab label="Role&nbsp;Privileges" {...a11yProps(2)} />
+          <Tab label="Users" {...a11yProps(3)} />
           <Tab label="User&nbsp;Privileges" {...a11yProps(4)} />
         </Tabs>
       </AppBar>
@@ -76,10 +76,10 @@ const UserPage = () => {
           <Roles />
         </TabPanel>
         <TabPanel value={currentTab} index={2}>
-          <Users />
+          <RolePrivileges />
         </TabPanel>
         <TabPanel value={currentTab} index={3}>
-          <RolePrivileges />
+          <Users />
         </TabPanel>
         <TabPanel value={currentTab} index={4}>
           <UserPrivileges />
