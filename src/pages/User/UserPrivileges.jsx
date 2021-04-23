@@ -12,13 +12,13 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { TablePagination } from "@material-ui/core";
 
-import { TableCellHeader } from "../../common/TableCellHeader";
-import { loadUserPrivileges } from "./../../../store/oracle/user";
 import {
   userPrivilegesUserNameChanged,
   userPrivilegesPageChanged,
   userPrivilegesPageSizeChanged,
-} from "../../../store/ui/user";
+} from "../../store/ui/user";
+import { loadUserPrivileges } from "./../../store/oracle/user";
+import { TableCellHeader } from "./../../components/common/TableCellHeader";
 
 const useStyles = makeStyles((theme) => ({
   table: {

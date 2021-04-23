@@ -12,9 +12,9 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { Grid, Switch } from "@material-ui/core";
 
-import { TableCellHeader } from "../../common/TableCellHeader";
-import { loadUsers } from "./../../../store/oracle/user";
-import { usersAccountStatusChanged, usersShowAllColumnsChanged } from "../../../store/ui/user";
+import { loadUsers } from "./../../store/oracle/user";
+import { usersAccountStatusChanged, usersShowAllColumnsChanged } from "../../store/ui/user";
+import { TableCellHeader } from "./../../components/common/TableCellHeader";
 
 const useStyles = makeStyles((theme) => ({
   table: {

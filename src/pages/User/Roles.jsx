@@ -7,8 +7,8 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
-import { TableCellHeader } from "../../common/TableCellHeader";
-import { loadRoles } from "./../../../store/oracle/user";
+import { loadRoles } from "./../../store/oracle/user";
+import { TableCellHeader } from "./../../components/common/TableCellHeader";
 
 const useStyles = makeStyles((theme) => ({
   table: {
