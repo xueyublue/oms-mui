@@ -1,8 +1,8 @@
 import { Grid } from "@material-ui/core";
 import React from "react";
-import InstanceDetails from "./instance/InstanceDetails";
-import Tablespace from "./space/Tablespace";
-import SgaConfigurationChart from "./instance/SgaConfigurationChart";
+import InstanceDetails from "./../Instance/InstanceDetails";
+import Tablespace from "./../Space/Tablespace";
+import SgaConfigurationChart from "./../Instance/SgaConfigurationChart";
 
 //-------------------------------------------------------------
 // COMPONENT START
