@@ -10,16 +10,16 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
+import { TablePagination } from "@material-ui/core";
 
-import { TableCellHeader } from "../../common/TableCellHeader";
-import { loadOwners, loadTopTables } from "../../../store/oracle/space";
+import { TableCellHeader } from "./../../components/common/TableCellHeader";
+import { loadOwners, loadTopTables } from "../../store/oracle/space";
 import {
   topTablesOwnerChanged,
   topTablesDisplayLimitChanged,
   topTablesPageChanged,
   topTablesPageSizeChanged,
-} from "../../../store/ui/space";
-import { TablePagination } from "@material-ui/core";
+} from "../../store/ui/space";
 
 const useStyles = makeStyles((theme) => ({
   table: {

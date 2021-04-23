@@ -3,13 +3,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles } from "@material-ui/core/styles";
 import { Route, Switch } from "react-router-dom";
 
-import SpacePage from "./pages/space/SpacePage";
-import InstancePage from "./pages/instance/InstancePage";
 import Dashboard from "./../pages/Dashboard/Dashboard";
 import About from "./../pages/About/About";
 import SessionPage from "./../pages/Session/SessionPage";
 import PerformancePage from "./../pages/Performance/PerformancePage";
 import UserPage from "./../pages/User/UserPage";
+import InstancePage from "./../pages/Instance/InstancePage";
+import SpacePage from "./../pages/Space/SpacePage";
 
 const useStyles = makeStyles((theme) => ({
   content: {

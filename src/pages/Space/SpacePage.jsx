@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { sidenavSelected } from "../../../store/ui/sidenav";
 import { makeStyles } from "@material-ui/core/styles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 import { AppBar, Tabs, Tab } from "@material-ui/core";
 
-import { setCurrentTab } from "../../../store/ui/space";
-import TabPanel from "../../common/TabPanel";
+import { setCurrentTab } from "../../store/ui/space";
 import Tablespace from "./Tablespace";
 import TopTables from "./TopTables";
 import TopIndexes from "./TopIndexes";
 import TableRecords from "./TableRecords";
-import { loadTablespace, loadTopTables, loadTopIndexes, loadTableRecords } from "./../../../store/oracle/space";
+import { loadTablespace, loadTopTables, loadTopIndexes, loadTableRecords } from "./../../store/oracle/space";
+import { sidenavSelected } from "../../store/ui/sidenav";
+import TabPanel from "./../../components/common/TabPanel";
 
 const useStyles = makeStyles((theme) => ({
   root: {

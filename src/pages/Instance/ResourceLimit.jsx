@@ -8,9 +8,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { TablePagination } from "@material-ui/core";
 
-import { loadResourceLimit } from "../../../store/oracle/instance";
-import { TableCellHeader } from "../../common/TableCellHeader";
-import { resourceLimitPageChanged, resourceLimitPageSizeChanged } from "../../../store/ui/instance";
+import { loadResourceLimit } from "../../store/oracle/instance";
+import { TableCellHeader } from "./../../components/common/TableCellHeader";
+import { resourceLimitPageChanged, resourceLimitPageSizeChanged } from "../../store/ui/instance";
 
 const useStyles = makeStyles((theme) => ({
   table: {

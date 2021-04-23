@@ -5,21 +5,21 @@ import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 import { AppBar, Tabs, Tab } from "@material-ui/core";
 
-import { sidenavSelected } from "../../../store/ui/sidenav";
-import { setCurrentTab } from "../../../store/ui/instance";
-import TabPanel from "../../common/TabPanel";
-import InstanceDetails from "./InstanceDetails";
-import SgaConfiguration from "./SgaConfiguration";
-import Banners from "./Banners";
-import ResourceLimit from "./ResourceLimit";
-import OracleParameters from "./OracleParameters";
 import {
   loadDetails,
   loadBanners,
   loadSgaConfig,
   loadResourceLimit,
   loadParameters,
-} from "./../../../store/oracle/instance";
+} from "./../../store/oracle/instance";
+import { sidenavSelected } from "../../store/ui/sidenav";
+import { setCurrentTab } from "../../store/ui/instance";
+import InstanceDetails from "./InstanceDetails";
+import SgaConfiguration from "./SgaConfiguration";
+import Banners from "./Banners";
+import ResourceLimit from "./ResourceLimit";
+import OracleParameters from "./OracleParameters";
+import TabPanel from "./../../components/common/TabPanel";
 
 const useStyles = makeStyles((theme) => ({
   root: {
