@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
 import { loadBanners } from "./../../store/oracle/instance";
-import { TableCellHeader } from "./../../components/common/TableCellHeader";
+import { TableCellHeader } from "../../components/TableCellHeader";
 
 const useStyles = makeStyles((theme) => ({
   table: {

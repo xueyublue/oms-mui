@@ -9,7 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { Pie } from "react-chartjs-2";
 
 import { loadSgaConfig } from "../../store/oracle/instance";
-import { TableCellHeader } from "./../../components/common/TableCellHeader";
+import { TableCellHeader } from "../../components/TableCellHeader";
 
 const useStyles = makeStyles((theme) => ({
   table: {

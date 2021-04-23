@@ -8,8 +8,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { Box } from "@material-ui/core";
 
-import { TableCellHeader } from "./../../components/common/TableCellHeader";
-import { TableLinearProgress } from "./../../components/common/TableLinearProgress";
+import { TableCellHeader } from "../../components/TableCellHeader";
+import { TableLinearProgress } from "../../components/TableLinearProgress";
 import { loadTablespace } from "./../../store/oracle/space";
 
 const useStyles = makeStyles((theme) => ({

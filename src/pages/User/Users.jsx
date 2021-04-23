@@ -14,7 +14,7 @@ import { Grid, Switch } from "@material-ui/core";
 
 import { loadUsers } from "./../../store/oracle/user";
 import { usersAccountStatusChanged, usersShowAllColumnsChanged } from "../../store/ui/user";
-import { TableCellHeader } from "./../../components/common/TableCellHeader";
+import { TableCellHeader } from "../../components/TableCellHeader";
 
 const useStyles = makeStyles((theme) => ({
   table: {

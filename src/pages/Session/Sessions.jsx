@@ -13,7 +13,7 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 
 import { loadSessions } from "../../store/oracle/session";
-import { TableCellHeader } from "./../../components/common/TableCellHeader";
+import { TableCellHeader } from "../../components/TableCellHeader";
 import {
   userNameChanged,
   statusChanged,

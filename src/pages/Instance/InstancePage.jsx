@@ -19,7 +19,7 @@ import SgaConfiguration from "./SgaConfiguration";
 import Banners from "./Banners";
 import ResourceLimit from "./ResourceLimit";
 import OracleParameters from "./OracleParameters";
-import TabPanel from "./../../components/common/TabPanel";
+import TabPanel from "../../components/TabPanel";
 
 const useStyles = makeStyles((theme) => ({
   root: {

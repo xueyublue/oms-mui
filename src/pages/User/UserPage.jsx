@@ -12,7 +12,7 @@ import Users from "./Users";
 import UserPrivileges from "./UserPrivileges";
 import RolePrivileges from "./RolePrivileges";
 import { loadProfiles, loadRoles, loadUsers, loadRolePrivileges, loadUserPrivileges } from "./../../store/oracle/user";
-import TabPanel from "./../../components/common/TabPanel";
+import TabPanel from "../../components/TabPanel";
 import { sidenavSelected } from "../../store/ui/sidenav";
 
 const useStyles = makeStyles((theme) => ({

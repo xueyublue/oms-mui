@@ -9,7 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { TablePagination } from "@material-ui/core";
 
 import { loadParameters } from "../../store/oracle/instance";
-import { TableCellHeader } from "./../../components/common/TableCellHeader";
+import { TableCellHeader } from "../../components/TableCellHeader";
 import { parameterPageChanged, parameterPageSizeChanged } from "../../store/ui/instance";
 
 const useStyles = makeStyles((theme) => ({

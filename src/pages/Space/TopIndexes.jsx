@@ -12,7 +12,7 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { TablePagination } from "@material-ui/core";
 
-import { TableCellHeader } from "./../../components/common/TableCellHeader";
+import { TableCellHeader } from "../../components/TableCellHeader";
 import { loadOwners, loadTopIndexes } from "../../store/oracle/space";
 import {
   topIndexesOwnerChanged,

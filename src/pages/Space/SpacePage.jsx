@@ -12,7 +12,7 @@ import TopIndexes from "./TopIndexes";
 import TableRecords from "./TableRecords";
 import { loadTablespace, loadTopTables, loadTopIndexes, loadTableRecords } from "./../../store/oracle/space";
 import { sidenavSelected } from "../../store/ui/sidenav";
-import TabPanel from "./../../components/common/TabPanel";
+import TabPanel from "../../components/TabPanel";
 
 const useStyles = makeStyles((theme) => ({
   root: {

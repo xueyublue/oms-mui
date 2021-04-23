@@ -8,7 +8,7 @@ import { AppBar, Tabs, Tab } from "@material-ui/core";
 import { loadSessions } from "./../../store/oracle/session";
 import Sessions from "./Sessions";
 import { setCurrentTab } from "../../store/ui/session";
-import TabPanel from "./../../components/common/TabPanel";
+import TabPanel from "../../components/TabPanel";
 import { sidenavSelected } from "../../store/ui/sidenav";
 
 const useStyles = makeStyles((theme) => ({
