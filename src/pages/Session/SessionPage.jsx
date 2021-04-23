@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { sidenavSelected } from "../../../store/ui/sidenav";
 import { makeStyles } from "@material-ui/core/styles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 import { AppBar, Tabs, Tab } from "@material-ui/core";
 
-import { setCurrentTab } from "../../../store/ui/user";
-import TabPanel from "../../common/TabPanel";
-import { loadSessions } from "./../../../store/oracle/session";
+import { loadSessions } from "./../../store/oracle/session";
 import Sessions from "./Sessions";
+import { setCurrentTab } from "../../store/ui/session";
+import TabPanel from "./../../components/common/TabPanel";
+import { sidenavSelected } from "../../store/ui/sidenav";
 
 const useStyles = makeStyles((theme) => ({
   root: {

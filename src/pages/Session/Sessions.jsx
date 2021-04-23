@@ -12,15 +12,15 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 
-import { TableCellHeader } from "../../common/TableCellHeader";
+import { loadSessions } from "../../store/oracle/session";
+import { TableCellHeader } from "./../../components/common/TableCellHeader";
 import {
   userNameChanged,
   statusChanged,
   pageChanged,
   pageSizeChanged,
   showAllColumnsChanged,
-} from "../../../store/ui/session";
-import { loadSessions } from "../../../store/oracle/session";
+} from "../../store/ui/session";
 
 const useStyles = makeStyles((theme) => ({
   table: {
