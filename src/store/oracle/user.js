@@ -113,7 +113,7 @@ const {
   userPrivilegesRequestFailed,
 } = slice.actions;
 
-const url = "/oracle/user";
+const url = "/oms/user";
 
 // Load Profiles
 export const loadProfiles = () => (dispatch, getState) => {

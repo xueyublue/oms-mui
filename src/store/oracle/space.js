@@ -113,7 +113,7 @@ const {
   tableRecordsRequestFailed,
 } = slice.actions;
 
-const url = "/oracle/space";
+const url = "/oms/space";
 
 // Load All Tablespace Information
 export const loadTablespace = () => (dispatch, getState) => {

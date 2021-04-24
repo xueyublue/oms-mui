@@ -3,42 +3,41 @@ import moment from "moment";
 import { apiCallBegan } from "../api";
 
 const slice = createSlice({
-  name: "session",
+  name: "auth",
   initialState: {
-    list: [],
+    token: {},
     loading: false,
     lastFetch: null,
   },
   reducers: {
-    sessionsRequested: (state, action) => {
+    authRequested: (state, action) => {
       state.loading = true;
     },
-    sessionsReceived: (state, action) => {
-      state.list = action.payload;
+    authReceived: (state, action) => {
+      state.token = action.payload;
       state.loading = false;
       state.lastFetch = Date.now();
     },
-    sessionsRequestFailed: (state, action) => {
+    authRequestFailed: (state, action) => {
       state.loading = false;
     },
   },
 });
 
-const { sessionsRequested, sessionsReceived, sessionsRequestFailed } = slice.actions;
+const { authRequested, authReceived, authRequestFailed } = slice.actions;
 
-const url = "/oms/sessions";
+const url = "/oms/auth";
 
-// Load Sessions
-export const loadSessions = () => (dispatch, getState) => {
-  const { lastFetch } = getState().oracle.session;
+export const login = () => (dispatch, getState) => {
+  const { lastFetch } = getState().auth;
   const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
   if (diffInMinutes < 5) return;
   dispatch(
     apiCallBegan({
       url: url,
-      onStart: sessionsRequested.type,
-      onSuccess: sessionsReceived.type,
-      onError: sessionsRequestFailed.type,
+      onStart: authRequested.type,
+      onSuccess: authReceived.type,
+      onError: authRequestFailed.type,
     })
   );
 };

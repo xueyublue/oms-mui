@@ -11,10 +11,12 @@ import user from "./oracle/user";
 import userUI from "./ui/user";
 import session from "./oracle/session";
 import sessionUI from "./ui/session";
+import auth from "./auth/auth";
 
 export default function store() {
   return configureStore({
     reducer: combineReducers({
+      auth: auth,
       oracle: combineReducers({
         space: space,
         instance: instance,

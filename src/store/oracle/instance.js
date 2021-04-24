@@ -113,7 +113,7 @@ const {
   parametersRequestFailed,
 } = slice.actions;
 
-const url = "/oracle/instance";
+const url = "/oms/instance";
 export const loadDetails = () => (dispatch, getState) => {
   const { lastFetch } = getState().oracle.instance.details;
   const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
