@@ -4,12 +4,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Route, Switch } from "react-router-dom";
 
 import Dashboard from "./../pages/Dashboard/Dashboard";
-import About from "./../pages/About/About";
+import AboutPage from "../pages/About/AboutPage";
 import SessionPage from "./../pages/Session/SessionPage";
 import PerformancePage from "./../pages/Performance/PerformancePage";
 import UserPage from "./../pages/User/UserPage";
 import InstancePage from "./../pages/Instance/InstancePage";
 import SpacePage from "./../pages/Space/SpacePage";
+import LoginPage from "./../pages/Login/LoginPage";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -34,7 +35,8 @@ const MainContainer = () => {
           <Route exact path="/space" component={SpacePage} />
           <Route exact path="/session" component={SessionPage} />
           <Route exact path="/user" component={UserPage} />
-          <Route exact path="/about" component={About} />
+          <Route exact path="/about" component={AboutPage} />
+          <Route exact path="/login" component={LoginPage} />
         </Switch>
       </main>
     </div>

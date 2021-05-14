@@ -34,7 +34,7 @@ export const login = () => (dispatch, getState) => {
   if (diffInMinutes < 5) return;
   dispatch(
     apiCallBegan({
-      url: url,
+      url: url + "/login",
       onStart: authRequested.type,
       onSuccess: authReceived.type,
       onError: authRequestFailed.type,

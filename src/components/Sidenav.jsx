@@ -98,6 +98,11 @@ const Sidenav = () => {
       text: "About",
       url: "/about",
     },
+    {
+      index: 91,
+      text: "Login",
+      url: "/login",
+    },
   ];
 
   const classes = useStyles();
