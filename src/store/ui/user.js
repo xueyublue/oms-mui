@@ -4,6 +4,9 @@ const slice = createSlice({
   name: "user",
   initialState: {
     currentTab: 0,
+    profiles: {
+      selectedProfile: "All",
+    },
     users: {
       selectedAccountStatus: "All",
       showAllColumns: false,
@@ -22,6 +25,10 @@ const slice = createSlice({
   reducers: {
     setCurrentTab: (state, action) => {
       state.currentTab = action.payload.currentTab;
+    },
+    // Profiles
+    profileChanged: (state, action) => {
+      state.profiles.selectedProfile = action.payload.selectedProfile;
     },
     // Users
     usersAccountStatusChanged: (state, action) => {
@@ -55,6 +62,7 @@ const slice = createSlice({
 
 export const {
   setCurrentTab,
+  profileChanged,
   usersAccountStatusChanged,
   usersShowAllColumnsChanged,
   rolePrivilegesUserNameChanged,
